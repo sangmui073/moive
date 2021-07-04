@@ -1,0 +1,355 @@
+[
+  {
+    "maHeThong" : "BHDStar",
+    "heThongRap" :[
+      {
+        "maCumRap": "bhd-star-cineplex-3-2",
+        "tenCumRap": "BHD Star Cineplex - 3/2",
+        "hinhAnh" :"/img/cinema/BHD/BHD3-2.jpg",
+        "diaChi": "L5-Vincom 3/2, 3C Đường 3/2, Q.10"
+       
+      },
+      {
+        "maCumRap": "bhd-star-cineplex-bitexco",
+        "tenCumRap": "BHD Star Cineplex - Bitexco",
+        "hinhAnh": "/img/cinema/BHD/bhd-bitexco.png",
+        "diaChi": "L3-Bitexco Icon 68, 2 Hải Triều, Q.1"
+      
+      },
+      {
+        "maCumRap": "bhd-star-cineplex-pham-hung",
+        "tenCumRap": "BHD Star Cineplex - Phạm Hùng",
+        "hinhAnh" :"/img/cinema/BHD/BHD-PhamHung.jpg",
+        "diaChi": "L4-Satra Phạm Hùng, C6/27 Phạm Hùng, Bình Chánh"
+        
+      },
+      {
+        "maCumRap": "bhd-star-cineplex-vincom-le-van-viet",
+        "tenCumRap": "BHD Star Cineplex - Vincom Lê Văn Việt",
+        "hinhAnh" :"/img/cinema/BHD/BHD-LeVanViet.jpg",
+        "diaChi": "L4-Vincom Plaza, 50 Lê Văn Việt, Q.9"
+      
+      },
+      {
+        "maCumRap": "bhd-star-cineplex-vincom-quang-trung",
+        "tenCumRap": "BHD Star Cineplex - Vincom Quang Trung",
+        "hinhAnh":"/img/cinema/BHD/BHD-QuangTrung.jpg",
+        "diaChi": "B1-Vincom QT, 190 Quang Trung, Gò Vấp"
+      
+      },
+      {
+        "maCumRap": "bhd-star-cineplex-vincom-thao-dien",
+        "tenCumRap": "BHD Star Cineplex - Vincom Thảo Điền",
+        "hinhAnh":"/img/cinema/BHD/BHD-ThaoDien.jpg",
+        "diaChi": "L5-Megamall, 159 XL Hà Nội, Q.2"
+        
+      }
+    ]
+  },
+  {
+    "maHeThong" : "CGV",
+    "heThongRap" :[
+      {
+        "maCumRap": "cgv-aeon-binh-tan",
+        "tenCumRap": "CGV - Aeon Bình Tân",
+        "hinhAnh":"/img/cinema/CGV/cgv-binhtan.jpg",
+        "diaChi": "Tầng 3, TTTM Aeon Mall Bình Tân, Số 1 đường số 17A, khu phố 11, Bình Trị Đông B, Bình Tân"
+       
+      },
+      {
+        "maCumRap": "cgv-aeon-tan-phu",
+        "tenCumRap": "CGV - Aeon Tân Phú",
+        "hinhAnh":"/img/cinema/CGV/cgv-tanphu.jpg",
+        "diaChi": "30 Bờ Bao Tân Thắng, Sơn Kỳ, Tân Phú"
+        
+      },
+      {
+        "maCumRap": "cgv-cgv-saigonres-nguyen-xi",
+        "tenCumRap": "CGV - CGV Saigonres Nguyễn Xí",
+        "hinhAnh":"/img/cinema/CGV/cgv-nguyenxi.jpg",
+        "diaChi": "Tầng 4-5, Saigonres Plaza, 79/81 Nguyễn Xí, P. 26, Bình Thạnh"
+     
+      },
+      {
+        "maCumRap": "cgv-crescent-mall",
+        "tenCumRap": "CGV - Crescent Mall",
+        "hinhAnh":"/img/cinema/CGV/cgv-mall.jpg",
+        "diaChi": "Lầu 5, Crescent Mall, Đại lộ Nguyễn Văn Linh, Phú Mỹ Hưng, Q. 7"
+       
+      },
+      {
+        "maCumRap": "cgv-ct-plaza",
+        "tenCumRap": "CGV - CT Plaza",
+        "hinhAnh":"/img/cinema/CGV/cgv-ctlaza.jpg",
+        "diaChi": "60A Trường Sơn,P. 2, Tân Bình"
+        
+      },
+      {
+        "maCumRap": "cgv-golden-plaza",
+        "tenCumRap": "CGV - Golden Plaza",
+        "hinhAnh":"/img/cinema/CGV/cgv-gold.jpg",
+        "diaChi": "Tầng 4, Trung tâm thương mại Golden Plaza, 922 Nguyễn Trãi, P. 14, Q. 5"
+       
+      },
+      {
+        "maCumRap": "cgv-hoang-van-thu",
+        "tenCumRap": "CGV - Hoàng Văn Thụ",
+        "hinhAnh":"/img/cinema/CGV/cgv-hvt.jpg",
+        "diaChi": "Tầng 1 và 2 Gala Center, 415 Hoàng Văn Thụ, P. 2, Tân Bình"
+       
+      },
+      {
+        "maCumRap": "cgv-hung-vuong-plaza",
+        "tenCumRap": "CGV - Hùng Vương Plaza",
+        "hinhAnh":"/img/cinema/CGV/cgv-hv.jpg",
+        "diaChi": "Lầu 7, 126 Hùng Vương, Q. 5"
+        
+      },
+      {
+        "maCumRap": "cgv-imc-tran-quang-khai",
+        "tenCumRap": "CGV - IMC Trần Quang Khải",
+        "hinhAnh":"/img/cinema/CGV/cgv-imc.jpg",
+        "diaChi": "T2&3, TTVH Đa Năng, 62 Trần Quang Khải, P.Tân Định, Q.1"
+        
+      },
+      {
+        "maCumRap": "cgv-liberty-citypoint",
+        "tenCumRap": "CGV - Liberty Citypoint",
+        "hinhAnh":"/img/cinema/CGV/cgv-liberty.jpg",
+        "diaChi": "Tầng M - 1, khách sạn Liberty Center Saigon Citypoint, 59 - 61 Pateur, Q. 1"
+      
+      },
+      {
+        "maCumRap": "cgv-pandora-city",
+        "tenCumRap": "CGV - Pandora City",
+        "hinhAnh":"/img/cinema/CGV/cgv-pandora.jpg",
+        "diaChi": "Lầu 3, Pandora City, 1/1 Trường Chinh, Tân Phú"
+       
+      },
+      {
+        "maCumRap": "cgv-paragon",
+        "tenCumRap": "CGV - Paragon",
+        "hinhAnh":"/img/cinema/CGV/cgv-paragon.jpg",
+        "diaChi": "Tầng 5, toà nhà Parkson Paragon, 03 Nguyễn Lương Bằng, Q. 7"
+       
+      },
+      {
+        "maCumRap": "cgv-parkson-dong-khoi",
+        "tenCumRap": "CGV - Parkson Đồng Khởi",
+        "hinhAnh":"/img/cinema/CGV/cgv-pakson.jpg",
+        "diaChi": "Tầng 5 Parkson Đồng Khởi, 35bis-45 Lê Thánh Tôn, Bến Nghé, Q.1"
+      
+      },
+      {
+        "maCumRap": "cgv-pearl-plaza",
+        "tenCumRap": "CGV - Pearl Plaza",
+        "hinhAnh":"/img/cinema/CGV/cgv-pearl.jpg",
+        "diaChi": "Lầu 5, Pearl Plaza, 561 Điện Biên Phủ, Bình Thạnh"
+      
+      },
+      {
+        "maCumRap": "cgv-satra-cu-chi",
+        "tenCumRap": "CGV - Satra Củ Chi",
+        "hinhAnh":"/img/cinema/CGV/cgv-cuchi.jpg",
+        "diaChi": "T3, TTTM Satra Củ Chi, Số 1239, Tỉnh Lộ 8, Ấp Thạnh An, Trung An, Củ Chi, TP.HCM"
+     
+      },
+      {
+        "maCumRap": "cgv-su-van-hanh",
+        "tenCumRap": "CGV - Sư Vạn Hạnh",
+        "hinhAnh":"/img/cinema/CGV/cgv-svh.jpg",
+        "diaChi": "T6 Vạn Hạnh Mall, 11 Sư Vạn Hạnh, Quận 10"
+       
+      },
+      {
+        "maCumRap": "cgv-vincom-dong-khoi",
+        "tenCumRap": "CGV - Vincom Đồng Khởi",
+        "hinhAnh":"/img/cinema/CGV/cgv-vcdk.jpg",
+        "diaChi": "Tầng 3, TTTM Vincom Center B, 72 Lê Thánh Tôn, Bến Nghé, Q. 1"
+       
+      },
+      {
+        "maCumRap": "cgv-vincom-go-vap",
+        "tenCumRap": "CGV - Vincom Gò Vấp",
+        "hinhAnh":"/img/cinema/CGV/cgv-vcgv.jpg",
+        "diaChi": "Tầng 5 TTTM Vincom Plaza Gò Vấp, 12 Phan Văn Trị, P. 7, Gò Vấp"
+      
+      },
+      {
+        "maCumRap": "cgv-vincom-landmark-81",
+        "tenCumRap": "CGV - Vincom Landmark 81",  
+        "hinhAnh":"/img/cinema/CGV/cgv-vclm.jpg",
+        "diaChi": "T B1 , TTTM Vincom Center Landmark 81, 772 Điện Biên Phủ, P.22, Q. Bình Thạnh, HCM"
+       
+      },
+      {
+        "maCumRap": "cgv-vincom-thu-duc",
+        "tenCumRap": "CGV - Vincom Thủ Đức",
+        "hinhAnh":"/img/cinema/CGV/cgv-vctd.jpg",
+        "diaChi": "Tầng 5 Vincom Thủ Đức, 216 Võ Văn Ngân, Bình Thọ, Thủ Đức"
+       
+      },
+      {
+        "maCumRap": "cgv-vivocity",
+        "tenCumRap": "CGV - VivoCity",
+        "hinhAnh":"/img/cinema/CGV/cgv-vivo.jpg",
+        "diaChi": "Lầu 5, Trung tâm thương mại SC VivoCity - 1058 Nguyễn Văn Linh, Q. 7"
+       
+      }
+    ]
+  },
+  {
+    "maHeThong":"CineStar",
+    "heThongRap":[
+      {
+        "maCumRap": "cns-hai-ba-trung",
+        "tenCumRap": "CNS - Hai Bà Trưng",
+        "hinhAnh":"/img/cinema/Cinestar/cinestar-hbt.jpg",
+        "diaChi": "135 Hai Bà Trưng, Bến Nghé, Q.1[Bản đồ]"
+       
+      },
+      {
+        "maCumRap": "cns-quoc-thanh",
+        "tenCumRap": "CNS - Quốc Thanh",
+        "hinhAnh":"/img/cinema/Cinestar/cinestar-qt.jpg",
+        "diaChi": "271 Nguyễn Trãi, Q.1"
+       
+      }
+    ]
+    
+  },
+  {
+    "maHeThong":"Galaxy",
+    "heThongRap" :[
+      {
+        "maCumRap": "glx-huynh-tan-phat",
+        "tenCumRap": "GLX - Huỳnh Tấn Phát",
+        "hinhAnh":"/img/cinema/Galaxy/glx-htp.jpg",
+        "diaChi": "1362 Huỳnh Tấn Phát, KP1, Phú Mỹ, Q. 7"
+      
+      },
+      {
+        "maCumRap": "glx-kinh-duong-vuong",
+        "tenCumRap": "GLX - Kinh Dương Vương",
+        "hinhAnh":"/img/cinema/Galaxy/glx-kdv.jpg",
+        "diaChi": "718bis Kinh Dương Vương, Q.6"
+      
+      },
+      {
+        "maCumRap": "glx-nguyen-du\r\n",
+        "tenCumRap": "GLX - Nguyễn Du",
+        "hinhAnh":"/img/cinema/Galaxy/glx-nd.jpg",
+        "diaChi": "116 Nguyễn Du, Q.1"
+       
+      },
+      {
+        "maCumRap": "glx-nguyen-van-qua",
+        "tenCumRap": "GLX - Nguyễn Văn Quá",
+        "hinhAnh":"/img/cinema/Galaxy/glx-nvh.jpg",
+        "diaChi": "119B Nguyễn Văn Quá, Đông Hưng Thuận, Q.12, TPHCM"
+       
+      },
+      {
+        "maCumRap": "glx-pham-van-chi",
+        "tenCumRap": "GLX - Phạm Văn Chí",
+        "hinhAnh":"/img/cinema/Galaxy/glx-pvc.jpg",
+        "diaChi": "Lầu 5, TTTM Platinum Plaza, 634 Phạm Văn Chí, Q.6"
+        
+      },
+      {
+        "maCumRap": "glx-quang-trung",
+        "tenCumRap": "GLX - Quang Trung",
+        "hinhAnh":"/img/cinema/Galaxy/glx-qt.jpg",
+        "diaChi": "L3-Co.opmart Foodcosa, 304A Quang Trung, Gò Vấp"
+      
+      },
+      {
+        "maCumRap": "glx-tan-binh",
+        "tenCumRap": "GLX - Tân Bình",
+        "hinhAnh":"/img/cinema/Galaxy/glx-tb.jpg",
+        "diaChi": "246 Nguyễn Hồng Đào, Tân Bình"
+       
+      },
+      {
+        "maCumRap": "glx-trung-chanh",
+        "tenCumRap": "GLX - Trung Chánh",
+        "hinhAnh":"/img/cinema/Galaxy/glx-trungchanh.jpg",
+        "diaChi": "TTVH Q12 – 09, Q L 22, Trung Mỹ Tây , Q.12"
+        
+      }
+    ]
+  },
+  {
+    "maHeThong": "LotteCinima",
+    "heThongRap":[
+      {
+        "maCumRap": "lotte-cantavil",
+        "tenCumRap": "Lotte - Cantavil",
+        "hinhAnh":"/img/cinema/Lotte/lotte-canta.jpg",
+        "diaChi": "L7-Cantavil Premier, Xa Lộ Hà Nội, Q.2"
+       
+      },
+      {
+        "maCumRap": "lotte-cong-hoa",
+        "tenCumRap": "Lotte - Cộng Hòa",
+        "hinhAnh":"/img/cinema/Lotte/lotte-ch.jpg",
+        "diaChi": "L4-Pico Plaza, 20 Cộng Hòa, Tân Bình"
+       
+      },
+      {
+        "maCumRap": "lotte-diamond",
+        "tenCumRap": "Lotte - Diamond",
+        "hinhAnh":"/img/cinema/Lotte/lotte-diamon.jpg",
+        "diaChi": "L13-Diamond Plaza, 34 Lê Duẩn, Q.1"
+        
+      },
+      {
+        "maCumRap": "lotte-go-vap",
+        "tenCumRap": "Lotte - Gò Vấp",
+        "hinhAnh":"/img/cinema/Lotte/lotte-gv.jpg",
+        "diaChi": "L3-Lotte Mart, 242 Nguyễn Văn Lượng, Gò Vấp"
+       
+      },
+      {
+        "maCumRap": "lotte-nam-sai-gon",
+        "tenCumRap": "Lotte - Nam Sài Gòn",
+        "hinhAnh":"/img/cinema/Lotte/lotte-nsg.jpg",
+        "diaChi": "L3-Lotte Mart NSG, 469 Nguyễn Hữu Thọ, Q.7"
+       
+      },
+      {
+        "maCumRap": "lotte-nowzone",
+        "tenCumRap": "Lotte - Nowzone",
+        "hinhAnh":"/img/cinema/Lotte/lotte-nz.jpg",
+        "diaChi": "L5-Nowzone, 235 Nguyễn Văn Cừ, Q.1"
+       
+      },
+      {
+        "maCumRap": "lotte-phu-tho",
+        "tenCumRap": "Lotte - Phú Thọ",
+        "hinhAnh":"/img/cinema/Lotte/lotte-pt.jpg",
+        "diaChi": "L4-Lotte Mart Phú Thọ, Q.11"
+      
+      },
+      {
+        "maCumRap": "lotte-thu-duc",
+        "tenCumRap": "Lotte - Thủ Đức",
+        "hinhAnh":"/img/cinema/Lotte/lotte-td.jpg",
+        "diaChi": "L2-Joy Citipoint, KCX Linh Trung, Thủ Đức"
+       
+      }
+    ]
+  },
+  {
+    "maHeThong" : "MegaGS",
+    "heThongRap":[
+      {
+        "maCumRap": "megags-cao-thang",
+        "tenCumRap": "MegaGS - Cao Thắng",
+        "hinhAnh":"/img/cinema/Mega/mg-ct.jpg",
+        "diaChi": "19 Cao Thắng, Q.3"
+      
+      }
+    ]
+  }
+]
