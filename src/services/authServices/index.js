@@ -6,7 +6,8 @@ export const sigupUserSchema = yup.object().shape({
   matKhau: yup.string().required("mật khẩu không được đễ trống").min(6, "lớn hơn 6 ký tự"),
   hoTen: yup.string().required("họ tên không được đễ trống").min(6, "lớn hơn 6 ký tự"),
   email: yup.string().required("email không được đễ trống").email("vui lòng nhập đúng định dạng email"),
-  soDt: yup.string().required("số dt Không được để trống").matches(/^[0-9]+$/, "phải là số").min(8, "lớn hơn 6 ký tự")
+  soDt: yup.string().required("số dt Không được để trống").matches(/^[0-9]+$/, "phải là số").min(8, "lớn hơn 6 ký tự"),
+  maLoaiNguoiDung: yup.string().required("chọn người dùng")
 })
 
 class AuthService {

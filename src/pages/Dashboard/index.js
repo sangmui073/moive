@@ -8,12 +8,32 @@ import queryString from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_LIST_USER_SAGA } from '../../redux/saga/Constants/admin-constants';
 import { admin_domain } from "../../assets/Domain/AdminDomain"
+import Modalusers from '../../components/Admin/ModalUser';
 
 function DashboardAdmin() {
   const { manageUser } = admin_domain;
   const { user } = useSelector(state => state.admin);
   const { pagination, posts } = user;
+  const [open, setOpen] = useState(false);
   const [action, setAction] = useState("");
+  const [listUser, setListUser] = useState({
+    title: "",
+    action: "",
+    items: {
+      taiKhoan: "",
+      matKhau: "",
+      hoTen: "",
+      email: "",
+      soDt: "",
+      maLoaiNguoiDung: "KhachHang",
+      maNhom: "GP11",
+    }
+
+  })
+  const handleModal = (boolen, item) => {
+    setListUser(item)
+    setOpen(boolen)
+  }
   const [filters, SetFilters] = useState({
     currentPage: 1,
     count: 5,
@@ -58,13 +78,20 @@ function DashboardAdmin() {
     <Grid container className="box">
       <Grid item xs={12} style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <SearchTemp onSubmit={hanldeSearch} />
-        <Button onClick={() => {
-          setAction("Add")
+        <Button style={{ background: "#f37520", color: "#fff" }} onClick={() => {
+          handleModal(true, {
+            title: "Thêm Người Dùng",
+            action: "ADD",
+            items: {
+              ...listUser.items
+            }
+          })
         }} variant="contained">Thêm Người Dùng</Button>
       </Grid>
       <Grid item xs={12}>
-        <PostUsers posts={posts} />
+        <PostUsers handleAction={setAction} handleModal={handleModal} posts={posts} />
         <PaginationAdmin pagination={pagination} onPageChange={handlePageChange} />
+        <Modalusers handleAction={setAction} list={listUser} handleModal={handleModal} open={open} />
       </Grid>
     </Grid>
   );

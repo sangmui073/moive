@@ -6,27 +6,29 @@ import { useStyles } from "./style"
 import { Button, Container, Grid, Backdrop, Modal, Fade } from '@material-ui/core';
 import { moiveSchema } from '../../../services/adminService';
 import dateFormat from 'dateformat';
-
-import axios from "axios";
+import { useDispatch } from 'react-redux';
+import { ADD_MOIVE_SAGA, PUT_MOIVE_SAGA } from '../../../redux/saga/Constants/admin-constants';
+import { admin_domain } from "../../../assets/Domain/AdminDomain"
 Modalmoive.propTypes = {
     handleModal: PropTypes.func,
     open: PropTypes.bool,
-    itemMoive: PropTypes.object
+    itemMoive: PropTypes.object,
+    handleAction: PropTypes.func
 };
 Modalmoive.defaultProps = {
     handleModal: null,
     open: false,
-
+    handleAction: null
 }
 
 
 function Modalmoive(props) {
-    const user = JSON.parse(localStorage.getItem("user"))
-    const classes = useStyles();
-    const { handleModal, open, itemMoive } = props;
 
+    const classes = useStyles();
+    const { handleModal, open, items, handleAction } = props;
+    const { itemMoive, action } = items
     const [src, SetSrc] = useState({
-        value: avatar,
+        value: '',
         error: ''
     });
     useEffect(() => {
@@ -35,38 +37,51 @@ function Modalmoive(props) {
                 ...src,
                 value: itemMoive.hinhAnh
             })
-        }
-
-    }, [itemMoive])
-    const handleSubmit = (value) => {
-        value.ngayKhoiChieu = dateFormat(value.ngayKhoiChieu, "dd/mm/yyyy");
-        console.log(value)
-        if (value.hinhAnh.name === null || value.hinhAnh.size === undefined) {
-            SetSrc({
-                ...src,
-                error: "thiếu hình"
-            })
-            return
         } else {
             SetSrc({
                 ...src,
-                error: ""
+                value: avatar
             })
         }
+    }, [itemMoive])
+    const dispatch = useDispatch();
+    const handleUltyModal = () => {
+        handleModal(false, items)
+    }
+    const handleSubmit = (value) => {
+        const converDate = { ...value };
+        converDate.ngayKhoiChieu = dateFormat(converDate.ngayKhoiChieu, "dd/mm/yyyy")
         let form_data = new FormData();
-        for (let key in value) {
-            form_data.append(key, value[key]);
-            console.log(key, form_data.get(key));
+        for (let key in converDate) {
+            form_data.append(key, converDate[key]);
         }
-        // axios({
-        //     method: "POST",
-        //     url: "https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/ThemPhimUploadHinh",
-        //     data: form_data
-        // }).then((res) => {
-        //     console.log(res)
-        // }).catch((error) => {
-        //     console.log(error.response.data.message)
-        // })
+
+        if (!handleAction) return
+        switch (action) {
+            case "add": {
+                dispatch({
+                    type: ADD_MOIVE_SAGA,
+                    payload: {
+                        url: admin_domain.managerMoive.post,
+                        item: form_data,
+                        handleAction
+                    }
+                })
+                break;
+            }
+            default: {
+                dispatch({
+                    type: PUT_MOIVE_SAGA,
+                    payload: {
+                        url: admin_domain.managerMoive.put,
+                        item: form_data,
+                        handleAction
+                    }
+                })
+                break;
+            }
+        }
+        handleModal(false, items)
     }
 
     const handleStyle = (e) => {
@@ -84,9 +99,8 @@ function Modalmoive(props) {
                 aria-describedby="transition-modal-description"
                 className={classes.modal}
                 open={open}
-                onClose={() => {
-                    handleModal(false, { ...itemMoive })
-                }}
+                onClose={
+                    handleUltyModal}
                 closeAfterTransition
                 BackdropComponent={Backdrop}
                 BackdropProps={{
@@ -96,7 +110,7 @@ function Modalmoive(props) {
                 <Fade in={open}>
                     <div className={classes.paper}>
                         <Container maxWidth="md">
-                            <Formik initialValues={{
+                            <Formik initialValues={itemMoive.maPhim ? itemMoive : {
                                 maPhim: '',
                                 tenPhim: '',
                                 biDanh: '',
@@ -104,7 +118,7 @@ function Modalmoive(props) {
                                 moTa: '',
                                 ngayKhoiChieu: '',
                                 danhGia: '',
-                                hinhAnh: {},
+                                hinhAnh: "",
                                 maNhom: 'GP11'
                             }} onSubmit={handleSubmit} validationSchema={moiveSchema}>
                                 {(formikProps) => (
@@ -113,19 +127,19 @@ function Modalmoive(props) {
                                             el.classList.remove("active")
                                         })
                                     }} noValidate>
-                                        <h2 style={{ textAlign: "center" }}>{itemMoive.title}</h2>
+                                        <h2 style={{ textAlign: "center", color: "#f37520", margin: "15px 0px" }}>{items.title}</h2>
 
                                         <Grid spacing={2} container>
                                             <Grid item sm={6}>
-                                                <div className="form-group">
+                                                <div style={{ background: itemMoive.maPhim ? "rgba(0,0,0,.54)" : "" }} className="form-group">
                                                     <Grid className="title" item sm={3}>
-                                                        <label>
+                                                        <label style={{ color: itemMoive.maPhim ? "#fff" : "" }}>
                                                             Mã Phim
                                                         </label>
                                                     </Grid>
                                                     <Grid className="form-input" item sm={9}>
                                                         <label className="hd">Mã Phim</label>
-                                                        <input defaultValue={itemMoive.maPhim} onChange={formikProps.handleChange} name="maPhim" placeholder="Mã Phim" onClick={handleStyle} />
+                                                        <input style={{ background: itemMoive.maPhim ? "inherit" : "", color: itemMoive.maPhim ? "#fff" : "" }} disabled={itemMoive.maPhim ? true : false} defaultValue={itemMoive.maPhim} onChange={formikProps.handleChange} name="maPhim" placeholder="Mã Phim" onClick={handleStyle} />
                                                     </Grid>
                                                 </div>
                                                 <ErrorMessage name="maPhim" render={msg => <p className="errorMess" >{msg}</p>}></ErrorMessage>
@@ -182,6 +196,7 @@ function Modalmoive(props) {
                                                     <Grid style={{ display: "flex", alignItems: "center" }} item sm={12}>
                                                         <input name="hinhAnh" className={classes.inputFile} type="file"
                                                             onChange={(e) => {
+
                                                                 formikProps.setFieldValue("hinhAnh", e.target.files[0]);
                                                                 const fReader = new FileReader();
                                                                 fReader.readAsDataURL(e.target.files[0]);
@@ -194,7 +209,7 @@ function Modalmoive(props) {
                                                             }}
                                                         />
                                                         <img style={{ borderRadius: "5px", width: "80px", height: "70px", objectFit: "cover" }} src={src.value} />
-                                                        <p className="errorMess" >{src.error}</p>
+                                                        <ErrorMessage name="hinhAnh" render={msg => <p className="errorMess" >{msg}</p>}></ErrorMessage>
                                                     </Grid>
                                                 </div>
                                                 <p className="errorMess"></p>
@@ -257,9 +272,9 @@ function Modalmoive(props) {
                                                 </div>
                                                 <ErrorMessage name="moTa" render={msg => <p className="errorMess" >{msg}</p>}></ErrorMessage>
                                             </Grid>
-                                            <Grid item sm={6}>
-                                                <Button type="submit">
-                                                    {itemMoive.title}
+                                            <Grid style={{ textAlign: "center", }} item sm={12}>
+                                                <Button style={{ background: "#f37520", color: "#fff" }} type="submit">
+                                                    {items.title}
                                                 </Button>
                                             </Grid>
                                         </Grid>

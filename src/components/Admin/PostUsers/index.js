@@ -4,15 +4,25 @@ import { FilterList } from '@material-ui/icons';
 import { Table, Paper, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from '@material-ui/core';
 import { useStyles } from "./style"
 import { Delete, Edit } from '@material-ui/icons';
+import { useDispatch } from 'react-redux';
+import { admin_domain } from "../../../assets/Domain/AdminDomain"
+import { DELETE_USER_SAGA } from '../../../redux/saga/Constants/admin-constants';
 
 
 PostUsers.propTypes = {
-    posts: PropTypes.array.isRequired
+    posts: PropTypes.array.isRequired,
+    handleModal: PropTypes.func,
+    handleAction: PropTypes.func,
+};
+PostUsers.defaultProps = {
+    handleModal: null,
+
 };
 function PostUsers(props) {
     const classes = useStyles();
-    const { posts } = props
-    // console.log(posts)
+    const { posts, handleModal, handleAction } = props
+    const dispatch = useDispatch();
+    const { manageUser } = admin_domain;
     return (
         <TableContainer className={classes.root} style={{ marginTop: "50px" }} component={Paper}>
             <Table className={classes.table} aria-label="simple table">
@@ -39,10 +49,31 @@ function PostUsers(props) {
                     {posts.map((item, index) => {
                         return <TableRow key={index}>
                             <TableCell component="th" scope="row">
-                                <Button className="trash">
+                                <Button className="trash"
+                                    onClick={() => {
+                                        const url = `${manageUser.delete}${item.taiKhoan}`
+                                        dispatch({
+                                            type: DELETE_USER_SAGA,
+                                            payload: {
+                                                url,
+                                                handleAction: handleAction
+                                            }
+                                        })
+                                    }}
+                                >
                                     <Delete />
                                 </Button>
-                                <Button className="edit">
+                                <Button className="edit" onClick={() => {
+                                    handleModal(true, {
+                                        title: "Cập Nhật Người Dùng",
+                                        action: "REPALCE",
+                                        items: {
+                                            ...item,
+                                            maNhom: "GP11"
+                                        }
+
+                                    })
+                                }}>
                                     <Edit />
                                 </Button>
                             </TableCell>

@@ -4,7 +4,7 @@ import SearchTemp from "../../components/Admin/SearchTemp"
 import PostMoives from '../../components/Admin/PostMoives';
 import PaginationAdmin from '../../components/Admin/PaginationAdmin';
 import queryString from 'query-string';
-import avatar from "../../assets/img/avatar-phim.jpg"
+
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_LIST_MOIVE_SAGA } from '../../redux/saga/Constants/admin-constants';
 import { admin_domain } from "../../assets/Domain/AdminDomain"
@@ -14,6 +14,7 @@ function Usermanager() {
     const { managerMoive } = admin_domain;
     const { moive } = useSelector(state => state.admin);
     const { pagination, posts } = moive;
+    const [action, setAction] = useState("")
     const [filters, SetFilters] = useState({
         currentPage: 1,
         count: 5,
@@ -22,21 +23,24 @@ function Usermanager() {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const handleModal = (boolean, item) => {
-        console.log(item)
+
         setItemMoive(item);
         setOpen(boolean);
     }
     const [itemMoive, setItemMoive] = useState({
-        title: "Thêm Phim",
-        maPhim: '',
-        tenPhim: '',
-        biDanh: '',
-        trailer: '',
-        moTa: '',
-        ngayKhoiChieu: null,
-        danhGia: '',
-        maNhom: "GP11",
-        hinhAnh: null,
+        title: "",
+        action: "",
+        itemMoive: {
+            maPhim: null,
+            tenPhim: '',
+            biDanh: '',
+            trailer: '',
+            moTa: '',
+            ngayKhoiChieu: null,
+            danhGia: '',
+            maNhom: "GP11",
+            hinhAnh: null,
+        }
     })
     useEffect(() => {
         let paramStrings;
@@ -58,7 +62,7 @@ function Usermanager() {
                 url: `${managerMoive.get}${paramStrings}`
             }
         })
-    }, [filters])
+    }, [filters, action])
     const hanldeSearch = (newTerm) => {
         SetFilters({
             ...filters,
@@ -76,16 +80,30 @@ function Usermanager() {
         <Grid container className="box">
             <Grid item xs={12} style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <SearchTemp onSubmit={hanldeSearch} />
-                <Button onClick={() => {
-                    const newItem = { ...itemMoive, title: "Thêm Phim" }
+                <Button style={{ background: "#f37520", color: "#fff" }} onClick={() => {
+                    const newItem = {
+                        title: "Thêm Phim",
+                        action: "add",
+                        itemMoive: {
+                            maPhim: null,
+                            tenPhim: '',
+                            biDanh: '',
+                            trailer: '',
+                            moTa: '',
+                            ngayKhoiChieu: null,
+                            danhGia: '',
+                            maNhom: "GP11",
+                            hinhAnh: null,
+                        }
+                    }
                     handleModal(true, newItem)
                 }} variant="contained" >Thêm Phim</Button>
             </Grid>
             <Grid item xs={12}>
-                <PostMoives handleModal={handleModal} posts={posts} />
+                <PostMoives handleAction={setAction} handleModal={handleModal} posts={posts} />
                 <PaginationAdmin pagination={pagination} onPageChange={handlePageChange} />
             </Grid>
-            <Modalmoive itemMoive={itemMoive} open={open} handleModal={handleModal} />
+            <Modalmoive handleAction={setAction} items={itemMoive} open={open} handleModal={handleModal} />
         </Grid>
     );
 }

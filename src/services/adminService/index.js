@@ -2,7 +2,7 @@ import axios from "axios";
 import CyberDomain from "../../assets/Domain";
 import * as yup from "yup";
 export const moiveSchema = yup.object().shape({
-
+    hinhAnh: yup.string().required("không được để trống"),
     maPhim: yup.string().required("không được đễ trống").matches(/^[0-9]+$/, "phải là số và không có khoảng trống"),
     tenPhim: yup.string().required("không được đễ trống").min(6, "lớn hơn 6 ký tự"),
     biDanh: yup.string().required("không được đễ trống").min(6, "lớn hơn 6 ký tự"),
@@ -18,11 +18,29 @@ class AdminService {
             url: `${CyberDomain}${url}`
         })
     }
-    post = (url, data) => {
+    post = (url, data, headers = null) => {
+
         return axios({
             method: "POST",
             url: `${CyberDomain}${url}`,
-            data: data
+            data: data,
+            headers: headers
+        })
+    }
+    put = (url, data, header) => {
+        console.log(data, url)
+        return axios({
+            method: "PUT",
+            url: `${CyberDomain}${url}`,
+            data: data,
+            headers: header
+        })
+    }
+    delete = (url, headers) => {
+        return axios({
+            method: "DELETE",
+            url: `${CyberDomain}${url}`,
+            headers: headers
         })
     }
 

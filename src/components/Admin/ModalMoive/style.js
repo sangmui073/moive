@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
             position: "relative",
             "& .title": {
                 position: "absolute",
+
                 top: 0,
                 left: 0,
                 transition: "all 0.5s",
