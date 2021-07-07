@@ -3,12 +3,20 @@ import {
   FormControl,
   Grid,
   InputLabel,
+  MenuItem,
   Select,
+  ListSubheader,
+  TextField,
+  MenuList,
+  Menu,
 } from "@material-ui/core";
 
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_INFO_MOIVE_SAGA, GET_SEARCH_MOIVE } from "../../../redux/saga/Constants/moive-constants";
+import {
+  GET_INFO_MOIVE_SAGA,
+  GET_SEARCH_MOIVE,
+} from "../../../redux/saga/Constants/moive-constants";
 import formatDate from "date-format";
 import { useStyles } from "./style";
 import { useHistory } from "react-router";
@@ -22,13 +30,12 @@ function SearchMoive() {
   const { list, totalCout } = searchMoive;
   const [filter, setFilter] = useState(5);
   useEffect(() => {
-
-    const url = `QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=GP11&soPhanTuTrenTrang=${filter}`
+    const url = `QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=GP11&soPhanTuTrenTrang=${filter}`;
     dispatch({
       type: GET_SEARCH_MOIVE,
-      payload: url
-    })
-  }, [filter])
+      payload: url,
+    });
+  }, [filter]);
   const [moive, setMoive] = useState({
     maPhim: "",
     maRap: "",
@@ -40,32 +47,27 @@ function SearchMoive() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    if (name == "maPhim") {
+    if (name === "maPhim") {
       if (value === "add") {
         const newFilter = filter + 5 < totalCout ? filter + 5 : totalCout;
-        setFilter(newFilter)
-        return
+        setFilter(newFilter);
+        return;
+      } else {
+        dispatch({
+          type: GET_INFO_MOIVE_SAGA,
+          payload: value,
+        });
       }
-      dispatch({
-        type: GET_INFO_MOIVE_SAGA,
-        payload: value,
-      });
-      setMoive({
-        ...moive,
-        [name]: value,
-        maPhim: value,
-      });
-    } setMoive({
+    }
+
+    setMoive({
       ...moive,
       [name]: value,
     });
-
-
   };
 
   const renderDay = () => {
     let lichChieu;
-
     if (moive.maRap && moive.maRap.length > 0) {
       for (const element of moiveSearchCine) {
         lichChieu = element.cumRapChieu.find((item) => {
@@ -79,15 +81,15 @@ function SearchMoive() {
           let uique = [...new Set(ngayGioChieu)];
           return uique.map((time, index) => {
             return (
-              <option key={index} value={time}>
+              <MenuItem key={index} value={time}>
                 {time}
-              </option>
+              </MenuItem>
             );
           });
         }
       }
     } else {
-      return <option>Xin chon rạp</option>;
+      return <MenuItem disabled>Xin chon rạp</MenuItem>;
     }
   };
   const renderHour = () => {
@@ -100,7 +102,7 @@ function SearchMoive() {
       });
       return xuatChieu.map((item, index) => {
         return (
-          <option
+          <MenuItem
             style={{ textAlign: "center" }}
             key={index}
             value={item.maLichChieu}
@@ -108,121 +110,102 @@ function SearchMoive() {
             {formatDate("hh", new Date(item.ngayChieuGioChieu)) +
               ":" +
               formatDate("mm", new Date(item.ngayChieuGioChieu))}
-          </option>
+          </MenuItem>
         );
       });
     } else {
-      return <option>Chọn Ngày Xem</option>;
+      return <MenuItem disabled>Chọn Ngày Xem</MenuItem>;
     }
   };
 
   const renderCinema = () => {
-    if (moive.maPhim && moive.maPhim.length > 0) {
-      return moiveSearchCine.map((item, index) => {
+    if (moiveSearchCine && moiveSearchCine.length > 0) {
+      return moiveSearchCine.map((item) => {
         const { maHeThongRap, cumRapChieu } = item;
-        return (
-          <optgroup key={index} label={maHeThongRap}>
-            {cumRapChieu.map((rap, maRap) => {
-              return (
-                <option key={maRap} value={rap.maCumRap}>
-                  {rap.tenCumRap}
-                </option>
-              );
-            })}
-          </optgroup>
-        );
+        return cumRapChieu.map((cumrap, index) => {
+          return (
+            <MenuItem key={cumrap.tenCumRap} value={cumrap.maCumRap}>
+              {cumrap.tenCumRap}
+            </MenuItem>
+          );
+        });
       });
     } else {
-      return <option disabled>Xin Chọn Phim</option>;
+      return <MenuItem disabled>Xin Chọn Phim</MenuItem>;
     }
   };
   if (list) {
     return (
       <section className={classes.root}>
         <Grid spacing={2} container className={classes.wapper}>
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={6} md={3}>
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="moive-native-simple">Phim</InputLabel>
-              <Select
-                native
-                value={moive.maPhim}
-                onChange={handleChange}
-                inputProps={{
-                  name: "maPhim",
-                  id: "moive-native-simple",
-                  //name ngay imputProps phải trùng vs key của value ở select ở đây là
-                  //name="maPhim" value ={moive.maPhim}
-                  //select => input sẽ không nhảy lên khi có value ở ô đó là string
-                }}
-              >
-                <option aria-label="None" value="" />
+              <InputLabel htmlFor="moive-simple">Phim</InputLabel>
+              <Select defaultValue="" name="maPhim" onChange={handleChange}>
+                <MenuItem disabled aria-label="None" value="">
+                  Chọn Phim
+                </MenuItem>
                 {list.map((item, index) => {
                   return (
-                    <option key={index} value={item.maPhim}>
+                    <MenuItem key={index} value={item.maPhim}>
                       {item.tenPhim.length > 30
                         ? item.tenPhim.substr(0, 30) + "..."
                         : item.tenPhim}
-                    </option>
+                    </MenuItem>
                   );
                 })}
-                <option aria-label="None" value="add">
+                <MenuItem aria-label="None" value="add">
                   ...Thêm Phim...
-                </option>
+                </MenuItem>
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={6} md={3}>
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="cine-native-simple">Rạp Chiếu</InputLabel>
-              <Select
-                native
+              <TextField
+
+                label="Phim"
+                select
                 value={moive.maRap}
+                name="maRap"
                 onChange={handleChange}
-                inputProps={{
-                  name: "maRap",
-                  id: "cine-native-simple",
-                }}
               >
-                <option aria-label="None" value="" />
                 {renderCinema()}
-              </Select>
+              </TextField>
             </FormControl>
           </Grid>
-          <Grid item xs={6} sm={2}>
+
+          <Grid item xs={6} md={2}>
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="day-native-simple">Ngày Chiếu</InputLabel>
-              <Select
-                native
+              <TextField
+                label="Ngày Chiếu"
+                select
                 value={moive.ngayChieu}
+                name="ngayChieu"
                 onChange={handleChange}
-                inputProps={{
-                  name: "ngayChieu",
-                  id: "day-native-simple",
-                }}
+
               >
-                <option aria-label="None" value="" />
+
                 {renderDay()}
-              </Select>
+              </TextField>
             </FormControl>
           </Grid>
-          <Grid item xs={6} sm={2}>
+          <Grid item xs={6} md={2}>
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="day-native-simple">Giờ Chiếu</InputLabel>
-              <Select
-                native
+              <TextField
+                label="Giờ Chiếu"
+                select
+                name="suatChieu"
                 value={moive.suatChieu}
                 onChange={handleChange}
-                inputProps={{
-                  name: "suatChieu",
-                  id: "day-native-simple",
-                }}
+
               >
-                <option aria-label="None" value="" />
+
                 {renderHour()}
-              </Select>
+              </TextField>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={2} className={classes.btn}>
+          <Grid item xs={12} md={2} className={classes.btn}>
             <Button
               variant="contained"
               color="primary"
@@ -246,7 +229,19 @@ function SearchMoive() {
       </section>
     );
   }
-  return ""
-
+  return "";
 }
 export default memo(SearchMoive);
+
+{
+  /* <Grid item xs={6} md={3}>
+{renderCinema()}
+</Grid>
+// inputProps={{
+//   name: "maPhim",
+//   id: "moive-native-simple",
+//   //name ngay imputProps phải trùng vs key của value ở select ở đây là
+//   //name="maPhim" value ={moive.maPhim}
+//   //select => input sẽ không nhảy lên khi có value ở ô đó là string
+// }} */
+}
