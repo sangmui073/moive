@@ -27,9 +27,6 @@
     "web-vitals": "^1.1.2",
     "yup": "^0.32.9"
   },
-  "peerDependencies": {
-    "react-lazy-load": "^3.1.13"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
