@@ -1,7 +1,13 @@
 html {
   scroll-behavior: smooth;
 }
-
+html,
+body {
+  width: 100%;
+}
+* {
+  box-sizing: border-box;
+}
 .box {
   animation: fadebox 1s ease-in-out;
 }

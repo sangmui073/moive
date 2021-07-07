@@ -40,7 +40,7 @@ function FooterClient(props) {
     return (
         <footer className={classes.root}>
             <Container maxWidth="lg">
-                <Grid spacing={4} container>
+                <Grid className="container-ft" spacing={4} container>
                     <Grid item sm={2} >
                         <h4>TIX</h4>
                         <p className="tix_text">

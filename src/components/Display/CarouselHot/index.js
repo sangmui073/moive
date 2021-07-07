@@ -136,7 +136,7 @@ function CarouselHot() {
             },
             1024: {
               slidesPerView: 4,
-              spaceBetween: 10,
+              spaceBetween: 0,
             },
           }}
           className={classes.swapper}
@@ -145,7 +145,7 @@ function CarouselHot() {
             return (
               <SwiperSlide
                 key={index}
-                className={`${classes.slider} silderAnim`}
+                className={classes.slider}
                 style={{
                   backgroundImage: `url(${item.hinhAnh})`
 

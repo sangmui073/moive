@@ -5,13 +5,20 @@ const useStyles = makeStyles((theme) => {
     root: {
       "& .container-Pager": {
         marginTop: "60px",
-        boxShadow: "0px 1px 5px 12px rgba(0,0,0,0.35)"
+        boxShadow: "0px 1px 5px 12px rgba(0,0,0,0.35)",
+        [theme.breakpoints.down("md")]: {
+          fontSize: "14px"
+        },
       },
 
       "& .utility": {
         display: "flex",
         flexDirection: "column",
         borderRight: "1px solid rgba(0, 0, 0, 0.1)",
+        [theme.breakpoints.down("md")]: {
+          overflowY: "scroll",
+          height: "600px",
+        },
         [theme.breakpoints.down("xs")]: {
           display: "none",
         },

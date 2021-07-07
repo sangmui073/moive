@@ -127,12 +127,12 @@ function News() {
             </div>
             <Grid spacing={5} container>
                 {renderTopItems()}
-                <Grid item sm={8}>
+                <Grid item lg={8} md={7}>
                     <Grid container spacing={3}>
                         {renderBottomItemLeft()}
                     </Grid>
                 </Grid>
-                <Grid item sm={4}>
+                <Grid item lg={4} md={5}>
                     {renderBottomItemRight()}
                 </Grid>
             </Grid>

@@ -2,8 +2,17 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
     width: "100%",
+    "& .MuiSelect-select.MuiSelect-select": {
+      width: "100%",
+      background: "inherit",
+
+    },
+    [theme.breakpoints.down("md")]: {
+      "& option": {
+        fontSize: "14px",
+      },
+    },
     "& .MuiInput-underline:before": {
       // display: "none",
       display: "flex",
@@ -14,10 +23,11 @@ const useStyles = makeStyles((theme) => ({
     },
     paddingRight: "5px",
     borderRight: "1px solid #000",
+
     [theme.breakpoints.down("xs")]: {
       borderRight: "none",
       "& option": {
-        fontSize: "14px",
+
         padding: "3px",
       },
       "& .MuiSelect-select": {
@@ -56,6 +66,10 @@ const useStyles = makeStyles((theme) => ({
     },
     "& .MuiSelect-icon": {
       top: "calc(20% - 12px)",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+
     },
     [theme.breakpoints.down("xs")]: {
       width: "100%",

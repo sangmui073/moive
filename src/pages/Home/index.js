@@ -1,8 +1,8 @@
-import React, { memo, useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { memo, useLayoutEffect, useRef, useState } from "react";
 import "swiper/swiper.scss";
 import Header from "../../components/Display/Header";
 import Pages from "../../components/Display/Lazyload"
-import LazyLoad from "react-lazy-load"
+
 
 import { useStyles } from "./style"
 
@@ -34,15 +34,13 @@ function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [sections]);
   return (
-    <div className={classes.root}>
+    <div className={`${classes.root} box`}>
       <Header title={sections} onChange={handleChange} />
       {Pages.map((pg, index) => {
-        const { cls, location, debounce, height, Component } = pg;
+        const { cls, location, debounce, Component } = pg;
         return (
           <div key={index} className={cls} id={location}>
-            <LazyLoad debounce={debounce} height={height}>
-              <Component />
-            </LazyLoad>
+            <Component />
           </div>
         )
       })}

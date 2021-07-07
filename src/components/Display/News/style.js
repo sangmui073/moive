@@ -33,7 +33,10 @@ const useStyles = makeStyles((theme) => ({
             textAlign: "center",
             margin: "30px 0px",
             padding: "50px 0",
-
+            [theme.breakpoints.down("md")]: {
+                padding: "25px 0",
+                margin: "5px 0"
+            },
         }
     },
     items: {
@@ -106,7 +109,10 @@ const useStyles = makeStyles((theme) => ({
             left: "50%",
             background: "inherit",
             transform: "translate(-50%,-50%)",
-            width: "50%",
+            width: "60%",
+            [theme.breakpoints.down("md")]: {
+                width: "90%"
+            },
             "& .MuiBottomNavigationAction-root": {
                 minWidth: "auto",
                 maxWidth: "inherit",

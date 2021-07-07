@@ -4,6 +4,12 @@ const useStyles = makeStyles((theme) => ({
     root: {
         background: "#222",
         color: "#949494",
+        "& .container-ft": {
+            [theme.breakpoints.down("md")]: {
+                margin: "-15px",
+                width: "calc(100% + 68px)"
+            },
+        },
         "& .tix_text": {
             display: "flex",
             flexDirection: "column",
@@ -44,7 +50,10 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     mutilogo: {
-        width: "80%"
+        width: "80%",
+        [theme.breakpoints.down("md")]: {
+            width: "100%",
+        },
     },
     confirm: {
         borderTop: "1px solid #4a4a4a",

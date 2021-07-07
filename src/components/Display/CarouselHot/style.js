@@ -4,8 +4,12 @@ const useStyles = makeStyles((theme) => ({
   swapper: {
     width: "82.5%",
     margin: "0 auto",
-    height: "65vh",
+    height: "60vh",
     marginTop: "40px",
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+      height: "30vh",
+    },
     [theme.breakpoints.down("xs")]: {
       width: "95%",
       height: "60vh",
@@ -71,8 +75,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     position: "relative",
     overflow: "hidden",
-    display: "none",
-    animation: `$fade 2s ${theme.transitions.easing.easeInOut} forwards`,
+
     "& .slider-bg": {
       visibility: "hidden",
       opacity: "0",
@@ -93,9 +96,9 @@ const useStyles = makeStyles((theme) => ({
       position: "absolute",
       zIndex: 1,
       top: "5%",
-      left: "10%",
+      left: "5%",
       height: "90%",
-      width: "80%",
+      width: "95%",
       color: "#fff",
       display: "flex",
       flexDirection: "column",
@@ -184,17 +187,6 @@ const useStyles = makeStyles((theme) => ({
       transform: "scale3d(1,1,1)"
     },
   },
-  "@keyframes fade": {
-    "0%": {
-      transform: "translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(-360deg) scale(0.5)",
-      opacity: 0
-    },
-    "50%": {
-      opacity: "0.5"
-    },
-    "100%": {
-      opacity: 1
-    },
-  }
+
 }));
 export { useStyles };

@@ -55,7 +55,6 @@ const theatersReducer = (state, action) => {
   }
 };
 function TheatersCluster() {
-
   const classes = useStyles();
   const { cinemaList } = useSelector((state) => state.cinema);
   const dispatch = useDispatch();
@@ -166,17 +165,24 @@ function TheatersCluster() {
               dispatchTheaters(action);
             }}
           >
-            <h4>{item.tenCumRap}</h4>
+            <h4>
+              {item.tenCumRap.length > 30
+                ? item.tenCumRap.substr(0, 30) + "..."
+                : item.tenCumRap}
+            </h4>
             <span style={{ display: "block" }}>
               {item.diaChi.length > 30
                 ? item.diaChi.substr(0, 30) + " ..."
                 : item.diaChi}
             </span>
-            <a style={{ color: "rgb(254, 121, 0)" }}
+            <a
+              style={{ color: "rgb(254, 121, 0)" }}
               onClick={() => {
-                history.push(`/TheaterDetails/${listCumrap.maHeThongRap}`)
+                history.push(`/TheaterDetails/${listCumrap.maHeThongRap}`);
               }}
-            >{"[Chi Tiết]"}</a>
+            >
+              {"[Chi Tiết]"}
+            </a>
           </div>
         );
       }
@@ -202,17 +208,22 @@ function TheatersCluster() {
             dispatchTheaters(action);
           }}
         >
-          <h4>{item.tenCumRap}</h4>
+          <h4>{item.tenCumRap.length > 30
+            ? item.tenCumRap.substr(0, 30) + "..."
+            : item.tenCumRap}</h4>
           <span style={{ display: "block" }}>
             {item.diaChi.length > 30
               ? item.diaChi.substr(0, 30) + " ..."
               : item.diaChi}
           </span>
-          <a style={{ color: "rgb(254, 121, 0)" }}
+          <a
+            style={{ color: "rgb(254, 121, 0)" }}
             onClick={() => {
-              history.push(`/TheaterDetails/${listCumrap.maHeThongRap}`)
+              history.push(`/TheaterDetails/${listCumrap.maHeThongRap}`);
             }}
-          >{"[Chi Tiết]"}</a>
+          >
+            {"[Chi Tiết]"}
+          </a>
         </div>
       );
     });
@@ -257,7 +268,7 @@ function TheatersCluster() {
                           backgroundColor: "rgb(254, 121, 0)",
                           color: "#fff",
                           marginRight: "10px",
-                          minWidth: "35px"
+                          minWidth: "35px",
                         }}
                         onClick={(event) => {
                           history.push(`/DetailsMoive/${item.maPhim}`);
@@ -285,9 +296,8 @@ function TheatersCluster() {
   return (
     <>
       <Container className={classes.root} maxWidth="md">
-        <h1 className={classes.title}><span className="fist">
-          Cụm Rạp
-        </span>
+        <h1 className={classes.title}>
+          <span className="fist">Cụm Rạp</span>
           <span className="last">Cụm Rạp</span>
         </h1>
         <Paper className="container-Pager" elevation={3}>
