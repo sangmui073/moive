@@ -48,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
             boxShadow: "0px 0px 5px 5px rgba(0,0,0,0.2)",
             border: "1px solid rgba(0,0,0,0.2)",
             transition: "all 0.4s",
+            [theme.breakpoints.down("sm")]: {
+                height: "300px",
+            },
             "&:hover": {
                 boxShadow: "inset 0px 0px 5px 5px rgba(0,0,0,0.2)"
             },

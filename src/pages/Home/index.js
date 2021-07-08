@@ -36,6 +36,9 @@ function Home() {
   return (
     <div className={`${classes.root} box`}>
       <Header title={sections} onChange={handleChange} />
+      <div style={{ height: "65px" }}>
+
+      </div>
       {Pages.map((pg, index) => {
         const { cls, location, debounce, Component } = pg;
         return (

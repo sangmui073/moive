@@ -2,7 +2,9 @@ import React, { memo, useState } from 'react'
 import { BottomNavigation, BottomNavigationAction, Button, Container, Grid } from '@material-ui/core';
 import NewsData from "../../../assets/Fakedata/News.json"
 import { useStyles } from "./style";
+import { Link } from "react-router-dom"
 import bg from "../../../assets/img/back-news.d713fc3a.png"
+
 const title = [{
     title: "News",
     label: "Tin Tức",
@@ -22,7 +24,7 @@ function News() {
     const renderTopItems = () => {
         return topData.map((it, index) => {
             return (
-                <Grid className={classes.items} key={index} item sm={6}>
+                <Grid className={classes.items} key={index} item xs={12} sm={6}>
                     <div className="container-img">
                         <div className="img-content">
                             <img alt={it.img} src={process.env.PUBLIC_URL + `${it.img}`} />
@@ -75,21 +77,19 @@ function News() {
     const renderBottomItemRight = () => {
         return bottomRight.map((it, index) => {
             return (
-                <Grid className={classes.extra} spacing={2} container key={index}>
-                    <Grid className="-img" item sm={3}>
+                <Grid alignItems="center" className={classes.extra} spacing={3} container key={index}>
+                    <Grid className="-img" item xs={3} sm={4}>
                         <a target="_blank" href={it.url}>
                             <img src={process.env.PUBLIC_URL + `${it.img}`} />
                         </a>
-
                     </Grid>
-                    <Grid item sm={9}>
-
+                    <Grid item xs={9} sm={8}>
                         <h3 className="-text">
                             <a target="_blank" href={it.url}>
                                 {it.title.length > 50 ? it.title.substr(0, 50) + "..." : it.title}
                             </a>
-
                         </h3>
+
                     </Grid>
                 </Grid>
             )
@@ -125,16 +125,19 @@ function News() {
                     {renderTitle()}
                 </BottomNavigation>
             </div>
-            <Grid spacing={5} container>
+            <Grid spacing={1} container>
                 {renderTopItems()}
-                <Grid item lg={8} md={7}>
-                    <Grid container spacing={3}>
-                        {renderBottomItemLeft()}
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={8} md={7} lg={8} >
+                        <Grid container spacing={3}>
+                            {renderBottomItemLeft()}
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={12} sm={4} md={5} lg={4} >
+                        {renderBottomItemRight()}
                     </Grid>
                 </Grid>
-                <Grid item lg={4} md={5}>
-                    {renderBottomItemRight()}
-                </Grid>
+
             </Grid>
             <div style={{ background: `url(${bg})` }} className="btn-more">
                 <Button color="primary" variant="contained">Xem Them</Button>

@@ -3,11 +3,15 @@ import bg from "../../../assets/img/bg-login.jpg"
 const useStyles = makeStyles((theme) => {
   return {
     root: {
+      margin: "50px auto",
       "& .container-Pager": {
         marginTop: "60px",
         boxShadow: "0px 1px 5px 12px rgba(0,0,0,0.35)",
         [theme.breakpoints.down("md")]: {
           fontSize: "14px"
+        },
+        [theme.breakpoints.down("xs")]: {
+          display: "none"
         },
       },
 
@@ -16,8 +20,7 @@ const useStyles = makeStyles((theme) => {
         flexDirection: "column",
         borderRight: "1px solid rgba(0, 0, 0, 0.1)",
         [theme.breakpoints.down("md")]: {
-          overflowY: "scroll",
-          height: "600px",
+          height: "500px"
         },
         [theme.breakpoints.down("xs")]: {
           display: "none",
@@ -33,7 +36,10 @@ const useStyles = makeStyles((theme) => {
       border: "1px solid #fe7900",
       fontSize: "35px",
       padding: "20px 15px",
-
+      [theme.breakpoints.down("xs")]: {
+        fontSize: "30px",
+        width: "50%",
+      },
       "&:hover": {
         "& .fist": {
           transform: "scale3d(1.2,1.1,1.3)"
@@ -44,7 +50,9 @@ const useStyles = makeStyles((theme) => {
         top: "-70%",
         width: "auto",
         left: "25%",
-
+        [theme.breakpoints.down("md")]: {
+          left: "15%"
+        },
       },
       "& .fist": {
         transition: "all 0.5s",
@@ -191,8 +199,9 @@ const useStyles = makeStyles((theme) => {
             height: "80px",
           },
           "& p": {
-            padding: "5px 0px",
+            padding: "5px 5px",
             margin: 0,
+
           },
           "& .systems": {
             visibility: "hidden",
@@ -236,11 +245,12 @@ const useStyles = makeStyles((theme) => {
           },
         },
         "& .active": {
-          height: "100% ",
+          height: "100%",
           opacity: 1,
           transition: "all 0.6s",
           "& .systems": {
             height: "100% !important",
+
             transform: "translateY(0%) !important",
             visibility: "visible !important",
           },

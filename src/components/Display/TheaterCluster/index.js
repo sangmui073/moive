@@ -362,7 +362,7 @@ function TheatersCluster() {
                 </Button>
                 <p>
                   {item.tenHeThongRap}
-                  <ArrowDown />
+                  <ArrowDown style={{ fill: "#fe7900" }} />
                 </p>
               </div>
               <div className="mobi-systems">
@@ -395,14 +395,14 @@ function TheatersCluster() {
                           }
                         }}
                       >
-                        <Button className="btn-waper">
+                        {/* <Button className="btn-waper">
                           <img
                             style={{
                               marginRight: "15px",
                             }}
                             src={`https://picsum.photos/250/300?random=${index}`}
                           />
-                        </Button>
+                        </Button> */}
 
                         <div>
                           <p>
@@ -421,14 +421,16 @@ function TheatersCluster() {
                                 : rap.diaChi}
                             </span>
                           </p>
-                          <p>
-                            <i
+                          <p style={{ display: "flex", justifyContent: "space-between" }}>
+                            <Button
                               style={{
-                                color: "rgb(254, 121, 0)",
+                                color: "#fff",
+                                background: "rgb(254, 121, 0)",
                               }}
                             >
                               [chi tiết]
-                            </i>
+                            </Button>
+                            <ArrowDown style={{ fill: "#fe7900" }} />
                           </p>
                         </div>
                       </div>

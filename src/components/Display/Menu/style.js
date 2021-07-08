@@ -12,13 +12,13 @@ const useStyles = makeStyles((theme) => {
       "& .MuiButtonBase-root": {
         color: `${color.textPrimary} !important `,
         minWidth: "60px",
-        maxWidth: "90px",
+        maxWidth: "100px",
         overflowX: "hidden",
         "& span": {
           WebkitTextFillColor: "#ffff",
           WebkitTextStrokeColor: "#1f1b1b",
           WebkitTextStrokeWidth: "1px",
-          fontSize: "20px",
+          fontSize: "16px",
         },
         '&:after': {
           content: "''",

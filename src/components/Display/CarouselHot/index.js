@@ -10,6 +10,7 @@ import {
   BottomNavigation,
   BottomNavigationAction,
   Button,
+  Grid,
 } from "@material-ui/core";
 import { ConfirmationNumber, PlayArrow, StarRate } from "@material-ui/icons";
 import formatDate from "date-format";
@@ -17,6 +18,7 @@ import bg from "../../../assets/img/bg_topmovie.png";
 import { useStyles } from "./style";
 import ModalUntility from "../ModalUltiliti";
 import queryString from "query-string"
+import useWindowSize from "../utils/Responsive";
 import { GET_MOIVE_SAGA_SHOWING } from "../../../redux/saga/Constants/moive-constants";
 SwiperCore.use([Navigation, EffectCoverflow, Autoplay]);
 
@@ -25,6 +27,7 @@ function CarouselHot() {
   const classes = useStyles();
   const history = useHistory();
   const [value, setValue] = React.useState("nowShowing");
+  const { width } = useWindowSize();
   const renderStar = (number) => {
     const listStar = [];
     const view = parseFloat(number / 2);
@@ -61,6 +64,7 @@ function CarouselHot() {
       }
     }
   };
+  console.log(nowShowing)
   const [trailer, setTrailer] = useState(null);
   const dispatch = useDispatch()
   useEffect(() => {
@@ -80,7 +84,10 @@ function CarouselHot() {
     setTrailer(trailer);
     setOpen(true);
   };
+  console.log(width)
+  const renderMobiMoive = () => {
 
+  }
   if (nowShowing && nowShowing.length > 0) {
     return (
       <section
@@ -99,7 +106,7 @@ function CarouselHot() {
           onChange={handleChange}
         >
           <BottomNavigationAction
-            style={{ marginRight: "20px" }}
+
             label="Phim Đang Chiếu"
             value="nowShowing"
           />
@@ -109,9 +116,6 @@ function CarouselHot() {
           loop={true}
           effect={"coverflow"}
           centeredSlides={true}
-          // autoplay={{
-          //   delay: 2500,
-          // }}
           slidesPerView={4}
           coverflowEffect={{
             rotate: 10,
@@ -125,6 +129,7 @@ function CarouselHot() {
             0: {
               slidesPerView: 2,
               spaceBetween: 0,
+
             },
             640: {
               slidesPerView: 4,
@@ -191,6 +196,9 @@ function CarouselHot() {
             );
           })}
         </Swiper>
+        <Grid className={classes.mobiMoive}>
+          {renderMobiMoive()}
+        </Grid>
         <ModalUntility open={open} item={trailer} setOpen={setOpen} />
       </section>
     );

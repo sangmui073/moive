@@ -164,7 +164,7 @@ function SearchMoive() {
             <FormControl className={classes.formControl}>
               <TextField
 
-                label="Phim"
+                label="Rạp chiếu"
                 select
                 value={moive.maRap}
                 name="maRap"

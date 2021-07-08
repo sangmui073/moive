@@ -41,31 +41,33 @@ function FooterClient(props) {
         <footer className={classes.root}>
             <Container maxWidth="lg">
                 <Grid className="container-ft" spacing={4} container>
-                    <Grid item sm={2} >
-                        <h4>TIX</h4>
-                        <p className="tix_text">
-                            <a href="#" target="_blank">
-                                FAQ
-                            </a>
-                            <a style={{ marginTop: "10px" }} href="#" target="_blank">
-                                Brand Guidelines
-
-                            </a>
-                        </p>
-
+                    <Grid item sm={3} md={4}>
+                        <Grid container>
+                            <Grid item sm={12} md={6}>
+                                <h4>TIX</h4>
+                                <p className="tix_text">
+                                    <a href="#" target="_blank">
+                                        FAQ
+                                    </a>
+                                    <a style={{ marginTop: "10px" }} href="#" target="_blank">
+                                        Brand Guidelines
+                                    </a>
+                                </p>
+                            </Grid>
+                            <Grid item sm={12} md={6}>
+                                <h4 className="hd-field" >hidden</h4>
+                                <p className="tix_text">
+                                    <a href="#" target="_blank">
+                                        Thỏa thuận sử dụng
+                                    </a>
+                                    <a style={{ marginTop: "10px" }} href="#" target="_blank">
+                                        Chính sách bảo mật
+                                    </a>
+                                </p>
+                            </Grid>
+                        </Grid>
                     </Grid>
-                    <Grid item sm={2}>
-                        <h4 style={{ color: "transparent" }}>hidden</h4>
-                        <p className="tix_text">
-                            <a href="#" target="_blank">
-                                Thỏa thuận sử dụng
-                            </a>
-                            <a style={{ marginTop: "10px" }} href="#" target="_blank">
-                                Chính sách bảo mật
-                            </a>
-                        </p>
-                    </Grid>
-                    <Grid item sm={4}>
+                    <Grid className="sm-multilogo" item sm={5} md={4}>
                         <div className={classes.mutilogo}>
                             <h4 style={{ marginLeft: "10px", marginBottom: "5px" }}>ĐỐI TÁC</h4>
                             <p style={{ marginTop: "5px" }}>
@@ -79,34 +81,37 @@ function FooterClient(props) {
                             </p>
                         </div>
                     </Grid>
-                    <Grid item sm={2}>
-                        <h4 style={{ marginLeft: "10px", marginBottom: "5px" }}>MOBILE APP</h4>
+                    <Grid item sm={3} md={4}>
+                        <Grid container>
+                            <Grid item sm={12} md={6}>
+                                <h4 style={{ marginLeft: "10px", marginBottom: "5px" }}>MOBILE APP</h4>
 
-                        <p style={{ marginTop: "5px" }}>
-                            {logoSocials.map((lo, index) => {
-                                return (
-                                    <a className="logo-img -app" key={index} href="#" target="_blank">
-                                        <img src={process.env.PUBLIC_URL + `${lo}`} />
-                                    </a>
-                                )
-                            })}
-                        </p>
+                                <p style={{ marginTop: "5px" }}>
+                                    {logoSocials.map((lo, index) => {
+                                        return (
+                                            <a className="logo-img -app" key={index} href="#" target="_blank">
+                                                <img src={process.env.PUBLIC_URL + `${lo}`} />
+                                            </a>
+                                        )
+                                    })}
+                                </p>
+                            </Grid>
+                            <Grid item sm={12} md={6}>
+                                <h4 style={{ marginLeft: "20px", marginBottom: "5px" }}>SOCIAL</h4>
+
+                                <p style={{ marginTop: "5px" }}>
+                                    {logoApps.map((lo, index) => {
+                                        return (
+                                            <a className="logo-img -app" key={index} href="#" target="_blank">
+                                                <img src={process.env.PUBLIC_URL + `${lo}`} />
+                                            </a>
+                                        )
+                                    })}
+                                </p>
+                            </Grid>
+                        </Grid>
                     </Grid>
-                    <Grid item sm={2}>
-                        <h4 style={{ marginLeft: "10px", marginBottom: "5px" }}>SOCIAL</h4>
 
-                        <p style={{ marginTop: "5px" }}>
-                            {logoApps.map((lo, index) => {
-                                return (
-                                    <a className="logo-img -app" key={index} href="#" target="_blank">
-                                        <img src={process.env.PUBLIC_URL + `${lo}`} />
-                                    </a>
-                                )
-                            })}
-                        </p>
-
-
-                    </Grid>
                 </Grid>
                 <Grid className={classes.confirm} container spacing={1}>
                     <Grid item sm={2}>

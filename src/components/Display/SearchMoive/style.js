@@ -1,7 +1,16 @@
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: "20px",
+    [theme.breakpoints.down("xs")]: {
+      padding: "0",
+    },
+  },
   formControl: {
     margin: theme.spacing(1),
+    [theme.breakpoints.down("sm")]: {
+      margin: theme.spacing(0),
+    },
     width: "100%",
     "& .MuiSelect-select.MuiSelect-select": {
       width: "100%",
@@ -35,12 +44,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  root: {
-    padding: "20px",
-    [theme.breakpoints.down("xs")]: {
-      padding: "50px 10px",
-    },
-  },
+
   btn: {
     display: "flex",
     alignItems: "center",

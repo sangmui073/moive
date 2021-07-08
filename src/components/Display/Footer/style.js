@@ -4,6 +4,12 @@ const useStyles = makeStyles((theme) => ({
     root: {
         background: "#222",
         color: "#949494",
+        "& .hd-field": {
+            color: "transparent",
+            [theme.breakpoints.down("sm")]: {
+                display: "none"
+            },
+        },
         "& .container-ft": {
             [theme.breakpoints.down("md")]: {
                 margin: "-15px",
@@ -47,7 +53,13 @@ const useStyles = makeStyles((theme) => ({
         },
         "& .-app": {
             background: "inherit"
-        }
+        },
+        [theme.breakpoints.down("md")]: {
+            "& .sm-multilogo": {
+
+                margin: "0 auto"
+            },
+        },
     },
     mutilogo: {
         width: "80%",
@@ -55,6 +67,8 @@ const useStyles = makeStyles((theme) => ({
             width: "100%",
         },
     },
+
+
     confirm: {
         borderTop: "1px solid #4a4a4a",
         padding: "30px 15px",

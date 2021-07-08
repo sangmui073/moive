@@ -4,15 +4,13 @@ const useStyles = makeStyles((theme) => ({
   swapper: {
     width: "82.5%",
     margin: "0 auto",
-    height: "60vh",
+    height: "350px",
     marginTop: "40px",
     [theme.breakpoints.down("md")]: {
-      width: "100%",
-      height: "30vh",
+      width: "95%",
     },
     [theme.breakpoints.down("xs")]: {
-      width: "95%",
-      height: "60vh",
+      display: "none"
     },
     "& .swiper-button-next, .swiper-button-prev": {
       top: "87%",
@@ -114,10 +112,12 @@ const useStyles = makeStyles((theme) => ({
           clipPath: "polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%)",
           transition: "0.4s",
           marginTop: "0px",
+
           "& .MuiSvgIcon-root": {
             fill: "#fff",
             marginRight: "3px",
             transition: "0.4s",
+
 
           },
           "&:hover": {
@@ -140,13 +140,21 @@ const useStyles = makeStyles((theme) => ({
   btnGroup: {
     backgroundColor: "inherit",
     padding: "30px 0px",
+    [theme.breakpoints.down("xs")]: {
+      padding: " 0px",
+    },
 
     "& .MuiBottomNavigationAction-root": {
       maxWidth: "100%",
       fontWeight: "bolder",
       color: "#33333",
       textShadow: "2px 2px 0px #FFFFFF, 5px 4px 0px rgba(0,0,0,0.15)",
-
+      "&:nth-child(1)": {
+        marginRight: "20px",
+        [theme.breakpoints.down("xs")]: {
+          marginRight: " 0px",
+        },
+      },
       "&:hover": {
         animation: `$rubberBand 1s ${theme.transitions.easing.easeInOut}`,
       }
@@ -159,9 +167,15 @@ const useStyles = makeStyles((theme) => ({
     },
     "& .MuiBottomNavigationAction-label": {
       fontSize: "1.75rem",
+      [theme.breakpoints.down("xs")]: {
+        fontSize: "1.30rem",
+      },
     },
     "& .MuiBottomNavigationAction-label.Mui-selected": {
-      fontSize: "35",
+      fontSize: "35px",
+      [theme.breakpoints.down("xs")]: {
+        fontSize: "18px",
+      },
     },
     "& .MuiBottomNavigationAction-wrapper": {
       whiteSpace: "nowrap",

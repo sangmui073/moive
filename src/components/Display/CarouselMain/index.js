@@ -82,7 +82,7 @@ function CarouselMain() {
       >
         <Container maxWidth="lg">
           <Grid container spacing={2}>
-            <Grid item xs={12} md={8} lg={5}>
+            <Grid item xs={12} md={12} lg={5}>
               <div className={classes.content}>
                 {renderTextCarousel()}
                 <p className="btn-group">
@@ -115,7 +115,7 @@ function CarouselMain() {
                 </p>
               </div>
             </Grid>
-            <Grid item md={12} lg={7}>
+            <Grid item xs={12} md={12} lg={7}>
               <Swiper
                 loop={true}
                 effect={"coverflow"}
@@ -129,24 +129,32 @@ function CarouselMain() {
                   modifier: 1,
                   slideShadows: false,
                 }}
-              // breakpoints={{
-              //   0: {
-              //     slidesPerView: 2,
-              //     spaceBetween: 0,
-              //   },
-              //   640: {
-              //     slidesPerView: 3,
-              //     spaceBetween: 0,
-              //   },
-              //   768: {
-              //     slidesPerView: 3,
-              //     spaceBetween: 0,
-              //   },
-              //   1024: {
-              //     slidesPerView: 3,
-              //     spaceBetween: 0,
-              //   },
-              // }}
+                breakpoints={{
+                  0: {
+                    slidesPerView: "auto",
+                    spaceBetween: 0,
+                    loop: false,
+                    coverflowEffect: {
+                      rotate: 50,
+                      stretch: 0,
+                      depth: 100,
+                      modifier: 1,
+                      slideShadows: true,
+                    }
+                  },
+                  640: {
+                    slidesPerView: 3,
+                    spaceBetween: 0,
+                  },
+                  768: {
+                    slidesPerView: 4,
+                    spaceBetween: 0,
+                  },
+                  1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 0,
+                  },
+                }}
               >
                 {carouselMain?.map((item, index) => {
                   return (

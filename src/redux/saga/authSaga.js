@@ -29,6 +29,7 @@ function* SIGN_IN(action) {
       });
     }
   } catch (error) {
+    console.log(error.response)
     yield put({
       type: ERROR,
       payload: error.response,

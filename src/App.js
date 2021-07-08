@@ -54,15 +54,15 @@ function App() {
       // không giống với HOC ở trên ở đây check ngay ban đầu còn ở trên chỉ check trong các component
       if (login) {
         return (
-          <Route key={index} component={Component} path={path} exact={exact} />
+          <Route key={index} path={path} exact={exact}>
+            <GuardAdmin >
+              <TemplateAdmin Component={Component} />
+            </GuardAdmin>
+          </Route >
         )
       }
       return (
-        <Route key={index} path={path} exact={exact}>
-          <GuardAdmin >
-            <TemplateAdmin Component={Component} />
-          </GuardAdmin>
-        </Route>
+        <Route key={index} component={Component} path={path} exact={exact} />
       );
     });
   };
