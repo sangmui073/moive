@@ -15,6 +15,12 @@ const useStyles = makeStyles((theme) => ({
                 margin: "-15px",
                 width: "calc(100% + 68px)"
             },
+            "& .tix-product": {
+                textAlign: "center"
+            },
+            "& .tix-app": {
+                textAlign: "left"
+            }
         },
         "& .tix_text": {
             display: "flex",
@@ -56,8 +62,12 @@ const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.down("md")]: {
             "& .sm-multilogo": {
-
                 margin: "0 auto"
+            },
+        },
+        [theme.breakpoints.down("xs")]: {
+            "& .sm-multilogo": {
+                margin: "0"
             },
         },
     },
@@ -65,6 +75,11 @@ const useStyles = makeStyles((theme) => ({
         width: "80%",
         [theme.breakpoints.down("md")]: {
             width: "100%",
+        },
+        [theme.breakpoints.down("xs")]: {
+            display: "none",
+            margin: 0,
+            padding: 0
         },
     },
 
@@ -75,7 +90,13 @@ const useStyles = makeStyles((theme) => ({
         "& .zion": {
             borderRadius: "10px",
             overflow: "hidden",
-            width: "50%"
+            width: "50%",
+            [theme.breakpoints.down("xs")]: {
+                margin: "auto",
+                height: "50px",
+                width: "100px",
+                marginBottom: "15px"
+            },
         },
         "& .boTT": {
             width: "85%"
@@ -91,7 +112,15 @@ const useStyles = makeStyles((theme) => ({
             display: "block"
         },
         "& .andress": {
-            lineHeight: "25px"
+            lineHeight: "25px",
+            [theme.breakpoints.down("xs")]: {
+                textAlign: "center"
+            },
+        },
+        "& .title-zion": {
+            [theme.breakpoints.down("xs")]: {
+                textAlign: "center"
+            },
         }
     }
 }))

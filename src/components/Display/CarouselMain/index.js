@@ -19,9 +19,8 @@ function CarouselMain() {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [trailer, setTrailer] = useState(null);
-  const handleOpen = (trailer) => {
-    setTrailer(trailer);
-    setOpen(true);
+  const handleModal = (bool) => {
+    setOpen(bool);
   };
   const { carouselMain } = useSelector(state => state.moive);
   const [current, setCurrent] = useState(carouselMain[0]);
@@ -101,10 +100,12 @@ function CarouselMain() {
                   <Button
                     onClick={() => {
                       if (current && current?.maPhim) {
-                        handleOpen(current.trailer);
+                        setTrailer(current.trailer);
+                        handleModal(true);
 
                       } else {
-                        handleOpen(carouselMain[0].trailer);
+                        setTrailer(carouselMain[0].trailer);
+                        handleModal(true);
 
                       }
 
@@ -172,16 +173,11 @@ function CarouselMain() {
                             <img src={item.hinhAnh.replace("http", "https")} />
                             <div className="bgHd">
                               <div className="btnGroup">
-                                {/* <Button
-                                  onClick={() => {
-                                    handleOpen(item.trailer);
-                                  }}
-                                  className="btnTrailer"
-                                  startIcon={<PlayCircleOutlineIcon />}
-                                ></Button> */}
+
                                 <Button
                                   onClick={() => {
-                                    handleOpen(item.trailer);
+                                    setTrailer(item.trailer);
+                                    handleModal(true);
                                   }}
                                   className="btnTrailer"
                                   startIcon={<PlayCircleOutlineIcon />}
@@ -209,7 +205,7 @@ function CarouselMain() {
             </Grid>
           </Grid>
         </Container>
-        <ModalUntility open={open} item={trailer} setOpen={setOpen} />
+        <ModalUntility open={open} item={trailer} handleModal={handleModal} />
       </section>
     );
   } else {

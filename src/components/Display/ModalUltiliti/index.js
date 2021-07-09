@@ -1,15 +1,21 @@
 import React from "react";
-
+import PropTypes from 'prop-types';
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { useStyles } from "./style";
-
+ModalUntility.propTypes = {
+  handleModal: PropTypes.func,
+  open: PropTypes.bool,
+  item: PropTypes.string
+};
 export default function ModalUntility(props) {
   const classes = useStyles();
-  const { item, open, setOpen } = props;
+  const { item, open, handleModal } = props;
   const handleClose = () => {
-    setOpen(false);
+    if (handleModal) {
+      handleModal(false)
+    }
   };
   return (
     <div>

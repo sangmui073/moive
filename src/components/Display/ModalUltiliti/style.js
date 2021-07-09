@@ -8,6 +8,10 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     width: "50%",
     height: "50%",
+    [theme.breakpoints.down("xs")]: {
+      width: "95%",
+      height: "300px",
+    },
   },
 }));
 export { useStyles };

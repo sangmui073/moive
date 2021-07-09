@@ -108,7 +108,7 @@ function TheatersCluster() {
                 icon={
                   <img
                     style={{ display: "block", width: "100%", height: "100%" }}
-                    src={item.logo}
+                    src={item.logo.rep}
                   />
                 }
                 style={{ marginTop: "0px" }}
@@ -358,7 +358,7 @@ function TheatersCluster() {
                 }}
               >
                 <Button>
-                  <img src={item.logo} />
+                  <img src={item.logo.replace("http", "https")} />
                 </Button>
                 <p>
                   {item.tenHeThongRap}

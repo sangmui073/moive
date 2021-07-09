@@ -41,9 +41,9 @@ function FooterClient(props) {
         <footer className={classes.root}>
             <Container maxWidth="lg">
                 <Grid className="container-ft" spacing={4} container>
-                    <Grid item sm={3} md={4}>
-                        <Grid container>
-                            <Grid item sm={12} md={6}>
+                    <Grid className="tix-product" item xs={6} sm={3} md={4}>
+                        <Grid container >
+                            <Grid item xs={12} sm={12} md={6}>
                                 <h4>TIX</h4>
                                 <p className="tix_text">
                                     <a href="#" target="_blank">
@@ -54,7 +54,7 @@ function FooterClient(props) {
                                     </a>
                                 </p>
                             </Grid>
-                            <Grid item sm={12} md={6}>
+                            <Grid item xs={12} sm={12} md={6}>
                                 <h4 className="hd-field" >hidden</h4>
                                 <p className="tix_text">
                                     <a href="#" target="_blank">
@@ -81,9 +81,9 @@ function FooterClient(props) {
                             </p>
                         </div>
                     </Grid>
-                    <Grid item sm={3} md={4}>
+                    <Grid item className="tix-app" xs={5} sm={3} md={4}>
                         <Grid container>
-                            <Grid item sm={12} md={6}>
+                            <Grid item xs={12} sm={12} md={6}>
                                 <h4 style={{ marginLeft: "10px", marginBottom: "5px" }}>MOBILE APP</h4>
 
                                 <p style={{ marginTop: "5px" }}>
@@ -96,7 +96,7 @@ function FooterClient(props) {
                                     })}
                                 </p>
                             </Grid>
-                            <Grid item sm={12} md={6}>
+                            <Grid item xs={12} sm={12} md={6}>
                                 <h4 style={{ marginLeft: "20px", marginBottom: "5px" }}>SOCIAL</h4>
 
                                 <p style={{ marginTop: "5px" }}>
@@ -114,13 +114,13 @@ function FooterClient(props) {
 
                 </Grid>
                 <Grid className={classes.confirm} container spacing={1}>
-                    <Grid item sm={2}>
+                    <Grid item xs={12} sm={2}>
                         <a className="zion">
                             <img src={process.env.PUBLIC_URL + "/img/logo/zion.jfif"} />
                         </a>
                     </Grid>
-                    <Grid item sm={8}>
-                        <h4>TIX – SẢN PHẨM CỦA CÔNG TY CỔ PHẦN ZION</h4>
+                    <Grid item xs={12} sm={8}>
+                        <h4 className="title-zion">TIX – SẢN PHẨM CỦA CÔNG TY CỔ PHẦN ZION</h4>
                         <p className="andress">
                             <span>
                                 Địa chỉ: Z06 Đường số 13, Phường Tân Thuận Đông, Quận 7, Tp. Hồ Chí Minh, Việt Nam.
@@ -143,7 +143,7 @@ function FooterClient(props) {
                             </span>
                         </p>
                     </Grid>
-                    <Grid item sm={2}>
+                    <Grid item xs={12} sm={2}>
                         <a className="boTT" href="#" target="_blank">
                             <img src={process.env.PUBLIC_URL + "/img/logo/bott.png"} />
                         </a>

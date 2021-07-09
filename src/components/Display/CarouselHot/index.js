@@ -15,7 +15,7 @@ import {
   Paper
 
 } from "@material-ui/core";
-import { ConfirmationNumber, PlayArrow, StarRate } from "@material-ui/icons";
+import { ConfirmationNumber, PlayArrow, StarRate, Restore } from "@material-ui/icons";
 
 import formatDate from "date-format";
 import bg from "../../../assets/img/bg_topmovie.png";
@@ -72,7 +72,7 @@ function CarouselHot() {
 
   const [trailer, setTrailer] = useState(null);
   const dispatch = useDispatch();
-  console.log(pagitiona)
+  console.log(pagitiona, filterMoive.cout)
   useEffect(() => {
     const newFilterMoive = {
       soTrang: filterMoive.currentPage,
@@ -86,30 +86,59 @@ function CarouselHot() {
     })
   }, [filterMoive]);
   const [open, setOpen] = React.useState(false);
-  const handleOpen = (trailer) => {
-    setTrailer(trailer);
-    setOpen(true);
+  const handleModal = (bool) => {
+    setOpen(bool);
   };
-
-
-
   const renderMobiMoive = () => {
     if (listMoive) {
-
       return listMoive.map((item, index) => {
-
         return (
           <Grid key={index} className="mobiMoive-child" item xs={6}>
             <Paper className="moive-img">
-              <img src={item.hinhAnh.replace("http", "https")} />
-              <Button variant="contained" color="primary">
-                <PlayArrow />
+              <img src={item.hinhAnh.replace("http", "https")} onClick={() => {
+                history.push(`/DetailsMoive/${item.maPhim}`)
+              }} />
+              <Button startIcon={<PlayArrow />} variant="contained" color="primary"
+                onClick={() => {
+                  setTrailer(item.trailer);
+                  handleModal(true)
+                }}
+              >
+                Xem Trailer
               </Button>
             </Paper>
           </Grid>
         )
       })
     }
+  }
+  const renderBtnMore = () => {
+    if (filterMoive.cout >= pagitiona.totalCount / 2) {
+      return (
+        <Button style={{ width: "100%", color: "#000", background: "linear-gradient(to right, #bb511e, #f1bc00)" }} variant="contained" color="primary"
+          onClick={() => {
+            setFilterMoive({
+              ...filterMoive,
+              cout: 8
+            })
+          }}
+        >
+          <Restore />
+        </Button>
+      )
+    }
+    return <Button style={{ width: "100%", color: "#000", background: "linear-gradient(to right, #bb511e, #f1bc00)" }} variant="contained" color="primary"
+      onClick={() => {
+        const newCout = ((filterMoive.cout + 2) >= (pagitiona.totalCount / 2)) ? (pagitiona.totalCount / 2) : (filterMoive.cout + 2);
+        setFilterMoive({
+          ...filterMoive,
+          cout: newCout
+        })
+      }}
+    >
+      Xem Thêm
+    </Button>
+
   }
   if (listMoive && listMoive.length > 0) {
     return (
@@ -129,7 +158,6 @@ function CarouselHot() {
           onChange={handleChange}
         >
           <BottomNavigationAction
-
             label="Phim Đang Chiếu"
             value="nowShowing"
           />
@@ -194,7 +222,9 @@ function CarouselHot() {
                       </Button>
                       <Button
                         onClick={() => {
-                          handleOpen(item.trailer);
+                          setTrailer(item.trailer)
+                          handleModal(true)
+
                         }}
                         style={{ left: "-20px" }}
                       >
@@ -223,22 +253,14 @@ function CarouselHot() {
           <Grid spacing={2} container>
             {renderMobiMoive()}
             <Grid item xs={6} style={{ margin: "20px auto" }}>
-              <Button style={{ width: "100%" }} variant="outlined" color="primary"
-                onClick={() => {
-                  const newCout = ((filterMoive.cout + 2) >= (pagitiona.totalCount / 2)) ? (pagitiona.totalCount / 2) : (filterMoive.cout + 2);
-                  setFilterMoive({
-                    ...filterMoive,
-                    cout: newCout
-                  })
-                }}
-              >
-                Xem Thêm
-              </Button>
+
+              {renderBtnMore()}
+
             </Grid>
           </Grid>
 
         </Container>
-        <ModalUntility open={open} item={trailer} setOpen={setOpen} />
+        <ModalUntility open={open} item={trailer} handleModal={handleModal} />
       </section >
     );
   } else {
@@ -247,22 +269,22 @@ function CarouselHot() {
 }
 
 
-function useWindowSize() {
-  const [windowSize, setWindowSize] = useState({
-    width: undefined,
-    height: undefined,
-  });
-  useEffect(() => {
-    function handleResize() {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    }
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-  return windowSize;
-}
+// function useWindowSize() {
+//   const [windowSize, setWindowSize] = useState({
+//     width: undefined,
+//     height: undefined,
+//   });
+//   useEffect(() => {
+//     function handleResize() {
+//       setWindowSize({
+//         width: window.innerWidth,
+//         height: window.innerHeight,
+//       });
+//     }
+//     window.addEventListener("resize", handleResize);
+//     handleResize();
+//     return () => window.removeEventListener("resize", handleResize);
+//   }, []);
+//   return windowSize;
+// }
 export default memo(CarouselHot);
