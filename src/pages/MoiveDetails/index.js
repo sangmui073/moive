@@ -193,8 +193,8 @@ function MovieDetails() {
           >
             <div className="cine-img">
               <img
-                alt={item.hinhAnh}
-                src={process.env.PUBLIC_URL + `${item.hinhAnh}`}
+                alt={item.hinhAnh.replace("http", "https")}
+                src={process.env.PUBLIC_URL + `${item.hinhAnh.replace("http", "https")}`}
               />
             </div>
             <div className="cine-andress">
@@ -255,7 +255,7 @@ function MovieDetails() {
                 border: "none",
               }}
             >
-              <img src={moiveDetails.hinhAnh} />
+              <img src={moiveDetails.hinhAnh.replace("http", "https")} />
             </button>
             <div style={{ marginLeft: "10px", lineHeight: "15px" }}>
               <h2>
@@ -305,7 +305,7 @@ function MovieDetails() {
           <Grid item xs={6} sm={4}>
             <div className={classes.img}>
               <button>
-                <img src={moiveDetails.hinhAnh} />
+                <img src={moiveDetails.hinhAnh.replace("http", "https")} />
               </button>
             </div>
           </Grid>

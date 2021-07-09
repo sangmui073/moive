@@ -57,7 +57,7 @@ function TheaterDetails() {
                 }} key={index} className="-andess">
                     <Grid container spacing={2}>
                         <Grid style={{ height: "80px" }} item sm={2}>
-                            <img src={process.env.PUBLIC_URL + `${cine.hinhAnh}`} />
+                            <img src={process.env.PUBLIC_URL + `${cine.hinhAnh.replace("http", "https")}`} />
                         </Grid>
                         <Grid item sm={10}>
                             <p style={{ marginTop: "5px" }}>
@@ -156,7 +156,7 @@ function TheaterDetails() {
                                         payload: d.maPhim
                                     })
                                 }}>
-                                    <img src={d.hinhAnh} />
+                                    <img src={d.hinhAnh.replace("http", "https")} />
                                 </Button>
                             </Grid>
                             <Grid item sm={10}>
@@ -204,7 +204,7 @@ function TheaterDetails() {
                     <Container maxWidth="md">
                         <Grid container spacing={2}>
                             <Grid className="-img" item sm={3}>
-                                <img src={process.env.PUBLIC_URL + `${cinema[0].hinhAnh}`} />
+                                <img src={process.env.PUBLIC_URL + `${cinema[0].hinhAnh.replace("http", "https")}`} />
                             </Grid>
                             <Grid className="-content" item sm={8}>
                                 <h1>
@@ -229,7 +229,7 @@ function TheaterDetails() {
                                     Xem Lịch Chiếu
                                 </Button>
                             </Grid>
-                            <div style={{ backgroundImage: `linear-gradient(to top,rgba(0,0,0,0.3),transparent 100%),url(${cinema[0].hinhAnh})` }} className="bg-liner"></div>
+                            <div style={{ backgroundImage: `linear-gradient(to top,rgba(0,0,0,0.3),transparent 100%),url(${cinema[0].hinhAnh.replace("http", "https")})` }} className="bg-liner"></div>
 
                         </Grid>
 

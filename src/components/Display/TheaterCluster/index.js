@@ -252,7 +252,7 @@ function TheatersCluster() {
                 >
                   <a style={{ border: "1px solid rgba(0, 0, 0, 0.1)" }}>
                     <img
-                      src={item.hinhAnh}
+                      src={item.hinhAnh.replace("http", "https")}
                       style={{
                         width: "65px",
                         height: "65px",
@@ -439,7 +439,7 @@ function TheatersCluster() {
                           return (
                             <div className="moive" key={index}>
                               <Button className="btn-waper">
-                                <img src={phim.hinhAnh} />
+                                <img src={phim.hinhAnh.replace("http", "https")} />
                               </Button>
                               <p style={{ marginLeft: "10px" }}>
                                 <span

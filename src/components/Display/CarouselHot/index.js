@@ -10,24 +10,29 @@ import {
   BottomNavigation,
   BottomNavigationAction,
   Button,
+  Container,
   Grid,
+  Paper
+
 } from "@material-ui/core";
 import { ConfirmationNumber, PlayArrow, StarRate } from "@material-ui/icons";
+
 import formatDate from "date-format";
 import bg from "../../../assets/img/bg_topmovie.png";
 import { useStyles } from "./style";
 import ModalUntility from "../ModalUltiliti";
 import queryString from "query-string"
-import useWindowSize from "../utils/Responsive";
+
 import { GET_MOIVE_SAGA_SHOWING } from "../../../redux/saga/Constants/moive-constants";
 SwiperCore.use([Navigation, EffectCoverflow, Autoplay]);
 
 function CarouselHot() {
   const { nowShowing } = useSelector((state) => state.moive);
+  const { listMoive, pagitiona } = nowShowing;
   const classes = useStyles();
   const history = useHistory();
   const [value, setValue] = React.useState("nowShowing");
-  const { width } = useWindowSize();
+  // const size = useWindowSize();
   const renderStar = (number) => {
     const listStar = [];
     const view = parseFloat(number / 2);
@@ -43,30 +48,31 @@ function CarouselHot() {
   };
   const [filterMoive, setFilterMoive] = useState({
     currentPage: 1,
-    cout: 10
+    cout: 8
   })
   const handleChange = (event, newValue) => {
     setValue(newValue);
     switch (newValue) {
       case "nowShowing": {
         setFilterMoive({
-          ...filterMoive,
+          cout: 8,
           currentPage: 1
         });
         break;
       }
       case "comingSon": {
         setFilterMoive({
-          ...filterMoive,
+          cout: 8,
           currentPage: 2
         });
         break;
       }
     }
   };
-  console.log(nowShowing)
+
   const [trailer, setTrailer] = useState(null);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  console.log(pagitiona)
   useEffect(() => {
     const newFilterMoive = {
       soTrang: filterMoive.currentPage,
@@ -84,13 +90,30 @@ function CarouselHot() {
     setTrailer(trailer);
     setOpen(true);
   };
-  console.log(width)
-  const renderMobiMoive = () => {
 
+
+
+  const renderMobiMoive = () => {
+    if (listMoive) {
+
+      return listMoive.map((item, index) => {
+
+        return (
+          <Grid key={index} className="mobiMoive-child" item xs={6}>
+            <Paper className="moive-img">
+              <img src={item.hinhAnh.replace("http", "https")} />
+              <Button variant="contained" color="primary">
+                <PlayArrow />
+              </Button>
+            </Paper>
+          </Grid>
+        )
+      })
+    }
   }
-  if (nowShowing && nowShowing.length > 0) {
+  if (listMoive && listMoive.length > 0) {
     return (
-      <section
+      <section className={classes.root}
         style={{
           backgroundImage: `url(${bg}), linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9))`,
           display: "flex",
@@ -146,13 +169,13 @@ function CarouselHot() {
           }}
           className={classes.swapper}
         >
-          {nowShowing.map((item, index) => {
+          {listMoive.map((item, index) => {
             return (
               <SwiperSlide
                 key={index}
                 className={classes.slider}
                 style={{
-                  backgroundImage: `url(${item.hinhAnh})`
+                  backgroundImage: `url(${item.hinhAnh.replace("http", "https")})`
 
                 }}
               >
@@ -196,15 +219,50 @@ function CarouselHot() {
             );
           })}
         </Swiper>
-        <Grid className={classes.mobiMoive}>
-          {renderMobiMoive()}
-        </Grid>
+        <Container maxWidth={false} className={classes.mobiMoive}>
+          <Grid spacing={2} container>
+            {renderMobiMoive()}
+            <Grid item xs={6} style={{ margin: "20px auto" }}>
+              <Button style={{ width: "100%" }} variant="outlined" color="primary"
+                onClick={() => {
+                  const newCout = ((filterMoive.cout + 2) >= (pagitiona.totalCount / 2)) ? (pagitiona.totalCount / 2) : (filterMoive.cout + 2);
+                  setFilterMoive({
+                    ...filterMoive,
+                    cout: newCout
+                  })
+                }}
+              >
+                Xem Thêm
+              </Button>
+            </Grid>
+          </Grid>
+
+        </Container>
         <ModalUntility open={open} item={trailer} setOpen={setOpen} />
-      </section>
+      </section >
     );
   } else {
     return "";
   }
 }
 
+
+function useWindowSize() {
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+  useEffect(() => {
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return windowSize;
+}
 export default memo(CarouselHot);

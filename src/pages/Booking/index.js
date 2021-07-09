@@ -189,7 +189,7 @@ function Booking() {
       </AppBar>
       <TabPanel value={value} index={0}>
         <Grid className={classes.choosingChair} item md={4}>
-          <img src={moiveInfo.hinhAnh} />
+          <img src={moiveInfo.hinhAnh.replace("http", "https")} />
           <div className="bg-content">
             <div className="content">
               <p>

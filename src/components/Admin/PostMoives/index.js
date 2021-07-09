@@ -117,7 +117,7 @@ function PostMoives(props) {
                                         : item.trailer}
                                 </TableCell>
                                 <TableCell align="center">
-                                    <img src={`${item.hinhAnh}?t=${Date.now()}`} />
+                                    <img src={`${item.hinhAnh.replace("http", "https")}?t=${Date.now()}`} />
                                 </TableCell>
                             </TableRow>
                         );

@@ -7,7 +7,10 @@ import {
 
 const initialState = {
   carouselMain: [],
-  nowShowing: [],
+  nowShowing: {
+    listMoive: [],
+    pagitiona: {}
+  },
   moiveDetails: {},
   searchMoive: {
     list: [],
@@ -23,7 +26,8 @@ const movieReducer = (state = initialState, action) => {
       return { ...state };
     }
     case SET_MOIVE_SHOWING_ACTION: {
-      state.nowShowing = payload
+      state.nowShowing.listMoive = payload.items;
+      state.nowShowing.pagitiona = payload.filter
       return { ...state }
     }
     case SET_MOIVE_DETAILS_ACTION: {

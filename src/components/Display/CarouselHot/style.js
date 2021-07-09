@@ -1,6 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    [theme.breakpoints.down("xs")]: {
+
+    },
+  },
   swapper: {
     width: "82.5%",
     margin: "0 auto",
@@ -181,6 +186,25 @@ const useStyles = makeStyles((theme) => ({
       whiteSpace: "nowrap",
     },
   },
+  mobiMoive: {
+    display: "none",
+    marginTop: "20px",
+    [theme.breakpoints.down("xs")]: {
+      display: "block"
+    },
+    "& .moive-img": {
+
+      "& button": {
+        width: "100%",
+        background: "linear-gradient(to right, #bb511e, #f1bc00)"
+      }
+    },
+    "& img": {
+      width: "100%",
+      height: "200px",
+      display: "block"
+    }
+  },
   "@keyframes rubberBand": {
     "0%": {
       transform: "scale3d(1,1,1)"
@@ -200,6 +224,7 @@ const useStyles = makeStyles((theme) => ({
     "100%": {
       transform: "scale3d(1,1,1)"
     },
+
   },
 
 }));

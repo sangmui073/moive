@@ -49,7 +49,7 @@ function CarouselMain() {
     if (current && current.tenPhim) {
       return (<>
         <Typography variant="h3" >
-          {current.tenPhim}
+          {current.tenPhim.length > 33 ? current.tenPhim.slice(0, 33) + "..." : current.tenPhim}
         </Typography>
         <Typography variant="subtitle1" >
           {current.moTa.length > 170
@@ -62,7 +62,7 @@ function CarouselMain() {
     return (
       <>
         <Typography variant="h3" >
-          {carouselMain[0].tenPhim}
+          {carouselMain[0].tenPhim > 33 ? carouselMain[0].tenPhim.slice(0, 33) + "..." : carouselMain[0].tenPhim}
         </Typography>
         <Typography variant="subtitle1" >
           {carouselMain[0].moTa.length > 170
@@ -77,7 +77,7 @@ function CarouselMain() {
       <section
         className={`${classes.root}`}
         style={{
-          backgroundImage: !current ? `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),url(${carouselMain[0].hinhAnh})` : `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),url(${current.hinhAnh})`
+          backgroundImage: !current ? `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),url(${carouselMain[0].hinhAnh.replace("http", "https")})` : `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),url(${current.hinhAnh.replace("http", "https")})`
         }}
       >
         <Container maxWidth="lg">
@@ -169,7 +169,7 @@ function CarouselMain() {
                             tabIndex={item.maPhim}
                           >
                             {isActive ? getValue(item) : ""}
-                            <img src={item.hinhAnh} />
+                            <img src={item.hinhAnh.replace("http", "https")} />
                             <div className="bgHd">
                               <div className="btnGroup">
                                 {/* <Button

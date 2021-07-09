@@ -10,14 +10,14 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    minHeight: "90vh",
+    height: "100%",
     backgroundBlendMode: "darken",
     backgroundSize: "cover",
     backgroundPosition: "center",
-    [theme.breakpoints.down("md")]: {
-      minHeight: "auto",
-      height: "100%"
-    },
+    // [theme.breakpoints.down("md")]: {
+
+    //   height: "100%"
+    // },
     "& .swiper-container": {
       width: "100%",
       paddingTop: "70px",
@@ -31,21 +31,21 @@ const useStyles = makeStyles((theme) => ({
       backgroundPosition: "center",
       backgroundSize: "cover",
       width: "35%",
-      height: "45vh",
+      height: "250px",
       background: "#000",
       opacity: "1",
       zIndex: 10,
       [theme.breakpoints.down("md")]: {
-        height: "35vh",
+        // height: "35vh",
 
       },
       [theme.breakpoints.down("sm")]: {
-        height: "30vh",
+        // height: "30vh",
 
       },
       [theme.breakpoints.down("xs")]: {
-        height: "25vh",
-        width: "45%",
+        // height: "25vh",
+        width: "50%",
         overflow: "hidden",
       },
 
@@ -141,6 +141,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     "& h3": {
       color: "#FFFFFF",
+      fontSize: "30px",
       textShadow: "1px 3px 0 #969696, 1px 9px 5px #aba8a8",
       [theme.breakpoints.down("md")]: {
         padding: "10px 0px",

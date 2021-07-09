@@ -35,7 +35,7 @@ function Modalmoive(props) {
         if (itemMoive.hinhAnh) {
             SetSrc({
                 ...src,
-                value: itemMoive.hinhAnh
+                value: itemMoive.hinhAnh.replace("http", "https")
             })
         } else {
             SetSrc({

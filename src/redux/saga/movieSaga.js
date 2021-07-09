@@ -123,7 +123,18 @@ function* GET_MOIVE_API_SHOWING(action) {
     });
     const { status, data } = res;
     if (status === STATUS.SUCCESS) {
-      yield put({ type: SET_MOIVE_SHOWING_ACTION, payload: data.items });
+
+      yield put({
+        type: SET_MOIVE_SHOWING_ACTION, payload: {
+          items: data.items,
+          filter: {
+            currentPage: data.currentPage,
+            count: data.count,
+            totalCount: data.totalCount,
+            totalPages: data.totalPages
+          }
+        }
+      });
 
     }
   } catch (error) {
