@@ -91,7 +91,7 @@ function Booking() {
       }
 
     }
-    setValue(newValue);
+
 
   };
   console.log(listGhe)
