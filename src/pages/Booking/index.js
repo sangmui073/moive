@@ -302,7 +302,7 @@ function Booking() {
             </div>
             <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
               <p style={{ margin: "5px", fontSize: "12px" }}>Thời Gian Giữ Ghế</p>
-              {/* <Clock setValue={setValue} /> */}
+              <Clock setValue={setValue} />
 
             </div>
           </div>
