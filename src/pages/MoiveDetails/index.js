@@ -11,6 +11,7 @@ import dateFormat from "dateformat";
 import logo2d from "../../assets/img/2d.jpg";
 import Helper from "../../assets/Fakedata/Hepler";
 import ConverDate from "../../assets/Fakedata/ConverDate"
+import ModalUntility from "../../components/Display/ModalUltiliti";
 const hepl = new Helper();
 const initialState = {
   logo: [],
@@ -116,6 +117,10 @@ function MovieDetails() {
   const { moiveDetails } = useSelector((state) => state.moive);
   const { heThongRapChieu } = moiveDetails;
   let [cine, dispatchCiner] = useReducer(thearsReducer, initialState);
+  const [open, setOpen] = useState(false)
+  const handleModal = (bool) => {
+    setOpen(bool)
+  }
 
   const renderStar = () => {
     const stars = [];
@@ -197,9 +202,9 @@ function MovieDetails() {
                 });
               }}
             >
-              <img src={item.logo} />
+              <img src={item.logo.replace("http", "https")} />
               <span className="mobie-cineName" >
-                <span>{heThongRapChieu[index].tenHeThongRap}</span>
+                <span>{heThongRapChieu[index]?.tenHeThongRap}</span>
                 <span>  {item.maHeThong === cine.cumRap.maHeThong ? <KeyboardArrowUp /> : <KeyboardArrowDown />}</span>
               </span>
             </button>
@@ -263,7 +268,11 @@ function MovieDetails() {
 
                             return <Grid item xs={4} key={index}>
                               <Paper>
-                                <Button variant="outlined" color="primary" startIcon={<Timer />}>
+                                <Button variant="outlined" color="primary" startIcon={<Timer />}
+                                  onClick={() => {
+                                    history.push(`/Booking/${hour.maLichChieu}`)
+                                  }}
+                                >
                                   {dateFormat(hour.ngayChieuGioChieu, "HH:MM")}
                                 </Button>
                               </Paper>
@@ -373,7 +382,7 @@ function MovieDetails() {
             </button>
             <div style={{ marginLeft: "10px", lineHeight: "15px" }}>
               <h2>
-                <span>{moiveDetails.tenPhim} </span>
+                <span>{moiveDetails.tenPhim.length > 20 ? moiveDetails.tenPhim.substr(0, 20) + "..." : moiveDetails.tenPhim} </span>
 
               </h2>
               <p>
@@ -416,17 +425,19 @@ function MovieDetails() {
     <div className={`${classes.root} box`}>
       <Container maxWidth="md">
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={6}>
             <div className={classes.img}>
-              <button>
+              <button >
                 <img src={moiveDetails.hinhAnh?.replace("http", "https")} />
               </button>
-              <div className="bg-hd">
+              <div className="bg-hd" onClick={() => {
+                handleModal(true)
+              }}>
                 <PlayCircleOutline style={{ fontSize: "4.1875rem", fill: "rgb(177 171 171)" }} />
               </div>
             </div>
           </Grid>
-          <Grid className="details-content" style={{ paddingRight: "20px" }} item xs={12} sm={5}>
+          <Grid className="details-content" style={{ paddingRight: "20px" }} item xs={12} sm={6}>
             <div className={classes.moiveName}>
               <h1>{moiveDetails.tenPhim}</h1>
               <p>Thời Lượng : 120 phút</p>
@@ -477,6 +488,7 @@ function MovieDetails() {
           </Grid>
         </Paper>
       </Container>
+      <ModalUntility handleModal={handleModal} item={moiveDetails.trailer} open={open} />
     </div>
   );
 }

@@ -6,12 +6,13 @@ const useStyles = makeStyles((theme) => {
       background: " linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7))",
       padding: "80px 0px",
       marginTop: "50px",
-      [theme.breakpoints.down("xs")]: {
-        marginTop: "0px",
-
+      [theme.breakpoints.down("md")]: {
         "& .details-review": {
           display: "none",
         },
+      },
+      [theme.breakpoints.down("xs")]: {
+        marginTop: "0px",
       },
 
       "& img": {
@@ -42,29 +43,27 @@ const useStyles = makeStyles((theme) => {
       },
       height: "400px",
       width: "300px",
+      position: "relative",
       "& button": {
         height: "100%",
         width: "100%",
         cursor: "pointer",
+        zIndex: "10"
       },
       "& .bg-hd": {
-        display: "none",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        top: 0,
+        left: 0,
+        background: "#0000008f",
       },
       [theme.breakpoints.down("xs")]: {
         width: "100%",
         height: "280px",
-        position: "relative",
-        "& .bg-hd": {
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          top: 0,
-          left: 0,
-          background: "#0000008f",
-        },
       },
     },
     review: {
@@ -182,6 +181,7 @@ const useStyles = makeStyles((theme) => {
       "& .cine-child": {
         padding: "15px 10px",
         display: "flex",
+        alignItems: "center",
         opacity: "0.3",
         borderBottom: "1px solid rgba(0,0,0,0.1)",
         transition: "all 0.5s",
@@ -211,6 +211,16 @@ const useStyles = makeStyles((theme) => {
     },
     cineDay: {
       display: "block",
+      [theme.breakpoints.down("md")]: {
+        "& p": {
+          flexWrap: "wrap",
+
+        },
+        "& h2": {
+          fontSize: "18px",
+
+        }
+      },
       [theme.breakpoints.down("xs")]: {
         display: "none",
       },

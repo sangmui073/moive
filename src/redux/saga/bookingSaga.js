@@ -38,7 +38,7 @@ function* GET_BOOKING_API(action) {
 }
 function* CHECK_OUT_API(action) {
   const { payload } = action;
-  const { listTicket, token, history, Swal } = payload;
+  const { listTicket, token, history, Swal, suatChieu } = payload;
 
   yield put({
     type: IS_LOADING,
@@ -50,14 +50,16 @@ function* CHECK_OUT_API(action) {
     });
     const { data, status } = res;
     if (status === STATUS.SUCCESS) {
+      console.log(data)
       Swal.fire({
         text: data,
         icon: 'success',
       });
       yield put({
-        type: CHECK_OUT
+        type: GET_BOOKING_SAGA,
+        payload: suatChieu
       })
-      history.push("/")
+      // history.push("/")
     }
   } catch (error) {
     console.log(error)

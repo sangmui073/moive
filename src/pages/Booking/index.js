@@ -1,19 +1,19 @@
 import React, { memo, useEffect, useMemo, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, Prompt } from "react-router-dom";
 import TabPanel from "../../components/Display/TabPanel"
-import WeekendIcon from '@material-ui/icons/Weekend';
-import { AppBar, Tabs, Tab, Grid, Button } from '@material-ui/core';
+import { Weekend, Home, PermContactCalendar, Theaters, LocationCity, MonetizationOn } from '@material-ui/icons';
+import { Avatar, AppBar, Tabs, Tab, Grid, Button, Paper } from '@material-ui/core';
 import ErrorIcon from '@material-ui/icons/Error';
 import { useDispatch, useSelector } from "react-redux";
 import { CHECK_OUT_SAGA, GET_BOOKING_SAGA } from "../../redux/saga/Constants/booking-constants";
-import { CHOICE_CHAIRS } from "../../redux/reducer/Constants/booking-constants"
+import { CHECK_OUT, CHOICE_CHAIRS } from "../../redux/reducer/Constants/booking-constants"
 import Swal from 'sweetalert2'
-
+import withReactContent from "sweetalert2-react-content"
 import Clock from "../../components/Display/Clock";
 import { useStyles } from "./style"
 let listGhe = [];
 const arrayString = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "j"]
-const user = JSON.parse(localStorage.getItem("user"));
+
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
@@ -21,8 +21,10 @@ function a11yProps(index) {
   };
 }
 function Booking() {
+  const user = JSON.parse(localStorage.getItem("user"))
   const { suatChieu } = useParams();
   const classes = useStyles();
+  const MySwal = withReactContent(Swal)
   const [value, setValue] = React.useState(0);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -34,7 +36,7 @@ function Booking() {
     ],
     total: 0
   });
-
+  const [valid, setValid] = useState(false)
   useEffect(() => {
     dispatch({
       type: GET_BOOKING_SAGA,
@@ -89,9 +91,10 @@ function Booking() {
       }
 
     }
-
+    setValue(newValue);
 
   };
+  console.log(listGhe)
   if (moiveInfo && moiveInfo.tenCumRap) {
     var [fistName, lastName] = moiveInfo.tenCumRap.split("-");
   }
@@ -160,7 +163,7 @@ function Booking() {
                 <Button className={ghe.daDat ? "chair choice" : "chair"} disabled={ghe.daDat ? true : false}
 
                 >
-                  <WeekendIcon style={{ fill: ghe.loaiGhe === "Vip" ? "#f7b500" : "#fff", }}
+                  <Weekend style={{ fill: ghe.loaiGhe === "Vip" ? "#f7b500" : "#fff", }}
                     className={ghe.dangChon ? classes.chairChoice : ""}
 
                   />
@@ -182,14 +185,36 @@ function Booking() {
     <div className={`${classes.root} box`}>
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab label="01-Chọn Loại Vé" {...a11yProps(0)} />
-          <Tab label="02-Chọn Ghế" {...a11yProps(1)} />
+
+          <Tab style={{ display: `${value === 2 ? "none" : "inline-flex"}` }} label="01-Chọn Loại Vé" {...a11yProps(0)} />
+          <Tab style={{ display: `${value === 2 ? "none" : "inline-flex"}` }} label="02-Chọn Ghế" {...a11yProps(1)} />
           <Tab label="03-Thanh Toán" {...a11yProps(2)} />
         </Tabs>
+        <Button style={{ width: "150px", margin: "10px auto 0px auto", background: "rgb(254, 121, 0)", color: "#fff" }} startIcon={<Home style={{ fill: "#fff" }} />}
+          onClick={() => {
+            if (valid) {
+              MySwal.fire({
+                icon: "warning",
+                title: <p style={{ fontSize: "14px" }}>Bạn Chắc Muốn Rời Khỏi</p>,
+                showCancelButton: true,
+
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  history.push("/")
+                }
+              })
+            } else {
+              history.push("/")
+            }
+
+          }}
+        >
+          Trang Chủ
+        </Button>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <Grid className={classes.choosingChair} item md={4}>
-          <img src={moiveInfo.hinhAnh.replace("http", "https")} />
+        <Grid className={classes.choosingChair} item xs={12} md={5} lg={3}>
+          <img src={moiveInfo.hinhAnh?.replace("http", "https")} />
           <div className="bg-content">
             <div className="content">
               <p>
@@ -205,7 +230,7 @@ function Booking() {
             </div>
           </div>
         </Grid>
-        <Grid className={classes.isBooking} item md={8}>
+        <Grid className={classes.isBooking} item xs={12} md={7} lg={8}>
           <div className="cinema-name">
             <h2>
               <span style={{ color: "rgb(254, 121, 0)" }}>{fistName}</span>-<span>{lastName}</span>
@@ -240,13 +265,14 @@ function Booking() {
             </tbody>
           </table>
           <div className="total-price">
-            <p style={{ marginLeft: "20px", padding: "5px 5px" }}>
+            <p >
               <span style={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.3)" }}>Tổng Tiền</span>
               <span className="price">{ticketType.total.toLocaleString() + "đ"}</span>
             </p>
             <button className="btn-total" onClick={() => {
               if (ticketType.total > 0) {
-                setValue(1)
+                setValue(1);
+                setValid(true)
               } else {
                 Swal.fire({
                   title: 'Error!',
@@ -268,7 +294,7 @@ function Booking() {
         </Grid>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Grid className={classes.listChairs} item md={9}>
+        <Grid className={classes.listChairs} item xs={12} sm={12} md={9}>
           <div className="clock-name">
             <div>
               <h2><span style={{ color: "rgb(254, 121, 0)" }}>{fistName}</span> - <span>{lastName}</span> </h2>
@@ -276,7 +302,7 @@ function Booking() {
             </div>
             <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
               <p style={{ margin: "5px", fontSize: "12px" }}>Thời Gian Giữ Ghế</p>
-              <Clock setValue={setValue} />
+              {/* <Clock setValue={setValue} /> */}
 
             </div>
           </div>
@@ -286,7 +312,7 @@ function Booking() {
 
           <Grid container className="list-chairs" spacing={1}>
 
-            <Grid className="list-string" item sm={1}>
+            <Grid className="list-string" item xs={1} sm={1} md={1}>
               {arrayString.map((string, index) => {
                 return (
                   <Button key={index} variant="text">
@@ -295,8 +321,8 @@ function Booking() {
                 )
               })}
             </Grid>
-            <Grid style={{ overflow: "hidden", }} item sm={10}>
-              <p style={{ color: "#fff", textAlign: "center", margin: 0, padding: "1em" }}>Màn Hình</p>
+            <Grid className="chairs-container" item xs={11} sm={11} md={11}>
+              <p className="name-screen">Màn Hình</p>
               <table className="table-chairs">
                 <tbody>
                   {renderListChairs()}
@@ -304,27 +330,27 @@ function Booking() {
               </table>
               <div className="menu-chair">
                 <p>
-                  <WeekendIcon style={{ fill: "#fff" }} />
+                  <Weekend style={{ fill: "#fff" }} />
                   <span>Thường</span>
                 </p>
                 <p>
-                  <WeekendIcon style={{ fill: "rgb(247, 181, 0)" }} />
+                  <Weekend style={{ fill: "rgb(247, 181, 0)" }} />
                   <span>Vip</span>
                 </p>
                 <p>
-                  <WeekendIcon style={{ fill: "#44c020" }} />
-                  <span>Ghế đang chọn</span>
+                  <Weekend style={{ fill: "#44c020" }} />
+                  <span>Đang chọn</span>
                 </p>
                 <p>
-                  <WeekendIcon style={{ fill: "red" }} />
-                  <span>Ghế đã có người chọn</span>
+                  <Weekend style={{ fill: "red" }} />
+                  <span>Có người Đặt</span>
                 </p>
               </div>
 
             </Grid>
           </Grid>
         </Grid>
-        <Grid className={classes.profieBooking} item md={3}>
+        <Grid className={classes.profieBooking} item xs={12} sm={12} md={3}>
           <div style={{ display: "flex", flexDirection: "column", height: "100%", }}>
             <p className="profie-price">
               {ticketType.total.toLocaleString() + "đ"}
@@ -390,11 +416,12 @@ function Booking() {
                 dispatch({
                   type: CHECK_OUT_SAGA,
                   payload: {
-                    listTicket, token, history, Swal
+                    listTicket, token, history, Swal, suatChieu
                   }
                 })
 
-                // setValue(2);
+                setValue(2);
+                setValid(false)
               }}
             >
               Đặt vé
@@ -403,10 +430,135 @@ function Booking() {
         </Grid>
       </TabPanel>
       <TabPanel value={value} index={2}>
+        <div className={classes.result}>
+          <Paper style={{ padding: "0px 5px", background: "rgb(240 240 240)", }}>
+            <h3 style={{ textAlign: "center", padding: "10px 5px", background: "rgb(254, 121, 0)", color: "#fff" }}>Kết Quả Đặt Vé</h3>
+            <Grid alignItems="center" container >
+              <Grid item xs={2}>
+                <Avatar >
+                  <PermContactCalendar />
+                </Avatar>
+              </Grid>
+              <Grid item xs={10}>
+                <div>
+                  <p>
+                    Tài Khoản :
+                    <span style={{ marginLeft: "5px" }}>{user.hoTen}</span>
+                  </p>
+                  <p>
+                    Email :  <span style={{ marginLeft: "5px" }}>{user.email}</span>
+                  </p>
+                  <p>
+                    Số Dt:  <span style={{ marginLeft: "5px" }}>{user.soDT}</span>
+                  </p>
+                </div>
+              </Grid>
+            </Grid>
+            <Grid alignItems="center" container>
+              <Grid item xs={2}>
+                <Avatar>
+                  <Theaters />
+                </Avatar>
+              </Grid>
+              <Grid item xs={10}>
+                <p>
+                  Tên Phim :
+                  <span style={{ marginLeft: "5px" }}>{moiveInfo.tenPhim}</span>
+                </p>
+              </Grid>
+            </Grid>
+            <Grid alignItems="center" container>
+              <Grid item xs={2}>
+                <Avatar>
+                  <LocationCity />
+                </Avatar>
 
-        item thee
+              </Grid>
+              <Grid item xs={10}>
+                <div>
+                  <p>Rạp Chiếu :
 
+                    <span style={{ marginLeft: "5px" }}>{moiveInfo.diaChi}</span>
+                  </p>
+                  <p>Thời Gian :
+
+                    <span style={{ marginLeft: "5px" }}>{moiveInfo.ngayChieu}</span>
+                  </p>
+                </div>
+              </Grid>
+            </Grid>
+            <Grid alignItems="center" container>
+              <Grid item xs={2}>
+                <Avatar>
+                  <Weekend />
+                </Avatar>
+
+              </Grid>
+              <Grid item xs={10}>
+                <p>Danh Sách Ghế</p>
+                <Grid spacing={1} container>
+                  {chairChoices?.map((chair, index) => {
+                    return (
+                      <Grid key={index} item xs={3} sm={2} md={1}>
+                        <Paper style={{ background: "rgb(254, 121, 0)" }}>
+                          <Button style={{ color: "#fff" }}>
+                            {chair.stt}
+                          </Button>
+                        </Paper>
+                      </Grid>
+                    )
+                  })}
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid style={{ padding: "10px 0" }} alignItems="center" container>
+              <Grid item xs={2}>
+                <Avatar>
+                  <MonetizationOn />
+                </Avatar>
+
+              </Grid>
+              <Grid item xs={10}>
+                <p>
+                  Tổng Tiền :
+                  <span style={{ marginLeft: "10px", color: "green" }}>
+                    {chairChoices?.reduce((num, chair) => {
+                      return num += chair.giaVe
+                    }, 0).toLocaleString() + "Đ"}
+                  </span>
+                </p>
+              </Grid>
+
+            </Grid>
+            <div style={{ padding: "10px 0px", width: "80%", margin: "0 auto", display: "flex", justifyContent: "space-between" }}>
+              <Button style={{ background: "rgb(254, 121, 0)", color: "#fff" }} onClick={() => {
+                history.push("/")
+              }}>
+                Về Trang Chủ
+              </Button>
+              <Button style={{ background: "rgb(254, 121, 0)", color: "#fff" }}
+                onClick={() => {
+                  dispatch({
+                    type: CHECK_OUT
+                  })
+                  const newTicketType = ticketType;
+                  newTicketType.total = 0;
+                  for (let item of newTicketType.listTicket) {
+
+                    item.cout = 0
+                  };
+                  setTicketType(newTicketType);
+                  listGhe = [];
+                  setValue(0)
+                }}
+              >
+                Đặt Vé Mới
+              </Button>
+            </div>
+          </Paper>
+        </div>
       </TabPanel>
+
     </div >
   );;
 }
