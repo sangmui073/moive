@@ -8,6 +8,7 @@ import {
   Card,
   CardMedia,
   CardActionArea,
+  useScrollTrigger,
 } from "@material-ui/core";
 import PropTypes from 'prop-types';
 import logo from "../../../assets/img/img_66.png";
@@ -21,16 +22,18 @@ import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { LOG_OUT } from "../../../redux/reducer/Constants/auth-constants";
 
+
 ButtonAppBar.propTypes = {
   title: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  id: PropTypes.string
 };
 ButtonAppBar.defaultProps = {
   title: "navCarousel",
   onChange: null
 }
-function ButtonAppBar(props) {
-  const { title, onChange } = props;
+function ButtonAppBar({ title, onChange, id }, props) {
+
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -107,7 +110,7 @@ function ButtonAppBar(props) {
     }
   };
   return (
-    <div className={classes.root}>
+    <div id={id} className={classes.root}>
       <AppBar position="fixed">
         <Toolbar className={classes.toolbar}>
           <Card className={classes.Card}>
@@ -136,6 +139,7 @@ function ButtonAppBar(props) {
         </Toolbar>
       </AppBar>
       <Drawer handleDrawer={handleDrawer} toggle={drawerOpen} />
+
     </div>
   );
 }

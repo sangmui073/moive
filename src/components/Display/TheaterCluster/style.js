@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme) => {
     root: {
       margin: "50px auto",
       "& .container-Pager": {
+
         marginTop: "60px",
         boxShadow: "0px 1px 5px 12px rgba(0,0,0,0.35)",
         [theme.breakpoints.down("md")]: {
@@ -26,6 +27,12 @@ const useStyles = makeStyles((theme) => {
           display: "none",
         },
       },
+      "& .mobile-tilte": {
+        display: "none",
+        [theme.breakpoints.down("xs")]: {
+          display: "block",
+        },
+      },
     },
     title: {
       marginBottom: "50px", textAlign: "center",
@@ -37,8 +44,9 @@ const useStyles = makeStyles((theme) => {
       fontSize: "35px",
       padding: "20px 15px",
       [theme.breakpoints.down("xs")]: {
-        fontSize: "30px",
-        width: "50%",
+        fontSize: "25px",
+        width: "25%",
+        marginBottom: "0"
       },
       "&:hover": {
         "& .fist": {
@@ -50,8 +58,8 @@ const useStyles = makeStyles((theme) => {
         top: "-70%",
         width: "auto",
         left: "25%",
-        [theme.breakpoints.down("md")]: {
-          left: "15%"
+        [theme.breakpoints.down("xs")]: {
+          top: "-50%",
         },
       },
       "& .fist": {
@@ -63,8 +71,10 @@ const useStyles = makeStyles((theme) => {
       "& .last": {
         color: "transparent",
         textShadow: "-6px 9px 4px rgba(206,89,55,0.75)",
-      }
+      },
+
     },
+
     moive: {
       height: "90vh",
       overflowY: "scroll",
@@ -154,8 +164,10 @@ const useStyles = makeStyles((theme) => {
     },
     mobi: {
       display: "none",
+      padding: "15px 0",
       [theme.breakpoints.down("xs")]: {
         display: "block",
+        marginBottom: "30px"
       },
       "& img": {
         width: "100%",
@@ -256,7 +268,23 @@ const useStyles = makeStyles((theme) => {
           },
         },
       },
+      "& .active-mobile": {
+        opacity: "1",
+        width: "100%",
+        height: "100%",
+        visibility: "visible",
+        transition: "all ease-out 0.4s",
+      },
+      "& .hidden-mobile": {
+
+        width: "0",
+        height: 0,
+        opacity: "0",
+        visibility: "hidden",
+        transition: "all ease-out 0.4s",
+      },
     },
+
     "@keyframes moving": {
       "0%": {
         textShadow: "-6px 9px 4px rgba(206,89,55,0.75)",

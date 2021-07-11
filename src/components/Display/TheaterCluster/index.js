@@ -1,4 +1,5 @@
 import {
+  Avatar,
   BottomNavigation,
   BottomNavigationAction,
   Button,
@@ -6,14 +7,16 @@ import {
   Grid,
   Paper,
 } from "@material-ui/core";
-import React, { memo, useEffect, useReducer } from "react";
+import React, { memo, useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_CINEMA_LIST_SAGA } from "../../../redux/saga/Constants/cinema-constants";
 
 import ArrowDown from "@material-ui/icons/KeyboardArrowDown";
 import AlarmIcon from "@material-ui/icons/Alarm";
+import MovieIcon from "@material-ui/icons/Movie";
 import { useStyles } from "./style";
 import { useHistory } from "react-router";
+
 const initialState = {
   listCinema: [],
   listCumrap: [],
@@ -60,6 +63,7 @@ function TheatersCluster() {
   const dispatch = useDispatch();
   let [theaters, dispatchTheaters] = useReducer(theatersReducer, initialState);
   const [listCine, setValue] = React.useState(0);
+  const [index, setIndex] = useState(0);
   useEffect(() => {
     dispatch({
       type: GET_CINEMA_LIST_SAGA,
@@ -108,7 +112,7 @@ function TheatersCluster() {
                 icon={
                   <img
                     style={{ display: "block", width: "100%", height: "100%" }}
-                    src={item.logo.rep}
+                    src={item.logo.replace("http", "https")}
                   />
                 }
                 style={{ marginTop: "0px" }}
@@ -133,7 +137,7 @@ function TheatersCluster() {
                     width: "100%",
                     height: "100%",
                   }}
-                  src={item.logo}
+                  src={item.logo.replace("http", "https")}
                 />
               }
             />
@@ -175,14 +179,17 @@ function TheatersCluster() {
                 ? item.diaChi.substr(0, 30) + " ..."
                 : item.diaChi}
             </span>
-            <a
-              style={{ color: "rgb(254, 121, 0)" }}
+            <Button
+              style={{
+                color: "#fff",
+                background: "rgb(254, 121, 0)",
+              }}
               onClick={() => {
                 history.push(`/TheaterDetails/${listCumrap.maHeThongRap}`);
               }}
             >
               {"[Chi Tiết]"}
-            </a>
+            </Button>
           </div>
         );
       }
@@ -208,22 +215,27 @@ function TheatersCluster() {
             dispatchTheaters(action);
           }}
         >
-          <h4>{item.tenCumRap.length > 30
-            ? item.tenCumRap.substr(0, 30) + "..."
-            : item.tenCumRap}</h4>
+          <h4>
+            {item.tenCumRap.length > 30
+              ? item.tenCumRap.substr(0, 30) + "..."
+              : item.tenCumRap}
+          </h4>
           <span style={{ display: "block" }}>
             {item.diaChi.length > 30
               ? item.diaChi.substr(0, 30) + " ..."
               : item.diaChi}
           </span>
-          <a
-            style={{ color: "rgb(254, 121, 0)" }}
+          <Button
+            style={{
+              color: "#fff",
+              background: "rgb(254, 121, 0)",
+            }}
             onClick={() => {
               history.push(`/TheaterDetails/${listCumrap.maHeThongRap}`);
             }}
           >
             {"[Chi Tiết]"}
-          </a>
+          </Button>
         </div>
       );
     });
@@ -296,10 +308,31 @@ function TheatersCluster() {
   return (
     <>
       <Container className={classes.root} maxWidth="md">
-        <h1 className={classes.title}>
-          <span className="fist">Cụm Rạp</span>
-          <span className="last">Cụm Rạp</span>
-        </h1>
+        <div style={{ display: "flex" }}>
+          <h1
+            className={classes.title}
+            onClick={() => {
+              setIndex(0);
+            }}
+          >
+            <span className="fist">Rạp</span>
+            <span className="last">Rạp</span>
+          </h1>
+          <h1
+            style={{ width: "65%" }}
+            className={`${classes.title} mobile-tilte`}
+            onClick={() => {
+              setIndex(1);
+            }}
+          >
+            <span style={{ left: "15%" }} className="fist">
+              Hệ Thống Rạp
+            </span>
+            <span style={{ left: "15%" }} className="last">
+              Hệ Thống Rạp
+            </span>
+          </h1>
+        </div>
         <Paper className="container-Pager" elevation={3}>
           <Grid container spacing={1}>
             <Grid
@@ -333,69 +366,72 @@ function TheatersCluster() {
         </Paper>
       </Container>
       <Container maxWidth="lg" className={classes.mobi}>
-        {theaters.listCinema.map((item, index) => {
-          // console.log(item);
-          let bolen = false;
-          return (
-            <Paper key={index} className="mobi-theaters">
-              <div
-                className="mobi-logo"
-                onClick={(e) => {
-                  const elements = document.querySelectorAll(".mobi-systems");
+        <div className={index === 0 ? "active-mobile" : "hidden-mobile"}>
+          {theaters.listCinema.map((item, index) => {
+            // console.log(item);
+            let bolen = false;
+            return (
+              <Paper key={index} className="mobi-theaters">
+                <div
+                  className="mobi-logo"
+                  onClick={(e) => {
+                    const elements = document.querySelectorAll(".mobi-systems");
 
-                  for (let i = 0; i < elements.length; i++) {
-                    elements[i].classList.remove("active");
-                  }
-                  if (!bolen) {
-                    e.currentTarget.nextElementSibling.classList.add("active");
-                    bolen = true;
-                  } else {
-                    e.currentTarget.nextElementSibling.classList.remove(
-                      "active"
-                    );
-                    bolen = false;
-                  }
-                }}
-              >
-                <Button>
-                  <img src={item.logo.replace("http", "https")} />
-                </Button>
-                <p>
-                  {item.tenHeThongRap}
-                  <ArrowDown style={{ fill: "#fe7900" }} />
-                </p>
-              </div>
-              <div className="mobi-systems">
-                {item.lstCumRap.map((rap, index) => {
-                  let bol = false;
-                  return (
-                    <div className="systems" key={index}>
-                      <div
-                        style={{
-                          transition: "all 0.7s",
-                          display: "flex",
-                          alignItems: "center",
-                        }}
-                        onClick={(e) => {
-                          const elements =
-                            document.querySelectorAll(".moive-wapper");
-                          for (let i = 0; i < elements.length; i++) {
-                            elements[i].classList.remove("active-moive");
-                          }
-                          if (!bol) {
-                            e.currentTarget.nextElementSibling.classList.add(
-                              "active-moive"
-                            );
-                            bol = true;
-                          } else {
-                            e.currentTarget.nextElementSibling.classList.remove(
-                              "active-moive"
-                            );
-                            bol = false;
-                          }
-                        }}
-                      >
-                        {/* <Button className="btn-waper">
+                    for (let i = 0; i < elements.length; i++) {
+                      elements[i].classList.remove("active");
+                    }
+                    if (!bolen) {
+                      e.currentTarget.nextElementSibling.classList.add(
+                        "active"
+                      );
+                      bolen = true;
+                    } else {
+                      e.currentTarget.nextElementSibling.classList.remove(
+                        "active"
+                      );
+                      bolen = false;
+                    }
+                  }}
+                >
+                  <Button>
+                    <img src={item.logo.replace("http", "https")} />
+                  </Button>
+                  <p>
+                    {item.tenHeThongRap}
+                    <ArrowDown style={{ fill: "#fe7900" }} />
+                  </p>
+                </div>
+                <div className="mobi-systems">
+                  {item.lstCumRap.map((rap, index) => {
+                    let bol = false;
+                    return (
+                      <div className="systems" key={index}>
+                        <div
+                          style={{
+                            transition: "all 0.7s",
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                          onClick={(e) => {
+                            const elements =
+                              document.querySelectorAll(".moive-wapper");
+                            for (let i = 0; i < elements.length; i++) {
+                              elements[i].classList.remove("active-moive");
+                            }
+                            if (!bol) {
+                              e.currentTarget.nextElementSibling.classList.add(
+                                "active-moive"
+                              );
+                              bol = true;
+                            } else {
+                              e.currentTarget.nextElementSibling.classList.remove(
+                                "active-moive"
+                              );
+                              bol = false;
+                            }
+                          }}
+                        >
+                          {/* <Button className="btn-waper">
                           <img
                             style={{
                               marginRight: "15px",
@@ -404,77 +440,119 @@ function TheatersCluster() {
                           />
                         </Button> */}
 
-                        <div>
-                          <p>
-                            <span style={{ marginRight: "25px" }}>
-                              Tên Rạp:
-                            </span>
-                            <b>{rap.tenCumRap}</b>
-                          </p>
-                          <p>
-                            <span style={{ marginRight: "25px" }}>
-                              Địa Chỉ:
-                            </span>
-                            <span style={{ marginLeft: "5px" }}>
-                              {rap.diaChi.length > 40
-                                ? rap.diaChi.substr(0, 40) + "..."
-                                : rap.diaChi}
-                            </span>
-                          </p>
-                          <p style={{ display: "flex", justifyContent: "space-between" }}>
-                            <Button
+                          <div>
+                            <p>
+                              <span style={{ marginRight: "25px" }}>
+                                Tên Rạp:
+                              </span>
+                              <b>{rap.tenCumRap}</b>
+                            </p>
+                            <p>
+                              <span style={{ marginRight: "25px" }}>
+                                Địa Chỉ:
+                              </span>
+                              <span style={{ marginLeft: "5px" }}>
+                                {rap.diaChi.length > 40
+                                  ? rap.diaChi.substr(0, 40) + "..."
+                                  : rap.diaChi}
+                              </span>
+                            </p>
+                            <p
                               style={{
-                                color: "#fff",
-                                background: "rgb(254, 121, 0)",
+                                display: "flex",
+                                justifyContent: "space-between",
                               }}
                             >
-                              [chi tiết]
-                            </Button>
-                            <ArrowDown style={{ fill: "#fe7900" }} />
-                          </p>
+                              <Button
+                                style={{
+                                  color: "#fff",
+                                  background: "rgb(254, 121, 0)",
+                                }}
+                                startIcon={<MovieIcon />}
+                              >
+                                Phim
+                              </Button>
+
+                              <ArrowDown style={{ fill: "#fe7900" }} />
+                            </p>
+                          </div>
+                        </div>
+                        <div className="moive-wapper">
+                          {rap.danhSachPhim.map((phim, index) => {
+                            return (
+                              <div className="moive" key={index}>
+                                <Button className="btn-waper">
+                                  <img
+                                    src={phim.hinhAnh.replace("http", "https")}
+                                  />
+                                </Button>
+                                <p style={{ marginLeft: "10px" }}>
+                                  <span
+                                    style={{
+                                      display: "flex",
+                                      alignItems: "center",
+                                      padding: "5px 0px",
+                                    }}
+                                  >
+                                    <AlarmIcon /> : 120p
+                                  </span>
+                                  <Button
+                                    color="primary"
+                                    variant="contained"
+                                    size="small"
+                                    onClick={() => {
+                                      history.push(
+                                        `/DetailsMoive/${phim.maPhim}`
+                                      );
+                                    }}
+                                  >
+                                    Chi Tiết
+                                  </Button>
+                                </p>
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
-                      <div className="moive-wapper">
-                        {rap.danhSachPhim.map((phim, index) => {
-                          return (
-                            <div className="moive" key={index}>
-                              <Button className="btn-waper">
-                                <img src={phim.hinhAnh.replace("http", "https")} />
-                              </Button>
-                              <p style={{ marginLeft: "10px" }}>
-                                <span
-                                  style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    padding: "5px 0px",
-                                  }}
-                                >
-                                  <AlarmIcon /> : 120p
-                                </span>
-                                <Button
-                                  color="primary"
-                                  variant="contained"
-                                  size="small"
-                                  onClick={() => {
-                                    history.push(
-                                      `/DetailsMoive/${phim.maPhim}`
-                                    );
-                                  }}
-                                >
-                                  Chi Tiết
-                                </Button>
-                              </p>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </Paper>
-          );
-        })}
+                    );
+                  })}
+                </div>
+              </Paper>
+            );
+          })}
+        </div>
+        <div className={index === 1 ? "active-mobile" : "hidden-mobile"}>
+          <Grid spacing={2} container justify="center"
+            alignItems="center">
+            {cinemaList.map((cine, index) => {
+              return (
+                <Grid
+
+                  key={index}
+                  item
+                  xs={4}
+                  style={{ marginTop: "10px" }}
+                >
+                  <Avatar
+                    style={{
+                      background: "rgba(0,0,0, 0.1)",
+                      borderRadius: "50%",
+                      padding: "5px",
+                      width: "75%",
+                      height: "100%",
+                      margin: "0 auto",
+                      boxShadow: "0px 0px 10px 6px rgba(0,0,0,0.35)"
+                    }}
+                    src={cine.logo.replace("http", "https")} onClick={() => {
+                      history.push(`/TheaterDetails/${cine.maHeThongRap}`)
+
+                    }}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+        </div>
       </Container>
     </>
   );

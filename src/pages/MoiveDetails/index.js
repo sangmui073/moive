@@ -136,7 +136,12 @@ function MovieDetails() {
       type: GET_MOIVE_DETAILS_SAGA,
       payload: phim,
     });
+    return () => {
+      cine.cumRap.maHeThong = "";
+      cine.listMoive.maCumRap = "";
+    }
   }, []);
+
   useEffect(() => {
     if (heThongRapChieu && heThongRapChieu.length > 0) {
       const action = {
@@ -144,6 +149,7 @@ function MovieDetails() {
         payload: heThongRapChieu,
       };
       dispatchCiner(action);
+
     }
   }, [heThongRapChieu]);
   const renderDayMobie = () => {

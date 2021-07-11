@@ -1,7 +1,9 @@
+import { CssBaseline } from "@material-ui/core";
 import React, { memo, useLayoutEffect, useRef, useState } from "react";
 import "swiper/swiper.scss";
 import Header from "../../components/Display/Header";
 import Pages from "../../components/Display/Lazyload"
+import ScrollToTop from "../../components/Display/SrcollToTop";
 
 
 import { useStyles } from "./style"
@@ -35,18 +37,19 @@ function Home() {
   }, [sections]);
   return (
     <div className={`${classes.root} box`}>
-      <Header title={sections} onChange={handleChange} />
+      <CssBaseline />
+      <Header id="back-to-top-anchor" title={sections} onChange={handleChange} />
       <div style={{ height: "65px" }}>
-
       </div>
       {Pages.map((pg, index) => {
-        const { cls, location, debounce, Component } = pg;
+        const { cls, location, Component } = pg;
         return (
           <div key={index} className={cls} id={location}>
             <Component />
           </div>
         )
       })}
+      <ScrollToTop />
     </div>
   );
 }

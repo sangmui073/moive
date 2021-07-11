@@ -1,15 +1,12 @@
-html,
-body {
-  scroll-behavior: smooth;
+body,
+html {
   width: 100%;
   height: 100%;
 }
-@media only screen and (max-width: 600px) {
-  body,
-  html {
-    overflow-x: hidden;
-  }
+body #root {
+  overflow-x: hidden;
 }
+
 * {
   box-sizing: border-box;
 }

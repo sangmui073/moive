@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => {
         }
 
       },
-      "& a.Mui-selected": {
+      "& button.Mui-selected": {
         transform: "scale(1)",
         "& span": {
           WebkitTextStrokeColor: color.textActive,

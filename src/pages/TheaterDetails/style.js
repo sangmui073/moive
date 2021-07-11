@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
                 "& img": {
                     borderRadius: "5px",
                     boxShadow: " -1px 2px 5px 10px rgba(0,0,0,0.35)",
-                }
+                },
             },
             "& .-content": {
                 color: "#fff",
@@ -22,19 +22,20 @@ const useStyles = makeStyles((theme) => ({
                     fontSize: "20px",
                 },
                 "& h1": {
-                    fontSize: "30px", marginTop: "45px"
+                    fontSize: "30px",
+                    marginTop: "45px",
                 },
                 "& button": {
                     background: "#fe7900",
                     marginTop: "5px",
                     "& svg": {
-                        fill: "#fff"
+                        fill: "#fff",
                     },
                     "& span": {
                         color: "#fff",
-                        fontSize: "16px"
-                    }
-                }
+                        fontSize: "16px",
+                    },
+                },
             },
             "& .bg-liner": {
                 position: "absolute",
@@ -44,18 +45,57 @@ const useStyles = makeStyles((theme) => ({
                 width: "100%",
                 backgroundSize: "cover",
                 zIndex: "-1",
-                filter: "blur(15px)"
-            }
+                filter: "blur(15px)",
+            },
         },
         "& img": {
             display: "block",
             width: "100%",
-            height: "100%"
-        }
+            height: "100%",
+        },
     },
 
     system: {
         padding: "50px 0px",
+        "& .system-child": {
+            borderRight: "1px solid rgba(0,0,0,0.3)",
+            height: "550px",
+            overflowY: "scroll",
+            [theme.breakpoints.down("xs")]: {
+                height: "100%",
+                overflowY: "hidden",
+            },
+            "& .mobile-btnUp.mobile-btnUp": {
+                display: "none",
+                [theme.breakpoints.down("xs")]: {
+                    display: "block",
+                    textAlign: "center"
+                },
+                "& .MuiButton-text": {
+                    width: "100%",
+                    margin: "0 auto",
+                    background: "rgb(254, 121, 0)",
+                    color: "#fff"
+                }
+            },
+            "& .silde": {
+                overflowY: "auto",
+                height: "100%",
+                [theme.breakpoints.down("xs")]: {
+                    height: "210px",
+                    overflowY: "hidden",
+                },
+            }
+        },
+        "& .moive-child": {
+            overflowY: "scroll",
+            height: "520px",
+            [theme.breakpoints.down("xs")]: {
+                height: "100%",
+                overflowY: "hidden",
+            },
+        },
+
         "& .wapper": {
             padding: "15px 10px",
             "& .MuiGrid-grid-sm-5": {
@@ -83,26 +123,42 @@ const useStyles = makeStyles((theme) => ({
                     backgroundColor: "#fe7900",
                     outline: "2px solid rgba(0, 0, 0, 0.1)",
                 },
-            }
-
+            },
         },
         "& img": {
             display: "block",
             width: "100%",
-            height: "100%"
+            height: "100%",
         },
         "& .-andess": {
             opacity: "0.6",
+            minHeight: "100%",
             cursor: "pointer",
-            transition: "opacity 0.5s",
+            transition: "all 0.5s",
             padding: "10px 0px",
+
+            "& p": {
+                "& span": {
+                    display: "block", fontSize: "14px"
+                },
+                [theme.breakpoints.down("xs")]: {
+                    display: "flex",
+                    height: "100%",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    fontSize: "16px"
+
+                },
+            },
             "&:hover": {
-                opacity: 1
+                opacity: 1,
             },
             "&:nth-child(1)": {
                 opacity: "1",
-                borderBottom: "1px solid rgba(0,0,0,0.3)"
-            }
+                borderBottom: "1px solid rgba(0,0,0,0.3)",
+            },
+
         },
         "& .-day": {
             flexWrap: "nowrap",
@@ -115,15 +171,15 @@ const useStyles = makeStyles((theme) => ({
             },
             "& .active": {
                 background: "#fe7900",
-                color: "#fff"
-            }
+                color: "#fff",
+            },
         },
         "& .-moive": {
             margin: "10px 0px",
             "& .-logo2d": {
                 width: "50px",
                 height: "50px",
-                marginRight: "10px"
+                marginRight: "10px",
             },
             "& .-img": {
                 display: "block",
@@ -131,7 +187,7 @@ const useStyles = makeStyles((theme) => ({
                 "& img": {
                     height: "80px",
                     borderRadius: "5px",
-                }
+                },
             },
             "& .hour ": {
                 visibility: "hidden",
@@ -151,15 +207,14 @@ const useStyles = makeStyles((theme) => ({
                     background: "rgba(0, 0, 0, 0.5)",
                     margin: "5px",
                     color: "#fff",
-                    opacity: 0
+                    opacity: 0,
                 },
             },
             "& .-child": {
                 margin: 0,
                 display: "flex",
-                justifyContent: "space-between"
+                justifyContent: "space-between",
             },
-
         },
     },
 
@@ -172,17 +227,15 @@ const useStyles = makeStyles((theme) => ({
             transition: "all 0.2s",
             "& h3": {
                 opacity: 1,
-                transitionDelay: "0.3s"
+                transitionDelay: "0.3s",
             },
             "& button": {
                 opacity: 1,
-            }
+            },
+        },
+    },
+}));
 
-        }
-
-    }
-}))
-
-export { useStyles }
+export { useStyles };
 // padding: "10px",
 // marginTop: "10px",

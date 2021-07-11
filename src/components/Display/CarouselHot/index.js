@@ -72,7 +72,7 @@ function CarouselHot() {
 
   const [trailer, setTrailer] = useState(null);
   const dispatch = useDispatch();
-  console.log(pagitiona, filterMoive.cout)
+
   useEffect(() => {
     const newFilterMoive = {
       soTrang: filterMoive.currentPage,

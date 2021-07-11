@@ -38,14 +38,19 @@ function SimpleBottomNavigation(props) {
   const classes = useStyles();
   const { title, onChange } = props;
   const history = useHistory();
-
+  const handleScroll = (event, id) => {
+    const anchor = (event.target.ownerDocument || document).querySelector(`#${id}`);
+    if (anchor) {
+      anchor.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }
   return (
     <BottomNavigation
       value={title}
       onChange={(event, newValue) => {
         if (!onChange) return
         onChange(newValue);
-
+        handleScroll(event, newValue)
       }}
       showLabels
       className={classes.root}
@@ -56,7 +61,7 @@ function SimpleBottomNavigation(props) {
             onClick={() => {
               history.push("/");
             }}
-            href={`#${txt.id}`}
+
             style={cls}
             key={index}
             label={txt.label}

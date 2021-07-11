@@ -16,7 +16,7 @@ class Helper {
       });
       listFormatCine.push({ ...item, ...rap });
     }
-
+    console.log(listFormatCine)
     return listFormatCine;
   };
 }

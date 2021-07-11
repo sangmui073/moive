@@ -6,6 +6,7 @@ const color = {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    overflowX: "hidden",
     "& header": {
       background: color.bgPrimary,
       "& .MuiPaper-elevation1": {
