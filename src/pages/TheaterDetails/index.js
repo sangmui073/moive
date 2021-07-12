@@ -39,39 +39,50 @@ function TheaterDetails() {
     const [day, setDay] = useState("Thứ 4");
     const [tick, setTick] = useState(0);
     const [y, setY] = useState(0);
+    const [index, setIndex] = useState(0)
     useEffect(() => {
-
-        if (!cinema) {
-
-            const cineData = help.formatDataCine(param.maRap, cinemaDetails.lstCumRap);
-            console.log(cineData)
+        const cineData = help.formatDataCine(param.maRap, cinemaDetails.lstCumRap);
+        if (cineData) {
             setCinema(cineData);
         }
-
-    }, [cinemaDetails, y]);
+    }, [cinemaDetails]);
+    useEffect(() => {
+        if (y < 0) {
+            const newY = y / -100;
+            setIndex(newY)
+        } else {
+            const newY = y / 100;
+            setIndex(newY)
+        }
+    }, [y])
     useEffect(() => {
         dispatch({
             type: GET_CINEMA_DETAILS_SAGA,
             payload: param.maRap,
         });
     }, []);
-
-
+    console.log(y)
     const goUp = () => {
         y === 0 ? setY(-100 * (cinema.length - 1)) : setY(y + 100)
-        console.log(y)
+
     };
     const goDown = () => {
         y === -100 * (cinema.length - 1) ? setY(0) : setY(y - 100)
-        console.log(y);
+
     }
     const handleChangeSystem = (cine) => {
-        const newCinema = [...cinema];
-        const index = newCinema.findIndex((item) => item.maCumRap === cine);
-        const prevCine = newCinema[index];
-        newCinema[index] = newCinema[0];
-        newCinema[0] = prevCine;
-        setCinema(newCinema);
+        if (index === 0) {
+            const newCinema = [...cinema];
+            const index = newCinema.findIndex((item) => item.maCumRap === cine);
+            const prevCine = newCinema[index];
+            newCinema[index] = newCinema[0];
+            newCinema[0] = prevCine;
+
+            setCinema(newCinema);
+        }
+
+
+
     };
     const renderSystem = () => {
 
@@ -80,14 +91,14 @@ function TheaterDetails() {
                 <div
                     onClick={() => {
                         handleChangeSystem(cine.maCumRap);
-                        console.log(cine);
+                        console.log(cine.maCumRap);
                     }}
                     key={index}
                     className="-andess"
                     style={{ transform: `translateY(${y}%)` }}
                 >
                     <Grid container spacing={2}>
-                        <Grid style={{ height: "200px" }} item xs={6} sm={2}>
+                        <Grid className="andress-img" item xs={6} sm={2}>
                             <img
                                 src={
                                     process.env.PUBLIC_URL +
@@ -100,7 +111,7 @@ function TheaterDetails() {
                                 {cine.tenCumRap.length > 35
                                     ? cine.tenCumRap.substr(0, 35) + "..."
                                     : cine.tenCumRap}
-                                <span>
+                                <span style={{ color: "rgb(0,0,0)" }}>
                                     {cine.diaChi.length > 40
                                         ? cine.diaChi.substr(0, 40) + "..."
                                         : cine.diaChi}
@@ -179,8 +190,9 @@ function TheaterDetails() {
         });
     };
     const renderMoive = () => {
+        const newId = index === 0 ? 0 : index;
         const array = [];
-        for (let item of cinema[0].danhSachPhim) {
+        for (let item of cinema[newId].danhSachPhim) {
             for (let i of item.lstLichChieuTheoPhim) {
                 if (dateFormat(i.ngayChieuGioChieu, "dddd") === day) {
                     array.push(item);
@@ -197,8 +209,8 @@ function TheaterDetails() {
                         }
                         key={index}
                     >
-                        <Grid container spacing={2}>
-                            <Grid item sm={2}>
+                        <Grid container alignItems="center" spacing={2}>
+                            <Grid item xs={3} sm={2}>
                                 <Button
                                     className="-img"
                                     onClick={() => {
@@ -211,7 +223,7 @@ function TheaterDetails() {
                                     <img src={d.hinhAnh.replace("http", "https")} />
                                 </Button>
                             </Grid>
-                            <Grid item sm={10}>
+                            <Grid item xs={9} sm={10}>
                                 <p className="-child">
                                     <Button
                                         onClick={() => {
@@ -254,7 +266,8 @@ function TheaterDetails() {
         }
     };
     if (cinema && cinema.length) {
-        const [fistName, lastName] = cinema[0].tenCumRap.split("-");
+        const newId = index === 0 ? 0 : index;
+        const [fistName, lastName] = cinema[newId].tenCumRap.split("-");
         return (
             <section className={classes.root}>
                 <div className="parent-container">
@@ -264,7 +277,7 @@ function TheaterDetails() {
                                 <img
                                     src={
                                         process.env.PUBLIC_URL +
-                                        `${cinema[0]?.hinhAnh?.replace("http", "https")}`
+                                        `${cinema[newId]?.hinhAnh?.replace("http", "https")}`
                                     }
                                 />
                             </Grid>
@@ -273,7 +286,7 @@ function TheaterDetails() {
                                     <span style={{ color: "#fe7900" }}>{fistName} -</span>
                                     <span>{lastName}</span>
                                 </h1>
-                                <p>{cinema[0].diaChi}</p>
+                                <p>{cinema[newId].diaChi}</p>
                                 <Button
                                     size="large"
                                     onClick={() => {
@@ -290,7 +303,7 @@ function TheaterDetails() {
                             </Grid>
                             <div
                                 style={{
-                                    backgroundImage: `linear-gradient(to top,rgba(0,0,0,0.3),transparent 100%),url(${cinema[0]?.hinhAnh?.replace(
+                                    backgroundImage: `linear-gradient(to top,rgba(0,0,0,0.3),transparent 100%),url(${cinema[newId]?.hinhAnh?.replace(
                                         "http",
                                         "https"
                                     )})`,
@@ -316,7 +329,7 @@ function TheaterDetails() {
                             <Grid className="system-child" item xs={12} sm={5}>
                                 <Grid className="mobile-btnUp" item xs={12}>
                                     <Button onClick={goUp}>
-                                        <KeyboardArrowUp fontSize="large" />
+                                        <KeyboardArrowUp className="icon-up" fontSize="large" />
                                     </Button>
                                 </Grid>
                                 <Paper className="silde">
@@ -324,7 +337,7 @@ function TheaterDetails() {
                                 </Paper>
                                 <Grid className="mobile-btnUp" item xs={12}>
                                     <Button onClick={goDown}>
-                                        <KeyboardArrowDown fontSize="large" />
+                                        <KeyboardArrowDown className="icon-down" fontSize="large" />
                                     </Button>
                                 </Grid>
                             </Grid>

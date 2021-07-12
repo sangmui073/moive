@@ -20,10 +20,19 @@ const useStyles = makeStyles((theme) => ({
                 marginLeft: "auto",
                 "& p": {
                     fontSize: "20px",
+                    [theme.breakpoints.down("xs")]: {
+                        height: "100px",
+                        overflow: "hidden"
+                    },
                 },
                 "& h1": {
-                    fontSize: "30px",
+                    fontSize: "25px",
                     marginTop: "45px",
+                    [theme.breakpoints.down("xs")]: {
+                        height: "80px",
+                        overflow: "hidden",
+                        marginTop: "35px",
+                    },
                 },
                 "& button": {
                     background: "#fe7900",
@@ -59,31 +68,57 @@ const useStyles = makeStyles((theme) => ({
         padding: "50px 0px",
         "& .system-child": {
             borderRight: "1px solid rgba(0,0,0,0.3)",
-            height: "550px",
-            overflowY: "scroll",
-            [theme.breakpoints.down("xs")]: {
-                height: "100%",
-                overflowY: "hidden",
-            },
+            // [theme.breakpoints.down("xs")]: {
+            //     height: "100%",
+            //     overflowY: "hidden",
+            // },
             "& .mobile-btnUp.mobile-btnUp": {
                 display: "none",
+
                 [theme.breakpoints.down("xs")]: {
                     display: "block",
-                    textAlign: "center"
+                    textAlign: "center",
                 },
                 "& .MuiButton-text": {
                     width: "100%",
                     margin: "0 auto",
                     background: "rgb(254, 121, 0)",
-                    color: "#fff"
-                }
+                    color: "#fff",
+                    "& .icon-up": {
+                        animation: "none",
+                        position: "relative",
+                        [theme.breakpoints.down("xs")]: {
+                            animation: `$tranY 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite both`,
+
+                        },
+                    },
+                    "& .icon-down": {
+                        animation: "none",
+                        position: "relative",
+                        [theme.breakpoints.down("xs")]: {
+                            animation: `$tranY 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite reverse both`,
+                        },
+                    },
+                },
             },
             "& .silde": {
-                overflowY: "auto",
-                height: "100%",
+                height: "550px",
+                overflowY: "scroll",
+                overflowX: "hidden",
+                "&::-webkit-scrollbar": {
+                    width: "5px",
+                    height: "0.2em",
+                },
+                "&::-webkit-scrollbar-track": {
+                    boxShadow: "inset 0 0 6px rgba(0,0,0,0.1)",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                    backgroundColor: "#fe7900",
+                    outline: "2px solid rgba(0, 0, 0, 0.1)",
+                },
                 [theme.breakpoints.down("xs")]: {
                     height: "210px",
-                    overflowY: "hidden",
+                    overflow: "hidden",
                 },
             }
         },
@@ -132,11 +167,21 @@ const useStyles = makeStyles((theme) => ({
         },
         "& .-andess": {
             opacity: "0.6",
-            minHeight: "100%",
+            minHeight: "auto",
             cursor: "pointer",
             transition: "all 0.5s",
             padding: "10px 0px",
 
+            [theme.breakpoints.down("xs")]: {
+                minHeight: "100%",
+                opacity: 1
+            },
+            "& .andress-img": {
+                height: "80px",
+                [theme.breakpoints.down("xs")]: {
+                    height: "200px"
+                },
+            },
             "& p": {
                 "& span": {
                     display: "block", fontSize: "14px"
@@ -147,8 +192,8 @@ const useStyles = makeStyles((theme) => ({
                     alignItems: "center",
                     flexDirection: "column",
                     justifyContent: "center",
-                    fontSize: "16px"
-
+                    fontSize: "16px",
+                    color: "rgb(254, 121, 0)"
                 },
             },
             "&:hover": {
@@ -157,6 +202,9 @@ const useStyles = makeStyles((theme) => ({
             "&:nth-child(1)": {
                 opacity: "1",
                 borderBottom: "1px solid rgba(0,0,0,0.3)",
+                [theme.breakpoints.down("xs")]: {
+                    borderBottom: "none",
+                },
             },
 
         },
@@ -165,6 +213,12 @@ const useStyles = makeStyles((theme) => ({
             whiteSpace: "nowrap",
             padding: "25px 5px",
             borderBottom: "1px solid rgba(0,0,0,0.3)",
+            [theme.breakpoints.down("sm")]: {
+                flexWrap: "wrap",
+                justifyContent: "center",
+                alignContent: "center",
+                padding: "10px 5px",
+            },
             "& button": {
                 margin: "0px 5px",
                 transition: "all 0.5s",
@@ -234,6 +288,18 @@ const useStyles = makeStyles((theme) => ({
             },
         },
     },
+    "@keyframes tranY": {
+        "0%": {
+            transform: "translateY(0px)",
+        },
+        // "50%": {
+        //     transform: "translateY(-7px)",
+        // },
+        "100%": {
+            transform: "translateY(-7px)"
+        }
+    },
+
 }));
 
 export { useStyles };

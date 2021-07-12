@@ -14,9 +14,10 @@ class Helper {
       const rap = heThongRap.find((value) => {
         return value.maCumRap === item.maCumRap;
       });
+
       listFormatCine.push({ ...item, ...rap });
     }
-    console.log(listFormatCine)
+
     return listFormatCine;
   };
 }

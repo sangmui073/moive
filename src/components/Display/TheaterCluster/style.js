@@ -3,10 +3,10 @@ import bg from "../../../assets/img/bg-login.jpg"
 const useStyles = makeStyles((theme) => {
   return {
     root: {
-      margin: "50px auto",
+      margin: "20px auto",
       "& .container-Pager": {
 
-        marginTop: "60px",
+
         boxShadow: "0px 1px 5px 12px rgba(0,0,0,0.35)",
         [theme.breakpoints.down("md")]: {
           fontSize: "14px"
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => {
     title: {
       marginBottom: "50px", textAlign: "center",
       boxShadow: " 0px 20px 5px 0px rgba(0,0,0,0.35)",
-      width: "30%",
+      width: "25%",
       margin: "20px auto",
       position: "relative",
       border: "1px solid #fe7900",
@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme) => {
       padding: "20px 15px",
       [theme.breakpoints.down("xs")]: {
         fontSize: "25px",
-        width: "25%",
         marginBottom: "0"
       },
       "&:hover": {
@@ -57,9 +56,13 @@ const useStyles = makeStyles((theme) => {
         position: "absolute",
         top: "-70%",
         width: "auto",
-        left: "25%",
+        left: "35%",
+        [theme.breakpoints.down("xs")]: {
+          left: "30%"
+        },
         [theme.breakpoints.down("xs")]: {
           top: "-50%",
+          left: "25%"
         },
       },
       "& .fist": {
