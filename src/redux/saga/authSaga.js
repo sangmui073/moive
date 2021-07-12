@@ -81,6 +81,7 @@ function* AuthFacebook(action) {
         type: SIGN_IN_ACTION,
         payload: user,
       });
+      payload.redirect.push("/")
     }
 
   } catch (error) {

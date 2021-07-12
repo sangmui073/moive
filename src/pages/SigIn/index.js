@@ -19,6 +19,7 @@ import { AUTH_FACEBOOK, SIGN_IN_SAGA } from "../../redux/saga/Constants/auth-con
 import FacebookLogin from 'react-facebook-login';
 import { useStyles } from "./style";
 import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -40,7 +41,7 @@ function SigIn() {
     matKhau: "",
   });
   const dispatch = useDispatch();
-
+  const history = useHistory()
   const handleLogin = (event) => {
     event.preventDefault();
     console.log("submit")
@@ -81,9 +82,9 @@ function SigIn() {
         accout: accoutFB,
         hinhAnh: responve.picture.data.url,
         modal: Swal,
+        redirect: history
       }
     })
-
   }
 
   return (
@@ -125,7 +126,7 @@ function SigIn() {
 
             <FacebookLogin
               appId="420393739107317"
-              autoLoad={false}
+              autoLoad={true}
               fields="name,email,picture"
               onClick={componentClicked}
               callback={responseFacebook}
