@@ -57,7 +57,8 @@ function ButtonAppBar({ title, onChange, id }, props) {
             history.push("/User-Profie")
           }}>
             <img
-              src={`https://i.pravatar.cc/150?u=${user.taiKhoan}`}
+              src={user.hinhAnh ? user.hinhAnh : `https://i.pravatar.cc/150?u=${user.taiKhoan}`}
+
               style={{
                 width: "30px",
                 height: "30px",
@@ -65,7 +66,7 @@ function ButtonAppBar({ title, onChange, id }, props) {
                 borderRadius: "50%",
               }}
             />
-            <span style={{ fontWeight: "bold" }}>{user.taiKhoan}</span>
+            <span style={{ fontWeight: "bold" }}>{user.hoTen}</span>
           </Button>
           <Button
             onClick={() => {

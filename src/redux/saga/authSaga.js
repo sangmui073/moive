@@ -1,12 +1,23 @@
 import { all, call, takeLatest, put, delay } from "@redux-saga/core/effects";
 import { authService } from "../../services";
 import { STATUS } from "../../services/Constants";
-import { SIGN_IN_ACTION, ERROR, SIGN_UP_ACTION, SET_PROFIE } from "../reducer/Constants/auth-constants";
+import {
+  SIGN_IN_ACTION,
+  ERROR,
+  SIGN_UP_ACTION,
+  SET_PROFIE,
+} from "../reducer/Constants/auth-constants";
 import {
   IS_LOADING,
   LOADING_COMPLETE,
 } from "../reducer/Constants/loading-constants";
-import { GET_PROFILE, PUT_PROFILE, SIGN_IN_SAGA, SIGN_UP_SAGA } from "./Constants/auth-constants";
+import {
+  AUTH_FACEBOOK,
+  GET_PROFILE,
+  PUT_PROFILE,
+  SIGN_IN_SAGA,
+  SIGN_UP_SAGA,
+} from "./Constants/auth-constants";
 
 function* SIGN_IN(action) {
   const { payload } = action;
@@ -29,7 +40,7 @@ function* SIGN_IN(action) {
       });
     }
   } catch (error) {
-    console.log(error.response)
+    console.log(error.response);
     yield put({
       type: ERROR,
       payload: error.response,
@@ -39,6 +50,47 @@ function* SIGN_IN(action) {
     type: LOADING_COMPLETE,
   });
 }
+
+function* AuthFacebook(action) {
+  yield put({
+    type: IS_LOADING,
+  });
+  const { payload } = action;
+  try {
+    yield call(() => {
+      authService.signUp(payload.accout);
+    });
+    const resLogin = yield call(() => {
+      return authService.signIn({
+        taiKhoan: payload.accout.taiKhoan,
+        matKhau: payload.accout.matKhau,
+      })
+    })
+    const { data, status } = resLogin;
+    if (status === STATUS.SUCCESS) {
+      const user = { ...data, hinhAnh: payload.hinhAnh };
+      localStorage.setItem("user", JSON.stringify(user));
+      payload.modal.fire({
+        icon: 'success',
+        title: 'Thành Công',
+        showConfirmButton: false,
+        text: 'Đăng Nhập Thành Công!',
+      })
+      yield delay(500)
+      yield put({
+        type: SIGN_IN_ACTION,
+        payload: user,
+      });
+    }
+
+  } catch (error) {
+    console.log(error)
+  }
+  yield put({
+    type: LOADING_COMPLETE,
+  });
+}
+
 function* SIGN_UP(action) {
   const { payload } = action;
   const { values, Swal, history } = payload;
@@ -48,69 +100,66 @@ function* SIGN_UP(action) {
   yield delay(500);
   try {
     const res = yield call(() => {
-      return authService.signUp(values)
-    })
+      return authService.signUp(values);
+    });
     const { data, status } = res;
     if (status === STATUS.SUCCESS) {
       const user = yield call(() => {
         return authService.signIn({
           taiKhoan: data.taiKhoan,
-          matKhau: data.matKhau
-        })
-      })
+          matKhau: data.matKhau,
+        });
+      });
       localStorage.setItem("user", JSON.stringify(user.data));
       yield put({
         type: SIGN_UP_ACTION,
-        payload: data
-      })
+        payload: data,
+      });
       Swal.fire({
-        title: '',
-        text: 'Bạn đã đăng ký thành công',
-        icon: 'success',
-        confirmButtonText: 'Ok'
-      })
+        title: "",
+        text: "Bạn đã đăng ký thành công",
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
       setTimeout(() => {
-        history.push("/")
+        history.push("/");
       }, 2000);
     }
   } catch (error) {
     Swal.fire({
-      title: '',
+      title: "",
       text: error.response.data,
-      icon: 'error',
-      confirmButtonText: 'Ok'
-    })
-
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
   }
   yield put({
     type: LOADING_COMPLETE,
   });
-
 }
 
 function* Get_Profie_Api(action) {
   const { payload } = action;
   const user = {
-    taiKhoan: payload
-  }
+    taiKhoan: payload,
+  };
   yield put({
     type: IS_LOADING,
   });
   yield delay(500);
   try {
     const res = yield call(() => {
-      return authService.getProfie(user)
-    })
+      return authService.getProfie(user);
+    });
     const { data, status } = res;
     if (status === STATUS.SUCCESS) {
-
       yield put({
         type: SET_PROFIE,
-        payload: data
-      })
+        payload: data,
+      });
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 
   yield put({
@@ -127,57 +176,62 @@ function* reaplaceProfie(action) {
   yield delay(500);
   try {
     const res = yield call(() => {
-
       return authService.putProfile(user, token);
-    })
+    });
     const { data, status } = res;
 
     if (status === STATUS.SUCCESS) {
       const user = {
         taiKhoan: data.taiKhoan,
-        matKhau: data.matKhau
+        matKhau: data.matKhau,
       };
       try {
         const userLogin = yield call(() => {
-          return authService.signIn(user)
-        })
+          return authService.signIn(user);
+        });
         if (userLogin.status === STATUS.SUCCESS) {
-          console.log(userLogin)
-          localStorage.setItem("user", JSON.stringify(userLogin.data))
+          console.log(userLogin);
+          localStorage.setItem("user", JSON.stringify(userLogin.data));
         }
       } catch (error) {
-        console.log(error.response.data)
+        console.log(error.response.data);
       }
-
-
     }
   } catch (error) {
     Swal.fire({
-      title: 'Error!',
+      title: "Error!",
       text: error.response.data,
-      icon: 'error',
-      confirmButtonText: 'Ok'
-    })
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
   }
   yield put({
     type: LOADING_COMPLETE,
   });
 }
 function* followPutProfile() {
-  yield takeLatest(PUT_PROFILE, reaplaceProfie)
+  yield takeLatest(PUT_PROFILE, reaplaceProfie);
 }
 function* followGetProfie() {
-  yield takeLatest(GET_PROFILE, Get_Profie_Api)
+  yield takeLatest(GET_PROFILE, Get_Profie_Api);
 }
 
 function* followSignUp() {
-  yield takeLatest(SIGN_UP_SAGA, SIGN_UP)
+  yield takeLatest(SIGN_UP_SAGA, SIGN_UP);
 }
 function* followSignIn() {
   yield takeLatest(SIGN_IN_SAGA, SIGN_IN);
 }
-
+function* followAuthFaceBook() {
+  yield takeLatest(AUTH_FACEBOOK, AuthFacebook);
+}
 
 export default function* followAuth() {
-  yield all([followSignIn(), followSignUp(), followGetProfie(), followPutProfile()]);
+  yield all([
+    followSignIn(),
+    followSignUp(),
+    followGetProfie(),
+    followPutProfile(),
+    followAuthFaceBook()
+  ]);
 }

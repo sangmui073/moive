@@ -4,8 +4,7 @@ import {
   Button,
   CssBaseline,
   TextField,
-  FormControlLabel,
-  Checkbox,
+
   Link,
   Paper,
   Box,
@@ -16,8 +15,11 @@ import {
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import ModalUser from "../../components/Display/Modaluser";
 import { useDispatch } from "react-redux";
-import { SIGN_IN_SAGA } from "../../redux/saga/Constants/auth-constants";
+import { AUTH_FACEBOOK, SIGN_IN_SAGA } from "../../redux/saga/Constants/auth-constants";
+import FacebookLogin from 'react-facebook-login';
 import { useStyles } from "./style";
+import Swal from "sweetalert2";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -41,7 +43,7 @@ function SigIn() {
 
   const handleLogin = (event) => {
     event.preventDefault();
-
+    console.log("submit")
     dispatch({
       type: SIGN_IN_SAGA,
       payload: {
@@ -61,6 +63,29 @@ function SigIn() {
   const handleOpen = () => {
     setOpen(true);
   };
+  const componentClicked = () => console.log("click")
+  const responseFacebook = (responve) => {
+    const accoutFB = {
+      taiKhoan: responve.email,
+      matKhau: responve.id,
+      email: responve.email,
+      soDt: "",
+      maNhom: "GP11",
+      maLoaiNguoiDung: "KhachHang",
+      hoTen: responve.name
+    }
+
+    dispatch({
+      type: AUTH_FACEBOOK,
+      payload: {
+        accout: accoutFB,
+        hinhAnh: responve.picture.data.url,
+        modal: Swal,
+      }
+    })
+
+  }
+
   return (
     <Grid container component="section" className={`${classes.root} box`}>
       <CssBaseline />
@@ -97,10 +122,16 @@ function SigIn() {
               autoComplete="current-password"
               onChange={handleChange}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+
+            <FacebookLogin
+              appId="420393739107317"
+              autoLoad={false}
+              fields="name,email,picture"
+              onClick={componentClicked}
+              callback={responseFacebook}
+              textButton="Đăng Nhập Với Facebook"
             />
+
             <Button
               type="submit"
               fullWidth
@@ -113,12 +144,13 @@ function SigIn() {
             <Grid container>
               <Grid item>
                 <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {"Bạn chưa có tài khoản? hãy đăng ký"}
                 </Link>
               </Grid>
             </Grid>
             <Box mt={5}>
               <Copyright />
+
             </Box>
           </form>
         </div>
