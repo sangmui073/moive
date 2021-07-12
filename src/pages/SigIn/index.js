@@ -66,6 +66,7 @@ function SigIn() {
   };
   const componentClicked = () => console.log("click")
   const responseFacebook = (responve) => {
+    if (!responve) return
     const accoutFB = {
       taiKhoan: responve.email,
       matKhau: responve.id,
@@ -126,7 +127,7 @@ function SigIn() {
 
             <FacebookLogin
               appId="420393739107317"
-              autoLoad={true}
+              autoLoad={false}
               fields="name,email,picture"
               onClick={componentClicked}
               callback={responseFacebook}
