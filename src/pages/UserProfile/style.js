@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
         height: "auto",
         display: "flex",
         alignItems: "center",
-
         "& .active-modal": {
             zIndex: "10",
             "& *": {
@@ -19,10 +18,12 @@ const useStyles = makeStyles((theme) => ({
     },
     menu: {
         display: "flex",
-
         margin: "0 auto",
         padding: 0,
         justifyContent: "center",
+        [theme.breakpoints.down("xs")]: {
+            flexDirection: "column",
+        },
         "& li": {
             boxShadow: "10px 0 0 rgb(0 0 0 / 10%)",
             textDecoration: "none",
@@ -31,21 +32,38 @@ const useStyles = makeStyles((theme) => ({
             listStyleType: "none",
             lineHeight: "45px",
             transition: "all 0.3s ease-in-out",
+            [theme.breakpoints.down("xs")]: {
+                textAlign: "center"
+            },
             "&:nth-child(1)": {
                 borderRadius: "30px 50px 50px 0",
-                zIndex: 3
+                zIndex: 3,
+                [theme.breakpoints.down("xs")]: {
+                    borderRadius: "10px 50px 50px 10px",
+                },
             },
             "&:nth-child(2)": {
                 borderRadius: "0 50px 50px 0",
                 paddingLeft: "45px",
                 marginLeft: "-70px",
-                zIndex: 2
+                zIndex: 2,
+                [theme.breakpoints.down("xs")]: {
+                    borderRadius: "10px 10px 10px 10px",
+                    paddingLeft: 0,
+
+                    margin: "5px 0px"
+                },
             },
             "&:nth-child(3)": {
                 borderRadius: "0 30px 0 0",
                 paddingLeft: "45px",
                 marginLeft: "-70px",
-                zIndex: 1
+                zIndex: 1,
+                [theme.breakpoints.down("xs")]: {
+                    borderRadius: "50px 10px 10px 50px",
+                    paddingLeft: 0,
+                    marginLeft: 0
+                },
             },
             "&:hover": {
                 background: "#fecf06",
@@ -77,9 +95,32 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         width: "60%",
         margin: " auto",
+        height: "100%",
         overflowX: "hidden",
         backgroundImage: "linear-gradient(to bottom,rgba(20,50,93,.9),rgba(8,22,48,.9))",
         color: "#fff",
+        "&::-webkit-scrollbar": {
+            width: "5px",
+            height: "0.2em",
+        },
+        "&::-webkit-scrollbar-track": {
+            boxShadow: "inset 0 0 6px rgba(0,0,0,0.1)",
+        },
+        "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "#fe7900",
+            outline: "2px solid rgba(0, 0, 0, 0.1)",
+        },
+        [theme.breakpoints.down("sm")]: {
+            width: "75%",
+            height: "450px",
+            overflowY: "scroll",
+        },
+        [theme.breakpoints.down("xs")]: {
+            width: "100%",
+            marginTop: "10px",
+            borderRadius: "10px",
+
+        },
         "& .MuiAvatar-root": {
             width: "100px",
             height: "100px",
@@ -93,15 +134,41 @@ const useStyles = makeStyles((theme) => ({
             padding: "8px 10px",
             borderRadius: "10px",
             color: "black",
-            boxShadow: "0px 0px 5px 5px rgba(255,255,255,0.35)"
+            boxShadow: "0px 0px 5px 5px rgba(255,255,255,0.35)",
+            [theme.breakpoints.down("xs")]: {
+                width: "100%",
+            },
         },
         "& .silider-profie": {
             minWidth: "100%",
             padding: "20px 30px 20px 30px",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
+            // justifyContent: "center",
             transition: "all 0.3s ease-in-out",
+            "& .profie-img": {
+                [theme.breakpoints.down("xs")]: {
+                    "& .MuiAvatar-circle": {
+                        margin: "auto"
+                    },
+                },
+            },
+            "& .profie-content": {
+                marginLeft: "20px", borderLeft: "1px dashed #fff",
+                [theme.breakpoints.down("xs")]: {
+                    borderLeft: "none",
+                    textAlign: "center",
+                    marginLeft: "0"
+                },
+            },
+            [theme.breakpoints.down("sm")]: {
+                width: "75%",
+
+            },
+            [theme.breakpoints.down("xs")]: {
+                padding: "5px",
+                alignItems: "center",
+            },
             "& .btn-save": {
                 width: "20%",
                 background: "#fecf06",
@@ -122,6 +189,10 @@ const useStyles = makeStyles((theme) => ({
                 animation: `$myfade 500ms ${theme.transitions.easing.easeInOut} 0.2s forwards`,
                 opacity: 0,
                 transition: "all 0.4s",
+                [theme.breakpoints.down("md")]: {
+                    width: "100%",
+
+                },
                 "&:hover": {
                     color: "black",
                     background: "#fecf06"
@@ -183,6 +254,11 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down("sm")]: {
             right: "5%",
         },
+        [theme.breakpoints.down("sm")]: {
+            right: "20%",
+            top: "-45%",
+            padding: "10px"
+        },
     },
     submit: {
         marginTop: "15px",
@@ -190,9 +266,6 @@ const useStyles = makeStyles((theme) => ({
         color: "black"
     },
     modal: {
-        display: "flex",
-        justifyContent: "center",
-        alignContent: "center",
         position: "fixed",
         backgroundColor: "rgba(0, 0, 0, 0.5)",
         zIndex: "-1",
@@ -207,11 +280,26 @@ const useStyles = makeStyles((theme) => ({
             background: "#fff",
         },
         "& table": {
-            width: "40%",
+            position: "absolute",
+            top: "50%",
+            left: "40%",
+            transform: "translate(-25%,-50%)",
+            width: "50%",
             height: "auto",
             background: "#f18720",
             color: "#fff",
             boxShadow: "0px 3px 22px 0px  rgba(255,255,255,0.75)",
+            [theme.breakpoints.down("md")]: {
+                top: "40%"
+            },
+            [theme.breakpoints.down("sm")]: {
+                width: "70%",
+            },
+            [theme.breakpoints.down("xs")]: {
+                width: "100%",
+                left: "40%",
+                transform: "translate(-40%,-40%)",
+            },
             "& thead": {
                 background: "#fecf06",
                 boxShadow: "0px 10px 5px -1px rgba(0,0,0,0.2)",

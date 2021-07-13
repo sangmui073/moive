@@ -38,7 +38,7 @@ const clientRouter = [
   {
     path: "/User-Profie",
     exact: false,
-    checkLogin: true,
+
     Component: lazy(() => import("../pages/UserProfile"))
   }
 ];

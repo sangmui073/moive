@@ -66,7 +66,8 @@ function SigIn() {
   };
   const componentClicked = () => console.log("click")
   const responseFacebook = (responve) => {
-    if (!responve) return
+    if (!responve.name) return
+    console.log(responve)
     const accoutFB = {
       taiKhoan: responve.email,
       matKhau: responve.id,
@@ -145,7 +146,9 @@ function SigIn() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="#" onClick={() => {
+                  history.push("/Sig-Up")
+                }} variant="body2">
                   {"Bạn chưa có tài khoản? hãy đăng ký"}
                 </Link>
               </Grid>

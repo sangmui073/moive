@@ -22,6 +22,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Swal from "sweetalert2"
 import * as yup from "yup";
 import { useStyles } from "./style";
+import { Redirect } from "react-router-dom";
 const listMenu = [
     {
         id: 0,
@@ -41,19 +42,19 @@ const sigupUserSchema = yup.object().shape({
 
     matKhau: yup
         .string()
-        .required("mật khẩu không được đễ trống")
+        .required("không được đễ trống")
         .min(6, "lớn hơn 6 ký tự"),
     hoTen: yup
         .string()
-        .required("họ tên không được đễ trống")
+        .required("không được đễ trống")
         .min(6, "lớn hơn 6 ký tự"),
     email: yup
         .string()
-        .required("email không được đễ trống")
-        .email("nhập đúng định dạng email"),
+        .required("không được đễ trống")
+        .email("đúng định dạng email"),
     soDt: yup
         .string()
-        .required("số dt Không được để trống")
+        .required("Không được để trống")
         .matches(/^[0-9]+$/, "phải là số")
         .min(8, "lớn hơn 6 ký tự"),
 });
@@ -83,6 +84,7 @@ function UserProfie(props) {
     const dispatch = useDispatch();
     const { checkOutInfo } = useSelector((state) => state.auth);
     useEffect(() => {
+        console.log("profie")
         dispatch({
             type: GET_PROFILE,
             payload: user.taiKhoan,
@@ -205,199 +207,201 @@ function UserProfie(props) {
             );
         });
     };
+    if (user)
+        return (
 
-    return (
-        <section className={`${classes.root} box`}>
-            <Container maxWidth="md">
-                <ul className={classes.menu}>
-                    {listMenu.map((item, index) => {
-                        return (
-                            <li
-                                className={item.id === value ? "active-menu" : ""}
-                                key={index}
-                            >
-                                <a
-                                    onClick={() => {
-                                        setValue(item.id);
-                                        setX(item.id);
-                                    }}
+            <section className={`${classes.root} box`}>
+                <Container maxWidth="md">
+                    <ul className={classes.menu}>
+                        {listMenu.map((item, index) => {
+                            return (
+                                <li
+                                    className={item.id === value ? "active-menu" : ""}
+                                    key={index}
                                 >
-                                    {item.title}
-                                </a>
-                            </li>
-                        );
-                    })}
-                </ul>
-                <Paper elevation={3} className={classes.profie}>
-                    <div
+                                    <a
+                                        onClick={() => {
+                                            setValue(item.id);
+                                            setX(item.id);
+                                        }}
+                                    >
+                                        {item.title}
+                                    </a>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    <Paper elevation={3} className={classes.profie}>
+                        <div
 
-                        className="silider-profie"
-                        style={{ transform: `translateX(${-x * 100}%)` }}
-                    >
-                        <h3>Thông Tin Cá Nhân</h3>
-                        <Grid container alignItems="center" spacing={3}>
-                            <Grid item xs={3}>
-                                <Avatar src={`https://i.pravatar.cc/150?u=${user?.taiKhoan}`} />
-                            </Grid>
-                            <Grid
-                                style={{ marginLeft: "20px", borderLeft: "1px dashed #fff" }}
-                                item
-                                xs={8}
-                            >
-                                <p style={{ marginLeft: "20px" }}>
-                                    <b>Họ tên :</b>
-                                    <span style={{ marginLeft: "10px" }}>{user?.hoTen}</span>
-                                </p>
-                                <p style={{ marginLeft: "20px" }}>
-                                    {" "}
-                                    <b>Email :</b>
-                                    <span style={{ marginLeft: "10px" }}>{user?.email}</span>
-                                </p>
-                                <p style={{ marginLeft: "20px" }}>
-                                    {" "}
-                                    <b>Số Điện Thoại :</b>
-                                    <span style={{ marginLeft: "10px" }}>{user?.soDT}</span>
-                                </p>
-                            </Grid>
-                        </Grid>
-                    </div>
-                    <div
+                            className="silider-profie"
+                            style={{ transform: `translateX(${-x * 100}%)` }}
+                        >
+                            <h3>Thông Tin Cá Nhân</h3>
+                            <Grid container alignItems="center" spacing={3}>
+                                <Grid className="profie-img" item xs={12} sm={3} md={3}>
+                                    <Avatar src={user.hinhAnh ? user.hinhAnh : `https://i.pravatar.cc/150?u=${user?.taiKhoan}`} />
+                                </Grid>
+                                <Grid className="profie-content"
 
-                        className="silider-profie"
-                        style={{ transform: `translateX(${-x * 100}%)` }}
-                    >
-                        <h3>Lịch Sử Đặt Vé</h3>
-                        {renderListCheckOut()}
-                        <div className="pagition">
-                            {pagition(filterMoive.length, perMoive, setCurrentMoive)}
+                                    item
+                                    xs={12} sm={8} md={8}
+                                >
+                                    <p style={{ marginLeft: "20px" }}>
+                                        <b>Họ tên :</b>
+                                        <span style={{ marginLeft: "10px" }}>{user?.hoTen}</span>
+                                    </p>
+                                    <p style={{ marginLeft: "20px" }}>
+                                        {" "}
+                                        <b>Email :</b>
+                                        <span style={{ marginLeft: "10px" }}>{user?.email}</span>
+                                    </p>
+                                    <p style={{ marginLeft: "20px" }}>
+                                        {" "}
+                                        <b>Số Điện Thoại :</b>
+                                        <span style={{ marginLeft: "10px" }}>{user?.soDT}</span>
+                                    </p>
+                                </Grid>
+                            </Grid>
                         </div>
+                        <div
 
-                    </div>
-                    <div
+                            className="silider-profie"
+                            style={{ transform: `translateX(${-x * 100}%)` }}
+                        >
+                            <h3>Lịch Sử Đặt Vé</h3>
+                            {renderListCheckOut()}
+                            <div className="pagition">
+                                {pagition(filterMoive.length, perMoive, setCurrentMoive)}
+                            </div>
 
-                        className="silider-profie"
-                        style={{ transform: `translateX(${-x * 100}%)` }}
-                    >
-                        <Grid container spacing={2}>
-                            <Grid item xs={1}>
-                                <p style={{ margin: 0 }}>
-                                    {" "}
-                                    <DnsIcon style={{ marginTop: "5px" }} />
-                                </p>
-                                <p>
-                                    <PhoneAndroidIcon />
-                                </p>
-                                <p>
-                                    <LockIcon />
-                                </p>
-                                <p>
-                                    <EmailIcon />
-                                </p>
+                        </div>
+                        <div
+
+                            className="silider-profie"
+                            style={{ transform: `translateX(${-x * 100}%)` }}
+                        >
+                            <h3>Cập Nhật Thông Tin</h3>
+                            <Grid justify="center" container spacing={2}>
+                                <Grid item xs={1} sm={1}>
+                                    <p style={{ margin: 0 }}>
+                                        {" "}
+                                        <DnsIcon style={{ marginTop: "5px" }} />
+                                    </p>
+                                    <p>
+                                        <PhoneAndroidIcon />
+                                    </p>
+                                    <p>
+                                        <LockIcon />
+                                    </p>
+                                    <p>
+                                        <EmailIcon />
+                                    </p>
+                                </Grid>
+                                <Grid item xs={11} sm={8}>
+                                    <Formik
+                                        initialValues={{
+                                            taiKhoan: user?.taiKhoan,
+                                            matKhau: "",
+                                            email: "",
+                                            soDt: "",
+                                            maNhom: "GP11",
+                                            maLoaiNguoiDung: "KhachHang",
+                                            hoTen: "",
+                                        }}
+                                        onSubmit={handleSubmit}
+                                        validationSchema={sigupUserSchema}
+                                    >
+                                        {(formikProps) => (
+                                            <Form className={classes.form} noValidate>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={12}>
+                                                        <TextField
+                                                            name="hoTen"
+                                                            variant="outlined"
+                                                            fullWidth
+                                                            label="Họ và tên"
+                                                            onChange={formikProps.handleChange}
+                                                        />
+                                                        <ErrorMessage
+                                                            name="hoTen"
+                                                            render={(msg) => (
+                                                                <div className={classes.messError}>{msg}</div>
+                                                            )}
+                                                        ></ErrorMessage>
+                                                    </Grid>
+                                                    <Grid item xs={12}>
+                                                        <TextField
+                                                            variant="outlined"
+                                                            fullWidth
+                                                            label="Số điện thoại"
+                                                            name="soDt"
+                                                            onChange={formikProps.handleChange}
+                                                        />
+                                                        <ErrorMessage
+                                                            name="soDt"
+                                                            render={(msg) => (
+                                                                <div className={classes.messError}>{msg}</div>
+                                                            )}
+                                                        />
+                                                    </Grid>
+
+                                                    <Grid item xs={12}>
+                                                        <TextField
+                                                            variant="outlined"
+                                                            fullWidth
+                                                            name="matKhau"
+                                                            label="Mật khẩu"
+                                                            type="password"
+                                                            onChange={formikProps.handleChange}
+                                                        />
+                                                        <ErrorMessage
+                                                            name="matKhau"
+                                                            render={(msg) => (
+                                                                <div className={classes.messError}>{msg}</div>
+                                                            )}
+                                                        />
+                                                    </Grid>
+                                                    <Grid item xs={12}>
+                                                        <TextField
+                                                            variant="outlined"
+                                                            fullWidth
+                                                            id="email"
+                                                            label="Email Address"
+                                                            type="email"
+                                                            name="email"
+                                                            onChange={formikProps.handleChange}
+                                                        />
+                                                        <ErrorMessage
+                                                            name="email"
+                                                            render={(msg) => (
+                                                                <div className={classes.messError}>{msg}</div>
+                                                            )}
+                                                        />
+                                                    </Grid>
+                                                </Grid>
+                                                <Button
+                                                    type="submit"
+                                                    fullWidth
+                                                    variant="contained"
+                                                    color="primary"
+                                                    className={classes.submit}
+
+                                                >
+                                                    Lưu Lại
+                                                </Button>
+                                            </Form>
+                                        )}
+                                    </Formik>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={8}>
-                                <Formik
-                                    initialValues={{
-                                        taiKhoan: user?.taiKhoan,
-                                        matKhau: "",
-                                        email: "",
-                                        soDt: "",
-                                        maNhom: "GP11",
-                                        maLoaiNguoiDung: "KhachHang",
-                                        hoTen: "",
-                                    }}
-                                    onSubmit={handleSubmit}
-                                    validationSchema={sigupUserSchema}
-                                >
-                                    {(formikProps) => (
-                                        <Form className={classes.form} noValidate>
-                                            <Grid container spacing={2}>
-                                                <Grid item xs={12}>
-                                                    <TextField
-                                                        name="hoTen"
-                                                        variant="outlined"
-                                                        fullWidth
-                                                        label="Họ và tên"
-                                                        onChange={formikProps.handleChange}
-                                                    />
-                                                    <ErrorMessage
-                                                        name="hoTen"
-                                                        render={(msg) => (
-                                                            <div className={classes.messError}>{msg}</div>
-                                                        )}
-                                                    ></ErrorMessage>
-                                                </Grid>
-                                                <Grid item xs={12}>
-                                                    <TextField
-                                                        variant="outlined"
-                                                        fullWidth
-                                                        label="Số điện thoại"
-                                                        name="soDt"
-                                                        onChange={formikProps.handleChange}
-                                                    />
-                                                    <ErrorMessage
-                                                        name="soDt"
-                                                        render={(msg) => (
-                                                            <div className={classes.messError}>{msg}</div>
-                                                        )}
-                                                    />
-                                                </Grid>
-
-                                                <Grid item xs={12}>
-                                                    <TextField
-                                                        variant="outlined"
-                                                        fullWidth
-                                                        name="matKhau"
-                                                        label="Mật khẩu"
-                                                        type="password"
-                                                        onChange={formikProps.handleChange}
-                                                    />
-                                                    <ErrorMessage
-                                                        name="matKhau"
-                                                        render={(msg) => (
-                                                            <div className={classes.messError}>{msg}</div>
-                                                        )}
-                                                    />
-                                                </Grid>
-                                                <Grid item xs={12}>
-                                                    <TextField
-                                                        variant="outlined"
-                                                        fullWidth
-                                                        id="email"
-                                                        label="Email Address"
-                                                        type="email"
-                                                        name="email"
-                                                        onChange={formikProps.handleChange}
-                                                    />
-                                                    <ErrorMessage
-                                                        name="email"
-                                                        render={(msg) => (
-                                                            <div className={classes.messError}>{msg}</div>
-                                                        )}
-                                                    />
-                                                </Grid>
-                                            </Grid>
-                                            <Button
-                                                type="submit"
-                                                fullWidth
-                                                variant="contained"
-                                                color="primary"
-                                                className={classes.submit}
-
-                                            >
-                                                Lưu Lại
-                                            </Button>
-                                        </Form>
-                                    )}
-                                </Formik>
-                            </Grid>
-                        </Grid>
-                    </div>
-                </Paper>
-                {Modal(open)}
-            </Container>
-        </section>
-    );
-
+                        </div>
+                    </Paper>
+                    {Modal(open)}
+                </Container>
+            </section>
+        );
+    return <Redirect to="/" />
 }
 
 export default memo(UserProfie);
