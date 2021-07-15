@@ -66,6 +66,10 @@ const useStyles = makeStyles((theme) => ({
 
     system: {
         padding: "50px 0px",
+        "& .container-title": {
+            display: "flex",
+            justifyContent: "center"
+        },
         "& .system-child": {
             borderRight: "1px solid rgba(0,0,0,0.3)",
             // [theme.breakpoints.down("xs")]: {

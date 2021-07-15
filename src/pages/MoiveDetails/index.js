@@ -12,6 +12,8 @@ import logo2d from "../../assets/img/2d.jpg";
 import Helper from "../../assets/Fakedata/Hepler";
 import ConverDate from "../../assets/Fakedata/ConverDate"
 import ModalUntility from "../../components/Display/ModalUltiliti";
+import CommentBlogs from "../../components/Display/Comment";
+import { PATCH_COMMENT_SAGA, POST_COMMENT_SAGA } from "../../redux/saga/Constants/blogs-constance";
 const hepl = new Helper();
 const initialState = {
   logo: [],
@@ -121,7 +123,7 @@ function MovieDetails() {
   const handleModal = (bool) => {
     setOpen(bool)
   }
-
+  const [title, setTitle] = useState(0);
   const renderStar = () => {
     const stars = [];
     const point = parseInt(moiveDetails.danhGia / 2);
@@ -130,7 +132,39 @@ function MovieDetails() {
     }
     return stars;
   };
-
+  const handleLike = (cm, user) => {
+    const index = cm.like.indexOf(user.taiKhoan);
+    if (index !== -1) {
+      cm.like.splice(index, 1);
+    } else {
+      cm.like.push(user.taiKhoan);
+    };
+    dispatch({
+      type: PATCH_COMMENT_SAGA,
+      payload: {
+        souce: `blogMoives`,
+        urlChild: `?maPhim=${phim}`,
+        comment: cm
+      }
+    })
+  }
+  const handleCommemt = (post, user) => {
+    const newComment = {
+      ...post,
+      userName: user.taiKhoan,
+      maPhim: phim,
+      rate: post.rate > 0 ? post.rate : 0.5,
+      like: []
+    };
+    dispatch({
+      type: POST_COMMENT_SAGA,
+      payload: {
+        comment: newComment,
+        souce: "blogMoives",
+        urlChild: `?maPhim=${phim}`
+      }
+    })
+  }
   useEffect(() => {
     dispatch({
       type: GET_MOIVE_DETAILS_SAGA,
@@ -431,7 +465,7 @@ function MovieDetails() {
     <div className={`${classes.root} box`}>
       <Container maxWidth="md">
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={6} md={4} lg={4}>
             <div className={classes.img}>
               <button >
                 <img src={moiveDetails.hinhAnh?.replace("http", "https")} />
@@ -443,7 +477,7 @@ function MovieDetails() {
               </div>
             </div>
           </Grid>
-          <Grid className="details-content" style={{ paddingRight: "20px" }} item xs={12} sm={6}>
+          <Grid className="details-content" style={{ paddingRight: "20px" }} item xs={12} sm={6} md={6} lg={6}>
             <div className={classes.moiveName}>
               <h1>{moiveDetails.tenPhim}</h1>
               <p>Thời Lượng : 120 phút</p>
@@ -460,7 +494,7 @@ function MovieDetails() {
               </p>
             </div>
           </Grid>
-          <Grid item className="details-review" xs={12} sm={2}>
+          <Grid item className="details-review" xs={12} sm={2} md={2} lg={2}>
             <div className={classes.review}>
               <CircularProgress
                 className={classes.process}
@@ -475,12 +509,25 @@ function MovieDetails() {
             </div>
           </Grid>
         </Grid>
-        <h1
-          style={{ padding: "25px 0px", color: "#fe7900", textAlign: "center" }}
-        >
-          Cụm Rạp
-        </h1>
-        <Paper elevation={3}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <h1
+            onClick={() => {
+              setTitle(0)
+            }} style={{ cursor: "pointer", padding: "25px 0px", color: "#fe7900", textAlign: "center" }}
+          >
+            Cụm Rạp
+          </h1>
+          <h1 onClick={() => {
+            setTitle(1)
+
+          }}
+            style={{ cursor: "pointer", marginLeft: "20px", padding: "25px 0px", color: "#fe7900", textAlign: "center" }}
+          >
+            Review
+          </h1>
+        </div>
+
+        <Paper style={{ display: title === 0 ? "block" : "none" }} elevation={3}>
           <Grid container>
             <Grid className={classes.logo} item xs={12} sm={1}>
               {renderLogo()}
@@ -493,7 +540,11 @@ function MovieDetails() {
             </Grid>
           </Grid>
         </Paper>
+        <Grid container style={{ display: title === 1 ? "block" : "none" }} >
+          <CommentBlogs handleLike={handleLike} handleComment={handleCommemt} url={`blogMoives?maPhim=${phim}`} />
+        </Grid>
       </Container>
+
       <ModalUntility handleModal={handleModal} item={moiveDetails.trailer} open={open} />
     </div>
   );

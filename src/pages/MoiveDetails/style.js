@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => {
       background: " linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7))",
       padding: "80px 0px",
       marginTop: "50px",
-      [theme.breakpoints.down("md")]: {
+      [theme.breakpoints.down("sm")]: {
         "& .details-review": {
           display: "none",
         },

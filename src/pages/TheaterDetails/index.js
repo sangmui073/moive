@@ -2,7 +2,7 @@ import { Button, Container, Grid, Paper } from "@material-ui/core";
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-
+import CommentBlogs from "../../components/Display/Comment"
 import {
     Event,
     Schedule,
@@ -11,6 +11,7 @@ import {
     ExpandMore,
     KeyboardArrowDown,
     KeyboardArrowUp,
+
 } from "@material-ui/icons";
 import { GET_CINEMA_DETAILS_SAGA } from "../../redux/saga/Constants/cinema-constants";
 import dateFormat from "dateformat";
@@ -18,6 +19,7 @@ import ConverDate from "../../assets/Fakedata/ConverDate";
 import logo from "../../assets/img/2d.jpg";
 import { useStyles } from "./style";
 import Helper from "../../assets/Fakedata/Hepler";
+import { GET_COMMENT_SAGA, PATCH_COMMENT_SAGA, POST_COMMENT_SAGA } from "../../redux/saga/Constants/blogs-constance";
 const help = new Helper();
 dateFormat.i18n = ConverDate;
 const weeks = [
@@ -30,6 +32,7 @@ const weeks = [
     "2019-01-07",
 ];
 function TheaterDetails() {
+
     const dispatch = useDispatch();
     const classes = useStyles();
     const history = useHistory();
@@ -40,28 +43,71 @@ function TheaterDetails() {
     const [tick, setTick] = useState(0);
     const [y, setY] = useState(0);
     const [index, setIndex] = useState(0)
+    const [title, setTitle] = useState(0);
+    const [theater, setTheater] = useState("");
+
     useEffect(() => {
         const cineData = help.formatDataCine(param.maRap, cinemaDetails.lstCumRap);
+
         if (cineData) {
             setCinema(cineData);
+            setTheater(cineData[0].maCumRap)
         }
     }, [cinemaDetails]);
     useEffect(() => {
+        let newY = 0;
         if (y < 0) {
-            const newY = y / -100;
-            setIndex(newY)
+            newY = y / -100;
+            setIndex(newY);
+
         } else {
-            const newY = y / 100;
-            setIndex(newY)
+            newY = y / 100;
+            setIndex(newY);
+        };
+        if (newY !== 0) {
+            setTheater(cinema[newY].maCumRap)
         }
     }, [y])
+
     useEffect(() => {
         dispatch({
             type: GET_CINEMA_DETAILS_SAGA,
             payload: param.maRap,
         });
     }, []);
-    console.log(y)
+    const handleCommemt = (post, user) => {
+        const newComment = {
+            ...post,
+            userName: user.taiKhoan,
+            maRap: theater,
+            rate: post.rate > 0 ? post.rate : 0.5,
+            like: []
+        };
+        dispatch({
+            type: POST_COMMENT_SAGA,
+            payload: {
+                comment: newComment,
+                souce: "blogCinemas",
+                urlChild: `?maRap=${theater}`
+            }
+        })
+    }
+    const handleLike = (cm, user) => {
+        const index = cm.like.indexOf(user.taiKhoan);
+        if (index !== -1) {
+            cm.like.splice(index, 1);
+        } else {
+            cm.like.push(user.taiKhoan);
+        };
+        dispatch({
+            type: PATCH_COMMENT_SAGA,
+            payload: {
+                souce: `blogCinemas`,
+                urlChild: `?maRap=${theater}`,
+                comment: cm
+            }
+        })
+    }
     const goUp = () => {
         y === 0 ? setY(-100 * (cinema.length - 1)) : setY(y + 100)
 
@@ -77,21 +123,18 @@ function TheaterDetails() {
             const prevCine = newCinema[index];
             newCinema[index] = newCinema[0];
             newCinema[0] = prevCine;
-
+            setTheater(newCinema[0].maCumRap)
             setCinema(newCinema);
         }
-
-
-
     };
     const renderSystem = () => {
-
         return cinema.map((cine, index) => {
             return (
                 <div
                     onClick={() => {
                         handleChangeSystem(cine.maCumRap);
-                        console.log(cine.maCumRap);
+
+                        setTheater(cine.maCumRap)
                     }}
                     key={index}
                     className="-andess"
@@ -290,6 +333,7 @@ function TheaterDetails() {
                                 <Button
                                     size="large"
                                     onClick={() => {
+                                        setTitle(0)
                                         window.scrollTo({
                                             top: 500,
                                             left: 0,
@@ -314,17 +358,53 @@ function TheaterDetails() {
                     </Container>
                 </div>
                 <Container className={classes.system} maxWidth="md">
-                    <h2
-                        style={{
-                            textAlign: "center",
-                            fontSize: "25px",
-                            color: "#fe7900",
-                            margin: "25px 0px",
-                        }}
-                    >
-                        Lịch Chiếu
-                    </h2>
-                    <Paper className="wapper" elevation={3}>
+                    <div className="container-title">
+                        <h2
+                            style={{
+                                textAlign: "center",
+
+                                margin: "25px 0px",
+                            }}
+                            onClick={() => {
+                                setTitle(0)
+                            }}
+                        >
+                            <Button style={{
+                                fontSize: "25px",
+                                color: "#fe7900",
+                            }}>  Lịch Chiếu</Button>
+
+                        </h2>
+                        <h2
+                            style={{
+
+                                textAlign: "center",
+                                fontSize: "25px",
+                                color: "#fe7900",
+                                margin: "25px 0px 25px 15px",
+                            }}
+                            onClick={() => {
+                                setTitle(1);
+
+                                // dispatch({
+                                //     type: GET_COMMENT_SAGA,
+                                //     payload: {
+                                //         source: `blogCinemas?maRap=${theater}`
+                                //     }
+                                // })
+
+                            }}
+                        >
+                            <Button style={{
+                                fontSize: "25px",
+                                color: "#fe7900",
+                            }}
+
+                            > Đánh Giá</Button>
+
+                        </h2>
+                    </div>
+                    <Paper style={{ display: title === 0 ? "block" : "none" }} className="wapper" elevation={3}>
                         <Grid container spacing={2}>
                             <Grid className="system-child" item xs={12} sm={5}>
                                 <Grid className="mobile-btnUp" item xs={12}>
@@ -364,6 +444,11 @@ function TheaterDetails() {
                             </Grid>
                         </Grid>
                     </Paper>
+                    <div style={{ display: title === 1 ? "block" : "none" }} >
+                        <CommentBlogs url={`blogCinemas?maRap=${theater}`} handleLike={handleLike} handleComment={handleCommemt} />
+                    </div>
+
+
                 </Container>
             </section>
         );
