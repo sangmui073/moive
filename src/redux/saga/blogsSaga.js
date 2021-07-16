@@ -18,7 +18,7 @@ function* getCommentAPI(action) {
     const { payload } = action;
     const { source } = payload;
     const url = `${JsonDomain}${source}`;
-    console.log(url);
+
     yield put({
         type: IS_LOADING,
     });
@@ -52,7 +52,7 @@ function* postComentAPI(action) {
 
         if (status === 201 || 202 || 200) {
             const url = `${JsonDomain}${souce}${urlChild}`;
-            console.log(url);
+
             const resComment = yield call(() => {
                 return blogsService.getListComment(url);
             });

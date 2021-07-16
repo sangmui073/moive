@@ -84,13 +84,13 @@ function UserProfie(props) {
     const dispatch = useDispatch();
     const { checkOutInfo } = useSelector((state) => state.auth);
     useEffect(() => {
-        console.log("profie")
+
         dispatch({
             type: GET_PROFILE,
             payload: user.taiKhoan,
         });
     }, []);
-
+    console.log("render")
 
     const Modal = (toogle) => {
         if (posts && posts.length > 0) {

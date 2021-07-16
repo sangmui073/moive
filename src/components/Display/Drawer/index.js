@@ -192,7 +192,7 @@ function ResponsiveDrawer(props) {
                 dispatch({
                   type: LOG_OUT,
                 });
-                localStorage.removeItem("user")
+
                 setAction("LOG_OUT");
               }}
             />

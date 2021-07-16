@@ -6,7 +6,10 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import CloseIcon from '@material-ui/icons/Close';
 import { useStyles } from "./style";
 import { Rating } from "@material-ui/lab";
+import Swal from "sweetalert2"
 import { GET_COMMENT_SAGA } from "../../../redux/saga/Constants/blogs-constance";
+import { useHistory } from "react-router";
+import { CHECK_LOGIN } from "../../../redux/reducer/Constants/auth-constants";
 
 CommentBlogs.propTypes = {
     handleComment: PropTypes.func,
@@ -20,8 +23,11 @@ CommentBlogs.defaultProps = {
 }
 function CommentBlogs(props) {
     const { handleComment, handleLike, url } = props;
-    console.log(url)
-    const user = JSON.parse(localStorage.getItem("user"));
+
+    const history = useHistory();
+    const { user } = useSelector((state) => state.auth)
+
+
     const classes = useStyles();;
     const [post, setPots] = useState({
         rate: 1,
@@ -35,6 +41,13 @@ function CommentBlogs(props) {
                 source: url
             }
         })
+
+        if (user) {
+            dispatch({
+                type: CHECK_LOGIN,
+                payload: user
+            })
+        }
     }, [url])
     const [error, setError] = useState("*Bạn Chưa bình luận!")
     const [open, setOpen] = useState(false);
@@ -49,8 +62,9 @@ function CommentBlogs(props) {
     const { comment } = useSelector((state) => state.blogs);
 
     const renderLike = (commentList) => {
-        const indexUser = commentList.like.indexOf(user.taiKhoan);
-        console.log(indexUser);
+        const taiKhoan = user ? user.taiKhoan : "";
+        const indexUser = commentList.like.indexOf(taiKhoan);
+
         if (indexUser !== -1) {
             return <span style={{ cursor: "pointer" }} onClick={() => {
                 handleLike(commentList, user)
@@ -69,6 +83,7 @@ function CommentBlogs(props) {
 
         )
     }
+
     const renderComment = () => {
         return comment.map((cm, index) => {
             return (
@@ -136,7 +151,7 @@ function CommentBlogs(props) {
                             md={9}
                         >
                             <Avatar style={{ marginLeft: "10px" }} src="/broken-image.jpg" />
-                            {user ? <p
+                            <p
                                 style={{
                                     margin: "0px 0px 0px 15px",
                                     padding: "10px",
@@ -144,20 +159,21 @@ function CommentBlogs(props) {
                                     background: "#fff",
                                 }}
                                 onClick={() => {
-                                    handleModal(true)
+
+                                    user && user.taiKhoan ? handleModal(true) : Swal.fire({
+                                        title: 'Đăng Nhập Để Bình Luận',
+                                        showCancelButton: true,
+                                        confirmButtonText: `Đồng Ý`,
+                                        cancelButtonText: `Không`,
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            history.push("/Sig-In")
+                                        }
+                                    })
                                 }}
                             >
-                                "Hãy Để Lại Bình Luận..."
-                            </p> : <p
-                                style={{
-                                    margin: "0px 0px 0px 15px",
-                                    padding: "10px",
-                                    borderRadius: "5px",
-                                    background: "#fff",
-                                }}
-                            >
-                                "Đăng Nhập Để Bình Luận"
-                            </p>}
+                                "Bình Luận..."
+                            </p>
 
                         </Grid>
                         <Grid item xs={5} sm={4} md={3}>
@@ -257,7 +273,7 @@ function CommentBlogs(props) {
                         md={9}
                     >
                         <Avatar style={{ marginLeft: "10px" }} src="/broken-image.jpg" />
-                        {user ? <p
+                        <p
                             style={{
                                 margin: "0px 0px 0px 15px",
                                 padding: "10px",
@@ -265,20 +281,20 @@ function CommentBlogs(props) {
                                 background: "#fff",
                             }}
                             onClick={() => {
-                                handleModal(true)
+                                user ? handleModal(true) : Swal.fire({
+                                    title: 'Đăng Nhập Để Bình Luận',
+                                    showCancelButton: true,
+                                    confirmButtonText: `Đồng Ý`,
+                                    cancelButtonText: `Không`,
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        history.push("/Sig-In")
+                                    }
+                                })
                             }}
                         >
-                            "Hãy Để Lại Bình Luận..."
-                        </p> : <p
-                            style={{
-                                margin: "0px 0px 0px 15px",
-                                padding: "10px",
-                                borderRadius: "5px",
-                                background: "#fff",
-                            }}
-                        >
-                            "Đăng Nhập Để Bình Luận"
-                        </p>}
+                            "Bình Luận..."
+                        </p>
 
                     </Grid>
                     <Grid item xs={5} sm={4} md={3}>

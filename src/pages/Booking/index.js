@@ -11,6 +11,7 @@ import Swal from 'sweetalert2'
 import withReactContent from "sweetalert2-react-content"
 import Clock from "../../components/Display/Clock";
 import { useStyles } from "./style"
+import { SET_PATH } from "../../redux/reducer/Constants/auth-constants";
 let listGhe = [];
 const arrayString = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "j"]
 
@@ -41,6 +42,13 @@ function Booking() {
     dispatch({
       type: GET_BOOKING_SAGA,
       payload: suatChieu
+    })
+    dispatch({
+      type: SET_PATH,
+      payload: {
+        path: "",
+        params: "",
+      }
     })
     return () => {
       listGhe = []
@@ -89,12 +97,10 @@ function Booking() {
         setValue(newValue);
         break;
       }
-
     }
 
-
   };
-  console.log(listGhe)
+
   if (moiveInfo && moiveInfo.tenCumRap) {
     var [fistName, lastName] = moiveInfo.tenCumRap.split("-");
   }

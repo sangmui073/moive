@@ -5,7 +5,9 @@ import { ChevronLeft, ChevronRight, Inbox, Mail, Group, Movie, Facebook, Twitter
 
 import { useTheme } from '@material-ui/core/styles';
 import { useStyles } from "./style"
-import { useHistory, useParams, useRouteMatch } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { LOG_OUT } from '../../../redux/reducer/Constants/auth-constants';
 
 SideBar.propTypes = {
     open: PropTypes.bool,
@@ -45,11 +47,15 @@ const arrayMenuOne = [
 const arrayMenuTwo = [
     {
         text: "Quay Lại Home",
-        icon: <Input />
+        icon: <Input />,
+        handleRedirect: (history) => {
+            history.push("/")
+        }
     },
     {
         text: "Đăng Xuất",
-        icon: <PowerSettingsNew />
+        icon: <PowerSettingsNew />,
+
     }
 ]
 
@@ -59,7 +65,7 @@ function SideBar(props) {
     const classes = useStyles();
     const { open } = props;
     const url = useRouteMatch();
-
+    const dispatch = useDispatch();
     return (
         <Drawer
             className={open ? classes.drawer : classes.hide}
@@ -94,12 +100,26 @@ function SideBar(props) {
             </List>
             <Divider />
             <List>
-                {arrayMenuTwo.map((item, index) => (
-                    <ListItem button key={index}>
+                {arrayMenuTwo.map((item, index) => {
+                    if (item.handleRedirect) {
+                        return <ListItem button key={index} onClick={() => {
+                            item.handleRedirect(history)
+                        }}>
+                            <ListItemIcon>{item.icon}</ListItemIcon>
+                            <ListItemText primary={item.text} />
+                        </ListItem>
+                    }
+                    return <ListItem button key={index} onClick={() => {
+                        localStorage.removeItem("user");
+                        dispatch({
+                            type: LOG_OUT
+                        })
+                        history.push("/")
+                    }}>
                         <ListItemIcon>{item.icon}</ListItemIcon>
                         <ListItemText primary={item.text} />
                     </ListItem>
-                ))}
+                })}
 
             </List>
         </Drawer>

@@ -5,10 +5,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  ListSubheader,
   TextField,
-  MenuList,
-  Menu,
 } from "@material-ui/core";
 
 import React, { memo, useEffect, useState } from "react";
@@ -20,6 +17,7 @@ import {
 import formatDate from "date-format";
 import { useStyles } from "./style";
 import { useHistory } from "react-router";
+import Swal from "sweetalert2"
 import { SET_PATH } from "../../../redux/reducer/Constants/auth-constants";
 
 function SearchMoive() {
@@ -210,6 +208,16 @@ function SearchMoive() {
               variant="contained"
               color="primary"
               onClick={() => {
+                for (let item in moive) {
+                  if (moive[item] === "") {
+                    Swal.fire({
+                      icon: 'error',
+                      title: `vui lòng chọn đủ thông tin`,
+
+                    })
+                    console.log(item, moive[item])
+                  }
+                }
                 if (moive.suatChieu && moive.suatChieu.length > 0) {
                   dispatch({
                     type: SET_PATH,
