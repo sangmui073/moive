@@ -4,7 +4,7 @@ html {
   height: 100%;
 }
 body #root {
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 * {
@@ -12,6 +12,9 @@ body #root {
 }
 .box {
   animation: fadebox 1s ease-in-out;
+}
+.swal2-container {
+  z-index: 1350;
 }
 @keyframes fadebox {
   0% {

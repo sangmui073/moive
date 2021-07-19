@@ -47,7 +47,7 @@ function Modalusers(props) {
         switch (action) {
             case "ADD": {
                 const url = manageUser.post;
-                console.log("alo")
+
                 dispatch({
                     type: ADD_USER_SAGA,
                     payload: {
@@ -70,7 +70,6 @@ function Modalusers(props) {
                 })
                 break;
             }
-
         }
 
         handleUltyModal()

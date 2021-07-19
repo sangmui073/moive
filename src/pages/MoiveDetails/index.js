@@ -361,14 +361,16 @@ function MovieDetails() {
               />
             </div>
             <div className="cine-andress">
-              <p> Tên Rạp : {item.tenCumRap}</p>
+              <p> Tên Rạp : {item.tenCumRap.length > 25
+                ? item.tenCumRap.substr(0, 25) + "..."
+                : item.tenCumRap}</p>
               <p>
                 Địa Chỉ :{" "}
                 {item.diaChi.length > 35
                   ? item.diaChi.substr(0, 35) + "..."
                   : item.diaChi}
               </p>
-              <button>[..Bản Đồ..]</button>
+
             </div>
           </div>
         );

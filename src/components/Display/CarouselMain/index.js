@@ -19,6 +19,7 @@ function CarouselMain() {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [trailer, setTrailer] = useState(null);
+
   const handleModal = (bool) => {
     setOpen(bool);
   };
@@ -37,6 +38,7 @@ function CarouselMain() {
     }
   };
   useEffect(() => {
+    console.log("useEffect")
     const url = `QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=GP11&soPhanTuTrenTrang=5`
     dispatch({
       type: GET_MOIVE_SAGA_MAIN,
@@ -72,6 +74,7 @@ function CarouselMain() {
     )
   }
   if (carouselMain && carouselMain.length > 0) {
+    console.log("render-2")
     return (
       <section
         className={`${classes.root}`}
@@ -208,6 +211,7 @@ function CarouselMain() {
       </section>
     );
   } else {
+    console.log("render")
     return "";
   }
 }

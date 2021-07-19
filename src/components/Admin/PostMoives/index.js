@@ -22,15 +22,17 @@ PostMoives.propTypes = {
     posts: PropTypes.array.isRequired,
     handleModal: PropTypes.func,
     handleAction: PropTypes.func,
+    handleShowOpen: PropTypes.func,
 };
 PostMoives.defaultProps = {
     handleModal: null,
-    handleAction: null
+    handleAction: null,
+    handleShowOpen: null
 };
 function PostMoives(props) {
     const { managerMoive } = admin_domain;
     const classes = useStyles();
-    const { posts, handleModal, handleAction } = props;
+    const { posts, handleModal, handleAction, handleShowOpen } = props;
 
     const dispatch = useDispatch();
     const removeMoive = (moiveId) => {
@@ -101,7 +103,13 @@ function PostMoives(props) {
                                     >
                                         <Edit />
                                     </Button>
-                                    <Button title="Thêm Lịch Chiếu" className="edit">
+                                    <Button title="Thêm Lịch Chiếu" className="edit" onClick={() => {
+                                        handleShowOpen(true, {
+                                            maPhim: item.maPhim,
+                                            tenPhim: item.tenPhim,
+                                            ngayKhoiChieu: item.ngayKhoiChieu
+                                        })
+                                    }}>
                                         <AddCircle />
                                     </Button>
                                 </TableCell>

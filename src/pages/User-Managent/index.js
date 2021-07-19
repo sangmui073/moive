@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GET_LIST_MOIVE_SAGA } from '../../redux/saga/Constants/admin-constants';
 import { admin_domain } from "../../assets/Domain/AdminDomain"
 import Modalmoive from '../../components/Admin/ModalMoive';
+import ModalShowTime from '../../components/Admin/ModalShowtime';
 
 function Usermanager() {
     const { managerMoive } = admin_domain;
@@ -22,8 +23,9 @@ function Usermanager() {
     })
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
+    const [showOpen, setShowOpen] = useState(false);
+    const [showTime, setShowTime] = useState(null);
     const handleModal = (boolean, item) => {
-
         setItemMoive(item);
         setOpen(boolean);
     }
@@ -76,6 +78,10 @@ function Usermanager() {
             ...newPage
         })
     }
+    const handleShowOpen = (bool, item) => {
+        setShowOpen(bool);
+        setShowTime(item)
+    }
     return (
         <Grid container className="box">
             <Grid item xs={12} style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -100,10 +106,11 @@ function Usermanager() {
                 }} variant="contained" >Thêm Phim</Button>
             </Grid>
             <Grid item xs={12}>
-                <PostMoives handleAction={setAction} handleModal={handleModal} posts={posts} />
+                <PostMoives handleShowOpen={handleShowOpen} handleAction={setAction} handleModal={handleModal} posts={posts} />
                 <PaginationAdmin pagination={pagination} onPageChange={handlePageChange} />
             </Grid>
             <Modalmoive handleAction={setAction} items={itemMoive} open={open} handleModal={handleModal} />
+            <ModalShowTime handleShowOpen={handleShowOpen} showOpen={showOpen} showTime={showTime} />
         </Grid>
     );
 }
