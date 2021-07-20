@@ -140,7 +140,7 @@ function News() {
 
             </Grid>
             <div style={{ background: `url(${bg})` }} className="btn-more">
-                <Button style={{ margin: "0 auto", width: "25%" }} target="_blank" href="https://zingnews.vn/" color="primary" variant="contained">Xem Them</Button>
+                <Button style={{ background: "#fe7900", color: "#fff", margin: "0 auto", width: "25%" }} target="_blank" href="https://zingnews.vn/" variant="contained">Xem Them</Button>
             </div>
         </Container>
     )

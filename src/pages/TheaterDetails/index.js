@@ -357,99 +357,99 @@ function TheaterDetails() {
                         </Grid>
                     </Container>
                 </div>
-                <Container className={classes.system} maxWidth="md">
-                    <div className="container-title">
-                        <h2
-                            style={{
-                                textAlign: "center",
+                <div style={{ backgroundImage: "linear-gradient(to top, #dfe9f3 50%, white 100%)" }}>
+                    <Container className={classes.system} maxWidth="md">
+                        <div className="container-title">
+                            <h2
+                                style={{
+                                    textAlign: "center",
 
-                                margin: "25px 0px",
-                            }}
-                            onClick={() => {
-                                setTitle(0)
-                            }}
-                        >
-                            <Button style={{
-                                fontSize: "25px",
-                                color: "#fe7900",
-                            }}>  Lịch Chiếu</Button>
+                                    margin: "25px 0px",
+                                }}
+                                onClick={() => {
+                                    setTitle(0)
+                                }}
+                            >
+                                <Button style={{
+                                    fontSize: "25px",
+                                    color: "#fe7900",
+                                }}>  Lịch Chiếu</Button>
 
-                        </h2>
-                        <h2
-                            style={{
+                            </h2>
+                            <h2
+                                style={{
 
-                                textAlign: "center",
-                                fontSize: "25px",
-                                color: "#fe7900",
-                                margin: "25px 0px 25px 15px",
-                            }}
-                            onClick={() => {
-                                setTitle(1);
+                                    textAlign: "center",
+                                    fontSize: "25px",
+                                    color: "#fe7900",
+                                    margin: "25px 0px 25px 15px",
+                                }}
+                                onClick={() => {
+                                    setTitle(1);
 
-                                // dispatch({
-                                //     type: GET_COMMENT_SAGA,
-                                //     payload: {
-                                //         source: `blogCinemas?maRap=${theater}`
-                                //     }
-                                // })
+                                    // dispatch({
+                                    //     type: GET_COMMENT_SAGA,
+                                    //     payload: {
+                                    //         source: `blogCinemas?maRap=${theater}`
+                                    //     }
+                                    // })
 
-                            }}
-                        >
-                            <Button style={{
-                                fontSize: "25px",
-                                color: "#fe7900",
-                            }}
+                                }}
+                            >
+                                <Button style={{
+                                    fontSize: "25px",
+                                    color: "#fe7900",
+                                }}
 
-                            > Đánh Giá</Button>
+                                > Đánh Giá</Button>
 
-                        </h2>
-                    </div>
-                    <Paper style={{ display: title === 0 ? "block" : "none" }} className="wapper" elevation={3}>
-                        <Grid container spacing={2}>
-                            <Grid className="system-child" item xs={12} sm={5}>
-                                <Grid className="mobile-btnUp" item xs={12}>
-                                    <Button onClick={goUp}>
-                                        <KeyboardArrowUp className="icon-up" fontSize="large" />
-                                    </Button>
+                            </h2>
+                        </div>
+                        <Paper style={{ display: title === 0 ? "block" : "none" }} className="wapper" elevation={3}>
+                            <Grid container spacing={2}>
+                                <Grid className="system-child" item xs={12} sm={5}>
+                                    <Grid className="mobile-btnUp" item xs={12}>
+                                        <Button onClick={goUp}>
+                                            <KeyboardArrowUp className="icon-up" fontSize="large" />
+                                        </Button>
+                                    </Grid>
+                                    <Paper className="silde">
+                                        {renderSystem()}
+                                    </Paper>
+                                    <Grid className="mobile-btnUp" item xs={12}>
+                                        <Button onClick={goDown}>
+                                            <KeyboardArrowDown className="icon-down" fontSize="large" />
+                                        </Button>
+                                    </Grid>
                                 </Grid>
-                                <Paper className="silde">
-                                    {renderSystem()}
-                                </Paper>
-                                <Grid className="mobile-btnUp" item xs={12}>
-                                    <Button onClick={goDown}>
-                                        <KeyboardArrowDown className="icon-down" fontSize="large" />
-                                    </Button>
+                                <Grid className="moive-child" item xs={12} sm={7}>
+                                    <Grid container className="-day">
+                                        {weeks.map((d, index) => {
+                                            return (
+                                                <Button
+                                                    className={
+                                                        dateFormat(d, "dddd") === day ? "active" : ""
+                                                    }
+                                                    key={index}
+                                                    onClick={() => {
+                                                        const newDay = dateFormat(d, "dddd");
+                                                        setDay(newDay);
+                                                    }}
+                                                >
+                                                    {dateFormat(d, "dddd")}
+                                                </Button>
+                                            );
+                                        })}
+                                    </Grid>
+                                    {renderMoive()}
                                 </Grid>
                             </Grid>
-                            <Grid className="moive-child" item xs={12} sm={7}>
-                                <Grid container className="-day">
-                                    {weeks.map((d, index) => {
-                                        return (
-                                            <Button
-                                                className={
-                                                    dateFormat(d, "dddd") === day ? "active" : ""
-                                                }
-                                                key={index}
-                                                onClick={() => {
-                                                    const newDay = dateFormat(d, "dddd");
-                                                    setDay(newDay);
-                                                }}
-                                            >
-                                                {dateFormat(d, "dddd")}
-                                            </Button>
-                                        );
-                                    })}
-                                </Grid>
-                                {renderMoive()}
-                            </Grid>
-                        </Grid>
-                    </Paper>
-                    <div style={{ display: title === 1 ? "block" : "none" }} >
-                        <CommentBlogs url={`blogCinemas?maRap=${theater}`} handleLike={handleLike} handleComment={handleCommemt} />
-                    </div>
-
-
-                </Container>
+                        </Paper>
+                        <div style={{ display: title === 1 ? "block" : "none" }} >
+                            <CommentBlogs url={`blogCinemas?maRap=${theater}`} handleLike={handleLike} handleComment={handleCommemt} />
+                        </div>
+                    </Container>
+                </div>
             </section>
         );
     }

@@ -3,9 +3,27 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => {
   return {
     root: {
-      background: " linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7))",
-      padding: "80px 0px",
-      marginTop: "50px",
+      // background: " linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7))",
+      "& .bg-bottom": {
+        paddingBottom: "50px",
+        backgroundImage: "linear-gradient(to top, #dfe9f3 50%, white 100%)",
+      },
+      "& .bg-top": {
+        padding: "80px 0px 30px 0px",
+        marginTop: "50px",
+        position: "relative",
+
+        "& .bg-blur": {
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          filter: "blur(10px)",
+          zIndex: "-1",
+          position: "absolute",
+          backgroundSize: "cover"
+        },
+      },
       [theme.breakpoints.down("sm")]: {
         "& .details-review": {
           display: "none",
@@ -38,6 +56,7 @@ const useStyles = makeStyles((theme) => {
       boxShadow:
         "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
       borderRadius: "5px",
+      overflow: "hidden",
       "& button": {
         borderRadius: "5px",
       },
@@ -48,7 +67,10 @@ const useStyles = makeStyles((theme) => {
         height: "100%",
         width: "100%",
         cursor: "pointer",
-        zIndex: "10"
+        zIndex: "10",
+        border: 0,
+        padding: 0,
+
       },
       "& .bg-hd": {
         display: "flex",
@@ -59,7 +81,21 @@ const useStyles = makeStyles((theme) => {
         height: "100%",
         top: 0,
         left: 0,
-        background: "#0000008f",
+        cursor: "pointer",
+        transition: "all 0.3s",
+        "& .MuiSvgIcon-root": {
+          fontSize: "4.1875rem",
+          fill: "rgb(255 255 255)",
+          opacity: 0,
+          transition: "all 0.3s",
+        },
+        "&:hover": {
+          background: "#0000008f",
+          backdropFilter: "blur(3.5px)",
+          "& .MuiSvgIcon-root": {
+            opacity: 1
+          }
+        },
       },
       [theme.breakpoints.down("xs")]: {
         width: "100%",
@@ -73,7 +109,7 @@ const useStyles = makeStyles((theme) => {
       width: "100% !important",
       height: "100% !important",
       color: "#fe7900",
-      background: "rgba(0,0,0,.1)",
+      background: "rgba(0,0,0,.85)",
       borderRadius: "50%",
     },
     point: {

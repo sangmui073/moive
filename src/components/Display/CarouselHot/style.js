@@ -50,8 +50,15 @@ const useStyles = makeStyles((theme) => ({
     "& .swiper-slide-active": {
       boxShadow: " 0px 10px 5px 0px rgba(0,0,0,0.6)",
       "& h2": {
-        color: "#444444",
-        textShadow: "1px 0px 1px #CCCCCC, 0px 1px 1px #EEEEEE, 2px 1px 1px #CCCCCC, 1px 2px 1px #EEEEEE, 3px 2px 1px #CCCCCC, 2px 3px 1px #EEEEEE, 4px 3px 1px #CCCCCC, 3px 4px 1px #EEEEEE, 5px 4px 1px #CCCCCC, 4px 5px 1px #EEEEEE, 6px 5px 1px #CCCCCC, 5px 6px 1px #EEEEEE, 7px 6px 1px #CCCCCC"
+        backgroundColor: "#fe7900",
+        backgroundImage: "linear-gradient(45deg, #e67b0c, #ffffff)",
+        backgroundSize: "100%",
+        backgroundRepeat: "repeat",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+
+
+        // textShadow: "1px 0px 1px #CCCCCC, 0px 1px 1px #EEEEEE, 2px 1px 1px #CCCCCC, 1px 2px 1px #EEEEEE, 3px 2px 1px #CCCCCC, 2px 3px 1px #EEEEEE, 4px 3px 1px #CCCCCC, 3px 4px 1px #EEEEEE, 5px 4px 1px #CCCCCC, 4px 5px 1px #EEEEEE, 6px 5px 1px #CCCCCC, 5px 6px 1px #EEEEEE, 7px 6px 1px #CCCCCC"
       },
       "& .slider-bg": {
         visibility: "visible",
@@ -88,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
       top: "50%",
       left: "50%",
       backgroundImage:
-        "linear-gradient(to top, #000, transparent 100%)",
+        "linear-gradient(to bottom, #000, transparent 100%)",
       borderRadius: "50%",
       transform: "scale(0.1)",
       transition: "all 0.5s",

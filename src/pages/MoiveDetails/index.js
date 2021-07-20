@@ -465,52 +465,61 @@ function MovieDetails() {
   };
   return (
     <div className={`${classes.root} box`}>
-      <Container maxWidth="md">
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6} md={4} lg={4}>
-            <div className={classes.img}>
-              <button >
-                <img src={moiveDetails.hinhAnh?.replace("http", "https")} />
-              </button>
-              <div className="bg-hd" onClick={() => {
-                handleModal(true)
-              }}>
-                <PlayCircleOutline style={{ fontSize: "4.1875rem", fill: "rgb(177 171 171)" }} />
+      <div className="bg-top" >
+        <Container maxWidth="md">
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6} md={4} lg={4}>
+              <div className={classes.img}>
+                <button >
+                  <img src={moiveDetails.hinhAnh?.replace("http", "https")} />
+                </button>
+                <div className="bg-hd" onClick={() => {
+                  handleModal(true)
+                }}>
+                  <PlayCircleOutline />
+                </div>
               </div>
-            </div>
-          </Grid>
-          <Grid className="details-content" style={{ paddingRight: "20px" }} item xs={12} sm={6} md={6} lg={6}>
-            <div className={classes.moiveName}>
-              <h1>{moiveDetails.tenPhim}</h1>
-              <p>Thời Lượng : 120 phút</p>
-              <p>Định Dạng : 2D/Digital</p>
-              <p className="details-des">
-                Nội Dung :{" "}
-                {moiveDetails?.moTa?.length > 400
-                  ? moiveDetails?.moTa.substr(0, 400) + " ..."
-                  : moiveDetails?.moTa}
-              </p>
-              <p>
-                Ngày Khởi Chiếu :{" "}
-                {formatDate("dd-MM-yyyy", new Date(moiveDetails.ngayKhoiChieu))}
-              </p>
-            </div>
-          </Grid>
-          <Grid item className="details-review" xs={12} sm={2} md={2} lg={2}>
-            <div className={classes.review}>
-              <CircularProgress
-                className={classes.process}
-                variant="determinate"
-                thickness={3.6}
-                value={parseFloat(moiveDetails.danhGia * 10)}
-              />
-              <div className={classes.point}>
-                <h1>{parseFloat(moiveDetails.danhGia).toString()}</h1>
+            </Grid>
+            <Grid className="details-content" style={{ paddingRight: "20px" }} item xs={12} sm={6} md={6} lg={6}>
+              <div className={classes.moiveName}>
+                <h1 style={{ color: "#fe7900" }}>{moiveDetails.tenPhim}</h1>
+                <p>Thời Lượng : 120 phút</p>
+                <p>Định Dạng : 2D/Digital</p>
+                <p className="details-des">
+                  Nội Dung :{" "}
+                  {moiveDetails?.moTa?.length > 400
+                    ? moiveDetails?.moTa.substr(0, 400) + " ..."
+                    : moiveDetails?.moTa}
+                </p>
+                <p>
+                  Ngày Khởi Chiếu :{" "}
+                  {formatDate("dd-MM-yyyy", new Date(moiveDetails.ngayKhoiChieu))}
+                </p>
               </div>
-              <div className={classes.stars}>{renderStar()}</div>
-            </div>
+            </Grid>
+            <Grid item className="details-review" xs={12} sm={2} md={2} lg={2}>
+              <div className={classes.review}>
+                <CircularProgress
+                  className={classes.process}
+                  variant="determinate"
+                  thickness={3.6}
+                  value={parseFloat(moiveDetails.danhGia * 10)}
+                />
+                <div className={classes.point}>
+                  <h1>{parseFloat(moiveDetails.danhGia).toString()}</h1>
+                </div>
+                <div className={classes.stars}>{renderStar()}</div>
+              </div>
+            </Grid>
           </Grid>
-        </Grid>
+        </Container>
+        <div className="bg-blur"
+          style={{ backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent 100%), url(${moiveDetails.hinhAnh})` }}
+        >
+        </div>
+      </div>
+
+      <div className="bg-bottom">
         <div style={{ display: "flex", justifyContent: "center" }}>
           <h1
             onClick={() => {
@@ -528,25 +537,25 @@ function MovieDetails() {
             Review
           </h1>
         </div>
-
-        <Paper style={{ display: title === 0 ? "block" : "none" }} elevation={3}>
-          <Grid container>
-            <Grid className={classes.logo} item xs={12} sm={1}>
-              {renderLogo()}
+        <Container maxWidth="md">
+          <Paper style={{ display: title === 0 ? "block" : "none" }} elevation={3}>
+            <Grid container>
+              <Grid className={classes.logo} item xs={12} sm={1}>
+                {renderLogo()}
+              </Grid>
+              <Grid className={classes.cine} item xs={12} sm={5}>
+                {renderCine()}
+              </Grid>
+              <Grid className={classes.cineDay} item xs={12} sm={6}>
+                {renderDate()}
+              </Grid>
             </Grid>
-            <Grid className={classes.cine} item xs={12} sm={5}>
-              {renderCine()}
-            </Grid>
-            <Grid className={classes.cineDay} item xs={12} sm={6}>
-              {renderDate()}
-            </Grid>
+          </Paper>
+          <Grid container style={{ display: title === 1 ? "block" : "none" }} >
+            <CommentBlogs handleLike={handleLike} handleComment={handleCommemt} url={`blogMoives?maPhim=${phim}`} />
           </Grid>
-        </Paper>
-        <Grid container style={{ display: title === 1 ? "block" : "none" }} >
-          <CommentBlogs handleLike={handleLike} handleComment={handleCommemt} url={`blogMoives?maPhim=${phim}`} />
-        </Grid>
-      </Container>
-
+        </Container>
+      </div>
       <ModalUntility handleModal={handleModal} item={moiveDetails.trailer} open={open} />
     </div>
   );

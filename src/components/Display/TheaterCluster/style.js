@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => {
       "& .container-Pager": {
 
 
-        boxShadow: "0px 1px 5px 12px rgba(0,0,0,0.35)",
+        boxShadow: "0px 1px 5px 5px rgba(0,0,0,0.1)",
         [theme.breakpoints.down("md")]: {
           fontSize: "14px"
         },

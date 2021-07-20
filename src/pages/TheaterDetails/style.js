@@ -6,13 +6,14 @@ const useStyles = makeStyles((theme) => ({
 
         "& .parent-container": {
             position: "relative",
-            paddingTop: "50px",
+            padding: "50px 0px",
             "& .-img": {
                 height: "320px",
-                "& img": {
-                    borderRadius: "5px",
-                    boxShadow: " -1px 2px 5px 10px rgba(0,0,0,0.35)",
-                },
+                boxShadow: " -1px 2px 5px 5px rgba(0,0,0,0.15)",
+                borderRadius: "5px",
+                overflow: "hidden",
+                padding: 0,
+
             },
             "& .-content": {
                 color: "#fff",

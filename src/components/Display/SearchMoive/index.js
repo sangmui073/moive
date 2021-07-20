@@ -207,6 +207,7 @@ function SearchMoive() {
             <Button
               variant="contained"
               color="primary"
+              style={{ background: "linear-gradient(to right, #bb511e, #f1bc00)" }}
               onClick={() => {
                 for (let item in moive) {
                   if (moive[item] === "") {

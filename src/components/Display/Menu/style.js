@@ -11,13 +11,11 @@ const useStyles = makeStyles((theme) => {
 
       "& .MuiButtonBase-root": {
         color: `${color.textPrimary} !important `,
-        minWidth: "60px",
-        maxWidth: "100px",
+        minWidth: "55px",
+        maxWidth: "90px",
         overflowX: "hidden",
         "& span": {
-          WebkitTextFillColor: "#ffff",
-          WebkitTextStrokeColor: "#1f1b1b",
-          WebkitTextStrokeWidth: "1px",
+
           fontSize: "16px",
         },
         '&:after': {
@@ -41,9 +39,6 @@ const useStyles = makeStyles((theme) => {
       },
       "& button.Mui-selected": {
         transform: "scale(1)",
-        "& span": {
-          WebkitTextStrokeColor: color.textActive,
-        },
 
         transition: "all 0.6s",
         '&:after': {

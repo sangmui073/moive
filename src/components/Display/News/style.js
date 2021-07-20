@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         "& h3": {
             color: "rgba(0,0,0,0.7)",
             transition: "color 0.4s",
-            height: "60px",
+            height: "45px",
             "&:hover": {
                 color: "rgb(254, 121, 0)"
             },
@@ -77,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
                 },
                 "& img": {
                     borderRadius: "5px",
+                    objectFit: "cover"
                 },
             },
         },
