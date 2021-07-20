@@ -152,6 +152,7 @@ const useStyles = makeStyles((theme) => ({
   btnGroup: {
     backgroundColor: "inherit",
     padding: "30px 0px",
+    height: "100%",
     [theme.breakpoints.down("xs")]: {
       padding: " 0px",
     },
@@ -159,8 +160,13 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiBottomNavigationAction-root": {
       maxWidth: "100%",
       fontWeight: "bolder",
-      color: "#33333",
-      textShadow: "2px 2px 0px #FFFFFF, 5px 4px 0px rgba(0,0,0,0.15)",
+      backgroundColor: "#fe7900",
+      backgroundImage: "linear-gradient(45deg, #e67b0c, #ffffff)",
+      backgroundSize: "100%",
+      backgroundRepeat: "repeat",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+      // textShadow: "2px 2px 0px #FFFFFF, 5px 4px 0px rgba(0,0,0,0.15)",
       "&:nth-child(1)": {
         marginRight: "20px",
         [theme.breakpoints.down("xs")]: {
@@ -184,7 +190,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
     "& .MuiBottomNavigationAction-label.Mui-selected": {
-      fontSize: "35px",
+      fontSize: "28px",
       [theme.breakpoints.down("xs")]: {
         fontSize: "18px",
       },

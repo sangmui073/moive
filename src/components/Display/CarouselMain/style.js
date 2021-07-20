@@ -7,6 +7,7 @@ const textColor = {
 const useStyles = makeStyles((theme) => ({
   root: {
     overflow: "hidden",
+    padding: "30px 0px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -23,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
       paddingTop: "70px",
       paddingBottom: "50px",
       [theme.breakpoints.down("md")]: {
-        paddingTop: "10px",
-        paddingBottom: "30px",
+        paddingTop: "20px",
+
       },
     },
     "& .swiper-slide": {
@@ -142,7 +143,7 @@ const useStyles = makeStyles((theme) => ({
     "& h3": {
       color: "#FFFFFF",
       fontSize: "30px",
-      textShadow: "1px 3px 0 #969696, 1px 9px 5px #aba8a8",
+      // textShadow: "1px 3px 0 #969696, 1px 9px 5px #aba8a8",
       [theme.breakpoints.down("md")]: {
         padding: "10px 0px",
         fontSize: "32px",

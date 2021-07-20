@@ -28,7 +28,7 @@ const ScrollToTop01 = props => {
     return (
         <Zoom in={trigger}>
             <div onClick={handleClick} role="presentation" className={classes.root}>
-                <Fab color="primary" size="small" aria-label="scroll back to top">
+                <Fab style={{ color: "#fff", backgroundColor: "rgb(254, 121, 0)" }} size="small" aria-label="scroll back to top">
                     <KeyboardArrowUp />
                 </Fab>
             </div>

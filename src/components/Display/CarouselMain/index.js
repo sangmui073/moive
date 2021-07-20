@@ -126,10 +126,11 @@ function CarouselMain() {
                 grabCursor={true}
                 centeredSlides={true}
                 slidesPerView={"auto"}
+                spaceBetween={0}
                 coverflowEffect={{
                   rotate: 10,
                   stretch: 0,
-                  depth: 300,
+                  depth: 280,
                   modifier: 1,
                   slideShadows: false,
                 }}
@@ -138,12 +139,6 @@ function CarouselMain() {
                     slidesPerView: "auto",
                     spaceBetween: 0,
                     loop: false,
-                    coverflowEffect: {
-                      rotate: 50,
-                      stretch: 0,
-                      depth: 100,
-                      modifier: 1,
-                    }
                   },
                   640: {
                     slidesPerView: 3,
@@ -155,8 +150,18 @@ function CarouselMain() {
                   },
                   1024: {
                     slidesPerView: 4,
-                    spaceBetween: 0,
+                    spaceBetween: 10,
+                    coverflowEffect: {
+                      rotate: 10,
+                      stretch: 0,
+                      depth: 350,
+                      modifier: 1,
+                    }
                   },
+                  1280: {
+                    slidesPerView: 4,
+                    spaceBetween: 0
+                  }
                 }}
               >
                 {carouselMain?.map((item, index) => {
@@ -208,7 +213,7 @@ function CarouselMain() {
           </Grid>
         </Container>
         <ModalUntility open={open} item={trailer} handleModal={handleModal} />
-      </section>
+      </section >
     );
   } else {
     console.log("render")
